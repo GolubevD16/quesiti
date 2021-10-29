@@ -1,0 +1,34 @@
+PODS:
+  - FlagPhoneNumber (0.8.0):
+    - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
+  - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
+  - Kingfisher (6.3.1)
+  - SkyFloatingLabelTextField (3.8.0)
+  - SnapKit (5.0.1)
+  - Then (2.7.0)
+
+DEPENDENCIES:
+  - FlagPhoneNumber
+  - Kingfisher (~> 6.0)
+  - SkyFloatingLabelTextField (~> 3.0)
+  - SnapKit (~> 5.0.0)
+  - Then (~> 2.7.0)
+
+SPEC REPOS:
+  trunk:
+    - FlagPhoneNumber
+    - Kingfisher
+    - SkyFloatingLabelTextField
+    - SnapKit
+    - Then
+
+SPEC CHECKSUMS:
+  FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
+
+PODFILE CHECKSUM: 21f71ebfe7dc5b855e5c9cc637e61e121f639464
+
+COCOAPODS: 1.11.2

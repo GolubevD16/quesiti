@@ -1,0 +1,6 @@
+framework module Pods_Quesiti {
+  umbrella header "Pods-Quesiti-umbrella.h"
+
+  export *
+  module * { export * }
+}
