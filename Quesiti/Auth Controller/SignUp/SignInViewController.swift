@@ -10,6 +10,8 @@ import UIKit
 class SignInViewController: UIViewController {
 
     var signInView: SignInView!
+    private var login: String = ""
+    private var password: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,13 @@ class SignInViewController: UIViewController {
     
     private func setupSignIn(){
         signInView = SignInView(frame: self.view.frame)
+        if let theTextFieldLogin = signInView.stack.viewWithTag(1) as? UITextField{
+            theTextFieldLogin.addTarget(self, action: #selector(changeLogin(_:)), for: .editingChanged)
+        }
+        if let theTextFieldPassword = signInView.stack.viewWithTag(2) as? UITextField{
+            theTextFieldPassword.addTarget(self, action: #selector(changePassword(_:)), for: .editingChanged)
+        }
+        signInView.signInButtom.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
         view.addSubview(signInView)
     }
     
@@ -37,5 +46,18 @@ class SignInViewController: UIViewController {
             signInView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
          ])
     }
-
+    
+    @objc func changeLogin(_ textField: UITextField){
+        guard let text = textField.text else { return }
+        login = text
+    }
+    
+    @objc func changePassword(_ textField: UITextField){
+        guard let text = textField.text else { return }
+        password = text
+    }
+    @objc func signIn(_ textField: UITextField){
+        print("Вы ввели", login, password)
+    }
+    
 }

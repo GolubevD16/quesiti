@@ -12,6 +12,8 @@ class DimaSignUp: UIView {
     let stack: UIStackView
     let scroll: UIScrollView
     let signInButtom: UIButton
+    let signUpButtom: UIButton
+    var id = 1
     
     
 
@@ -23,6 +25,7 @@ class DimaSignUp: UIView {
         self.stack = UIStackView()
         self.scroll = UIScrollView()
         self.signInButtom = UIButton()
+        self.signUpButtom = UIButton()
         super.init(frame: frame)
         
         for cellNames in ["Name", "Email", "Password", "Confirm password"]{
@@ -38,6 +41,7 @@ class DimaSignUp: UIView {
         self.backgroundColor = .white
         setupTable()
         setupSignInButtom()
+        setupSignUpButtom()
         
         setupLayout()
     }
@@ -60,10 +64,12 @@ class DimaSignUp: UIView {
             stack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             stack.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             stack.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
+            stack.widthAnchor.constraint(equalTo: scroll.widthAnchor),
             
-            
-            
-            stack.widthAnchor.constraint(equalTo: scroll.widthAnchor)
+            signUpButtom.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            signUpButtom.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 50),
+            signUpButtom.widthAnchor.constraint(equalToConstant: 150),
+            signUpButtom.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 
@@ -76,6 +82,16 @@ class DimaSignUp: UIView {
         signInButtom.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(signInButtom)
+    }
+    
+    private func setupSignUpButtom(){
+        signUpButtom.translatesAutoresizingMaskIntoConstraints = false
+        signUpButtom.setTitle("Sign Up", for: .normal)
+        //signUpButtom.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
+        signUpButtom.imageView?.layer.cornerRadius = 50
+        signUpButtom.backgroundColor = .blue
+        signUpButtom.layer.cornerRadius = 20
+        self.addSubview(signUpButtom)
     }
     
     private func setupTable() {
@@ -102,7 +118,8 @@ class DimaSignUp: UIView {
         let textField = UITextField()
         textField.placeholder = "Add your " + placeholder
         textField.translatesAutoresizingMaskIntoConstraints = false
-        //textField.tag = 1
+        textField.tag = id
+        id += 1
         
         return textField
     }
