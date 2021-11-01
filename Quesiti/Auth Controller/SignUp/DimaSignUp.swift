@@ -87,7 +87,7 @@ class DimaSignUp: UIView {
     private func setupSignUpButtom(){
         signUpButtom.translatesAutoresizingMaskIntoConstraints = false
         signUpButtom.setTitle("Sign Up", for: .normal)
-        //signUpButtom.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
+        //signUpButtom.setImage(UIImage(systemName: "search"), for: .normal)
         signUpButtom.imageView?.layer.cornerRadius = 50
         signUpButtom.backgroundColor = .blue
         signUpButtom.layer.cornerRadius = 20

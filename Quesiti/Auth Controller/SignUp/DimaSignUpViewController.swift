@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class DimaSignUpViewController: UIViewController {
 
@@ -58,6 +59,22 @@ class DimaSignUpViewController: UIViewController {
          ])
     }
     
+    private func showAlert(){
+        let alert = UIAlertController(title: "Error", message: "Set all text fields", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showAlertSuccess(){
+        let alert = UIAlertController(title: "Success", message: "You are registered", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { alert -> Void in
+            let tabBarVC = TabBarViewController()
+            tabBarVC.modalPresentationStyle = .fullScreen
+            self.present(tabBarVC, animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
     @objc func clickSignInButton(_ sender: Any) {
         let signInVC: SignInViewController = SignInViewController()
         present(signInVC, animated: true, completion: nil)
@@ -84,7 +101,23 @@ class DimaSignUpViewController: UIViewController {
     }
     
     @objc func clickSignUpButton(_ sender: Any) {
-        print("Вы ввели" , name, email, password, confirmPassword)
+        if (!name.isEmpty && !email.isEmpty && !password.isEmpty && confirmPassword == password){
+            //print("Вы ввели" , name, email, password, confirmPassword)
+            Auth.auth().createUser(withEmail: email, password: password) { [self] result, error in
+                if error == nil{
+                    if let result = result{
+                        print(result.user.uid)
+                        let ref = Database.database().reference().child("users")
+                        ref.child(result.user.uid).updateChildValues(["name" : name, "email" : email.lowercased()])
+                        showAlertSuccess()
+                    }
+                }
+                
+            }
+            
+        } else {
+            showAlert()
+        }
     }
     
 }
