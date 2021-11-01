@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInViewController: UIViewController {
 
     var signInView: SignInView!
-    private var login: String = ""
+    private var email: String = ""
     private var password: String = ""
 
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class SignInViewController: UIViewController {
         if let theTextFieldPassword = signInView.stack.viewWithTag(2) as? UITextField{
             theTextFieldPassword.addTarget(self, action: #selector(changePassword(_:)), for: .editingChanged)
         }
-        signInView.signInButtom.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
+        signInView.signInButtom.addTarget(self, action: #selector(clickSignInButtom(_:)), for: .touchUpInside)
         view.addSubview(signInView)
     }
     
@@ -49,15 +50,28 @@ class SignInViewController: UIViewController {
     
     @objc func changeLogin(_ textField: UITextField){
         guard let text = textField.text else { return }
-        login = text
+        email = text
     }
     
     @objc func changePassword(_ textField: UITextField){
         guard let text = textField.text else { return }
         password = text
     }
-    @objc func signIn(_ textField: UITextField){
-        print("Вы ввели", login, password)
+    @objc func clickSignInButtom(_ textField: UITextField){
+        print("Вы ввели", email, password)
+        Auth.auth().signIn(withEmail: email.lowercased(), password: password) { result, error in
+            if error == nil{
+                let tabBarVC = TabBarViewController()
+                tabBarVC.modalPresentationStyle = .fullScreen
+                self.present(tabBarVC, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func showAlert(){
+        let alert = UIAlertController(title: "Error", message: "Set all text fields", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
 }

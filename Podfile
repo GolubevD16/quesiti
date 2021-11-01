@@ -12,5 +12,8 @@ target 'Quesiti' do
   pod 'Kingfisher', '~> 6.0'
   pod 'SnapKit', '~> 5.0.0'
   pod 'Then', '~> 2.7.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 
 end

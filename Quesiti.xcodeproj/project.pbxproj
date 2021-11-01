@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A1290D827306E99002000A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A1290D727306E99002000A6 /* GoogleService-Info.plist */; };
 		0AC702BE272C801500415CCD /* DimaSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702BD272C801500415CCD /* DimaSignUp.swift */; };
 		0AC702C0272C803C00415CCD /* DimaSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702BF272C803C00415CCD /* DimaSignUpViewController.swift */; };
 		0AC702C2272C8AD500415CCD /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702C1272C8AD500415CCD /* SignInView.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A1290D727306E99002000A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AC702BD272C801500415CCD /* DimaSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimaSignUp.swift; sourceTree = "<group>"; };
 		0AC702BF272C803C00415CCD /* DimaSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimaSignUpViewController.swift; sourceTree = "<group>"; };
 		0AC702C1272C8AD500415CCD /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				2666F6C627247CAC00D9F413 /* Networking */,
 				2666F6BC27247C5300D9F413 /* LaunchScreen.storyboard */,
 				2666F6BF27247C5300D9F413 /* Info.plist */,
+				0A1290D727306E99002000A6 /* GoogleService-Info.plist */,
 			);
 			path = Quesiti;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 			files = (
 				2666F6BE27247C5300D9F413 /* LaunchScreen.storyboard in Resources */,
 				2666F6BB27247C5300D9F413 /* Assets.xcassets in Resources */,
+				0A1290D827306E99002000A6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
