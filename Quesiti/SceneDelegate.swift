@@ -8,6 +8,8 @@
 import UIKit
 import Firebase
 
+var isRegistred: Bool = false
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -23,11 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { fatalError() }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        do{
-            try Auth.auth().signOut()
-        } catch {
-            print(error)
-        }
+//        do{
+//            try Auth.auth().signOut()
+//        } catch {
+//            print(error)
+//        }
         
         
         Auth.auth().addStateDidChangeListener { auth, user in
@@ -35,7 +37,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let navigationVC = UINavigationController()
                 self.window?.rootViewController = navigationVC
                 navigationVC.pushViewController(WelcomeViewController(), animated: false)
+                isRegistred = true
             } else {
+                print("1111112345678909876543456789098765445678")
                 let controller = TabBarViewController()
                 self.window?.rootViewController = controller
             }

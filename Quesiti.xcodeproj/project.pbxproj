@@ -8,29 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0A1290D827306E99002000A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A1290D727306E99002000A6 /* GoogleService-Info.plist */; };
-		0AC702BE272C801500415CCD /* DimaSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702BD272C801500415CCD /* DimaSignUp.swift */; };
-		0AC702C0272C803C00415CCD /* DimaSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702BF272C803C00415CCD /* DimaSignUpViewController.swift */; };
-		0AC702C2272C8AD500415CCD /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702C1272C8AD500415CCD /* SignInView.swift */; };
-		0AC702C4272C8E2600415CCD /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC702C3272C8E2600415CCD /* SignInViewController.swift */; };
 		12CC97D667575B0D1BD6E969 /* Pods_Quesiti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5A2882D7549E44BC5BF881 /* Pods_Quesiti.framework */; };
 		26257529272B6C49008EAF35 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257528272B6C49008EAF35 /* TabBarViewController.swift */; };
-		2625752C272B6CBA008EAF35 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625752B272B6CBA008EAF35 /* SearchViewController.swift */; };
-		2625752E272B6CD0008EAF35 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625752D272B6CD0008EAF35 /* SearchPresenter.swift */; };
-		26257530272B6CE2008EAF35 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625752F272B6CE2008EAF35 /* SearchView.swift */; };
-		26257532272B6D04008EAF35 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257531272B6D04008EAF35 /* ProfileViewController.swift */; };
-		26257534272B6D17008EAF35 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257533272B6D17008EAF35 /* ProfileView.swift */; };
-		26257536272B6D24008EAF35 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257535272B6D24008EAF35 /* ProfilePresenter.swift */; };
-		26257538272B6D44008EAF35 /* AddQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257537272B6D44008EAF35 /* AddQuestionView.swift */; };
 		2625753A272B6D52008EAF35 /* AddQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257539272B6D52008EAF35 /* AddQuestionViewController.swift */; };
 		2625753C272B6D62008EAF35 /* AddQuestionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */; };
-		2625753E272B6D72008EAF35 /* HomePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625753D272B6D72008EAF35 /* HomePagePresenter.swift */; };
-		26257540272B6D7B008EAF35 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625753F272B6D7B008EAF35 /* HomePageViewController.swift */; };
-		26257542272B6D8E008EAF35 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257541272B6D8E008EAF35 /* HomePageView.swift */; };
-		26257544272B6DAF008EAF35 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257543272B6DAF008EAF35 /* MapView.swift */; };
-		26257546272B6DBD008EAF35 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257545272B6DBD008EAF35 /* MapViewController.swift */; };
 		26257548272B6DC5008EAF35 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257547272B6DC5008EAF35 /* MapPresenter.swift */; };
-		2625754A272C167E008EAF35 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257549272C167E008EAF35 /* SignUpView.swift */; };
-		2625754C272C16B5008EAF35 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625754B272C16B5008EAF35 /* SignUpViewController.swift */; };
 		2666F6B227247C5000D9F413 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F6B127247C5000D9F413 /* AppDelegate.swift */; };
 		2666F6B427247C5000D9F413 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F6B327247C5000D9F413 /* SceneDelegate.swift */; };
 		2666F6B627247C5000D9F413 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F6B527247C5000D9F413 /* ViewController.swift */; };
@@ -38,37 +20,44 @@
 		2666F6BE27247C5300D9F413 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2666F6BC27247C5300D9F413 /* LaunchScreen.storyboard */; };
 		2666F6D02724B0B300D9F413 /* WelcomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F6CF2724B0B300D9F413 /* WelcomViewController.swift */; };
 		2666F6D52724B5D400D9F413 /* WelcomPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F6D42724B5D400D9F413 /* WelcomPageModel.swift */; };
+		26855D16273F24F700386178 /* addQuestionPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D15273F24F700386178 /* addQuestionPreview.swift */; };
+		26855D18273F39E800386178 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D17273F39E800386178 /* AppTabBar.swift */; };
+		26855D1A2740339E00386178 /* addQuestionTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D192740339E00386178 /* addQuestionTwoVC.swift */; };
+		26855D1C27405A1600386178 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D1B27405A1600386178 /* SearchViewController.swift */; };
+		26855D1E27405A2A00386178 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D1D27405A2A00386178 /* SearchView.swift */; };
+		26855D2027405A3800386178 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D1F27405A3800386178 /* SearchPresenter.swift */; };
+		26855D2227405CF800386178 /* ModelAsk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D2127405CF800386178 /* ModelAsk.swift */; };
+		26855D34274119BC00386178 /* HomePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D2E274119B800386178 /* HomePagePresenter.swift */; };
+		26855D35274119BC00386178 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D2F274119B900386178 /* HomePageView.swift */; };
+		26855D36274119BC00386178 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D30274119BA00386178 /* HomePageViewController.swift */; };
+		26855D37274119BC00386178 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D31274119BB00386178 /* TableViewCell.swift */; };
+		26855D4C27411AA400386178 /* DimaSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D4027411AA400386178 /* DimaSignUp.swift */; };
+		26855D4D27411AA400386178 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D4127411AA400386178 /* SignInView.swift */; };
+		26855D4E27411AA400386178 /* DimaSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D4227411AA400386178 /* DimaSignUpViewController.swift */; };
+		26855D5027411AA400386178 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D4427411AA400386178 /* SignInViewController.swift */; };
+		26855D5527411B0500386178 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5227411B0400386178 /* ProfileView.swift */; };
+		26855D5627411B0500386178 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5327411B0400386178 /* ProfilePresenter.swift */; };
+		26855D5727411B0500386178 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5427411B0500386178 /* ProfileViewController.swift */; };
 		268AA0732724BABC00A71958 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 268AA0722724BABC00A71958 /* Lottie */; };
 		268AA0792724BF9600A71958 /* WelcomCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */; };
 		268AA07B2724C08900A71958 /* SomeExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA07A2724C08900A71958 /* SomeExtansion.swift */; };
 		268AA07D2724C11B00A71958 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA07C2724C11B00A71958 /* ThemeColors.swift */; };
 		268AA07F2724C31600A71958 /* WelcomViewControllerExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA07E2724C31600A71958 /* WelcomViewControllerExtansion.swift */; };
+		26EB6A9F273C70D100A7CA0D /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6A9A273C70D000A7CA0D /* CustomMarkerView.swift */; };
+		26EB6AA1273C70D100A7CA0D /* QuestionPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6A9C273C70D000A7CA0D /* QuestionPreviewView.swift */; };
+		26EB6AA2273C70D100A7CA0D /* ModelMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6A9D273C70D100A7CA0D /* ModelMap.swift */; };
+		26EB6AA3273C70D100A7CA0D /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6A9E273C70D100A7CA0D /* MapVC.swift */; };
+		26EB6AA6273C70DD00A7CA0D /* MapDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */; };
+		26EB6AA7273C70DD00A7CA0D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA5273C70DD00A7CA0D /* UserModel.swift */; };
+		26EB6AA9273C70E300A7CA0D /* GMSCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A1290D727306E99002000A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0AC702BD272C801500415CCD /* DimaSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimaSignUp.swift; sourceTree = "<group>"; };
-		0AC702BF272C803C00415CCD /* DimaSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimaSignUpViewController.swift; sourceTree = "<group>"; };
-		0AC702C1272C8AD500415CCD /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		0AC702C3272C8E2600415CCD /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		26257528272B6C49008EAF35 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		2625752B272B6CBA008EAF35 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		2625752D272B6CD0008EAF35 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
-		2625752F272B6CE2008EAF35 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		26257531272B6D04008EAF35 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Quesiti/Search/ProfileViewController.swift; sourceTree = SOURCE_ROOT; };
-		26257533272B6D17008EAF35 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = Quesiti/Search/ProfileView.swift; sourceTree = SOURCE_ROOT; };
-		26257535272B6D24008EAF35 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfilePresenter.swift; path = Quesiti/Search/ProfilePresenter.swift; sourceTree = SOURCE_ROOT; };
-		26257537272B6D44008EAF35 /* AddQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionView.swift; path = Quesiti/Search/AddQuestionView.swift; sourceTree = SOURCE_ROOT; };
-		26257539272B6D52008EAF35 /* AddQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionViewController.swift; path = Quesiti/Search/AddQuestionViewController.swift; sourceTree = SOURCE_ROOT; };
-		2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionPresenter.swift; path = Quesiti/Search/AddQuestionPresenter.swift; sourceTree = SOURCE_ROOT; };
-		2625753D272B6D72008EAF35 /* HomePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePagePresenter.swift; path = Quesiti/Search/HomePagePresenter.swift; sourceTree = SOURCE_ROOT; };
-		2625753F272B6D7B008EAF35 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePageViewController.swift; path = Quesiti/Search/HomePageViewController.swift; sourceTree = SOURCE_ROOT; };
-		26257541272B6D8E008EAF35 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomePageView.swift; path = Quesiti/Search/HomePageView.swift; sourceTree = SOURCE_ROOT; };
-		26257543272B6DAF008EAF35 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapView.swift; path = Quesiti/Search/MapView.swift; sourceTree = SOURCE_ROOT; };
-		26257545272B6DBD008EAF35 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Quesiti/Search/MapViewController.swift; sourceTree = SOURCE_ROOT; };
-		26257547272B6DC5008EAF35 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPresenter.swift; path = Quesiti/Search/MapPresenter.swift; sourceTree = SOURCE_ROOT; };
-		26257549272C167E008EAF35 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		2625754B272C16B5008EAF35 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		26257539272B6D52008EAF35 /* AddQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionViewController.swift; path = "Quesiti/Add Question/AddQuestionViewController.swift"; sourceTree = SOURCE_ROOT; };
+		2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionPresenter.swift; path = "Quesiti/Add Question/AddQuestionPresenter.swift"; sourceTree = SOURCE_ROOT; };
+		26257547272B6DC5008EAF35 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPresenter.swift; path = Quesiti/MapWorldQuestion/MapPresenter.swift; sourceTree = SOURCE_ROOT; };
 		2666F6AE27247C5000D9F413 /* Quesiti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quesiti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2666F6B127247C5000D9F413 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2666F6B327247C5000D9F413 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,10 +67,35 @@
 		2666F6BF27247C5300D9F413 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2666F6CF2724B0B300D9F413 /* WelcomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomViewController.swift; sourceTree = "<group>"; };
 		2666F6D42724B5D400D9F413 /* WelcomPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomPageModel.swift; sourceTree = "<group>"; };
+		26855D15273F24F700386178 /* addQuestionPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addQuestionPreview.swift; sourceTree = "<group>"; };
+		26855D17273F39E800386178 /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
+		26855D192740339E00386178 /* addQuestionTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addQuestionTwoVC.swift; sourceTree = "<group>"; };
+		26855D1B27405A1600386178 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		26855D1D27405A2A00386178 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		26855D1F27405A3800386178 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		26855D2127405CF800386178 /* ModelAsk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAsk.swift; sourceTree = "<group>"; };
+		26855D2E274119B800386178 /* HomePagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePagePresenter.swift; sourceTree = "<group>"; };
+		26855D2F274119B900386178 /* HomePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		26855D30274119BA00386178 /* HomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		26855D31274119BB00386178 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		26855D4027411AA400386178 /* DimaSignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimaSignUp.swift; sourceTree = "<group>"; };
+		26855D4127411AA400386178 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		26855D4227411AA400386178 /* DimaSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimaSignUpViewController.swift; sourceTree = "<group>"; };
+		26855D4427411AA400386178 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		26855D5227411B0400386178 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		26855D5327411B0400386178 /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		26855D5427411B0500386178 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		268AA07A2724C08900A71958 /* SomeExtansion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeExtansion.swift; sourceTree = "<group>"; };
 		268AA07C2724C11B00A71958 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
 		268AA07E2724C31600A71958 /* WelcomViewControllerExtansion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomViewControllerExtansion.swift; sourceTree = "<group>"; };
+		26EB6A9A273C70D000A7CA0D /* CustomMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
+		26EB6A9C273C70D000A7CA0D /* QuestionPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionPreviewView.swift; sourceTree = "<group>"; };
+		26EB6A9D273C70D100A7CA0D /* ModelMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelMap.swift; sourceTree = "<group>"; };
+		26EB6A9E273C70D100A7CA0D /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailsVC.swift; sourceTree = "<group>"; };
+		26EB6AA5273C70DD00A7CA0D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMSCircle.swift; sourceTree = "<group>"; };
 		CC95F34072975E48D7C97B7B /* Pods-Quesiti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.release.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.release.xcconfig"; sourceTree = "<group>"; };
 		D1FDA520FD583189CE0188D6 /* Pods-Quesiti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.debug.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.debug.xcconfig"; sourceTree = "<group>"; };
 		FA5A2882D7549E44BC5BF881 /* Pods_Quesiti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quesiti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,29 +129,10 @@
 			path = SignIn;
 			sourceTree = "<group>";
 		};
-		2610EE4E272868B8007A3BD7 /* SignUp */ = {
-			isa = PBXGroup;
-			children = (
-				26257549272C167E008EAF35 /* SignUpView.swift */,
-				2625754B272C16B5008EAF35 /* SignUpViewController.swift */,
-				0AC702BF272C803C00415CCD /* DimaSignUpViewController.swift */,
-				0AC702BD272C801500415CCD /* DimaSignUp.swift */,
-				0AC702C1272C8AD500415CCD /* SignInView.swift */,
-				0AC702C3272C8E2600415CCD /* SignInViewController.swift */,
-			);
-			path = SignUp;
-			sourceTree = "<group>";
-		};
-		2610EE5727287A6F007A3BD7 /* Help */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Help;
-			sourceTree = "<group>";
-		};
 		26257527272B6C09008EAF35 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				26855D17273F39E800386178 /* AppTabBar.swift */,
 				26257528272B6C49008EAF35 /* TabBarViewController.swift */,
 			);
 			path = TabBar;
@@ -146,9 +141,9 @@
 		2625752A272B6CA1008EAF35 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				2625752B272B6CBA008EAF35 /* SearchViewController.swift */,
-				2625752D272B6CD0008EAF35 /* SearchPresenter.swift */,
-				2625752F272B6CE2008EAF35 /* SearchView.swift */,
+				26855D1B27405A1600386178 /* SearchViewController.swift */,
+				26855D1D27405A2A00386178 /* SearchView.swift */,
+				26855D1F27405A3800386178 /* SearchPresenter.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -174,18 +169,19 @@
 		2666F6B027247C5000D9F413 /* Quesiti */ = {
 			isa = PBXGroup;
 			children = (
-				2625752A272B6CA1008EAF35 /* Search */,
 				2666F6B127247C5000D9F413 /* AppDelegate.swift */,
 				2666F6B327247C5000D9F413 /* SceneDelegate.swift */,
 				2666F6B527247C5000D9F413 /* ViewController.swift */,
+				26855D3E27411AA400386178 /* SignUp */,
+				26855D32274119BC00386178 /* Home page */,
+				2625752A272B6CA1008EAF35 /* Search */,
 				2666F6C927247CAC00D9F413 /* Welcome Screen */,
 				2666F6BA27247C5300D9F413 /* Assets.xcassets */,
 				26257527272B6C09008EAF35 /* TabBar */,
-				2666F6CA27247CAC00D9F413 /* Add question */,
-				2666F6CD27247CAC00D9F413 /* Home page */,
 				2666F6CB27247CAC00D9F413 /* Auth Controller */,
+				26993B82273C8B9D0003AB94 /* Add Question */,
+				26EB6A99273C709800A7CA0D /* MapWorldQuestion */,
 				2666F6CC27247CAC00D9F413 /* Profile */,
-				2666F6CE27247CAC00D9F413 /* Maps (world) */,
 				2666F6C527247CAC00D9F413 /* Helper Tools */,
 				2666F6C727247CAC00D9F413 /* Model */,
 				2666F6C627247CAC00D9F413 /* Networking */,
@@ -230,22 +226,9 @@
 			path = "Welcome Screen";
 			sourceTree = "<group>";
 		};
-		2666F6CA27247CAC00D9F413 /* Add question */ = {
-			isa = PBXGroup;
-			children = (
-				26257537272B6D44008EAF35 /* AddQuestionView.swift */,
-				26257539272B6D52008EAF35 /* AddQuestionViewController.swift */,
-				2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */,
-			);
-			name = "Add question";
-			path = "Controllers/Add question";
-			sourceTree = "<group>";
-		};
 		2666F6CB27247CAC00D9F413 /* Auth Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2610EE5727287A6F007A3BD7 /* Help */,
-				2610EE4E272868B8007A3BD7 /* SignUp */,
 				2610EE4D272868AA007A3BD7 /* SignIn */,
 			);
 			path = "Auth Controller";
@@ -254,34 +237,61 @@
 		2666F6CC27247CAC00D9F413 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				26257531272B6D04008EAF35 /* ProfileViewController.swift */,
-				26257533272B6D17008EAF35 /* ProfileView.swift */,
-				26257535272B6D24008EAF35 /* ProfilePresenter.swift */,
+				26855D5327411B0400386178 /* ProfilePresenter.swift */,
+				26855D5227411B0400386178 /* ProfileView.swift */,
+				26855D5427411B0500386178 /* ProfileViewController.swift */,
 			);
 			name = Profile;
 			path = Controllers/Profile;
 			sourceTree = "<group>";
 		};
-		2666F6CD27247CAC00D9F413 /* Home page */ = {
+		26855D32274119BC00386178 /* Home page */ = {
 			isa = PBXGroup;
 			children = (
-				2625753D272B6D72008EAF35 /* HomePagePresenter.swift */,
-				2625753F272B6D7B008EAF35 /* HomePageViewController.swift */,
-				26257541272B6D8E008EAF35 /* HomePageView.swift */,
+				26855D2E274119B800386178 /* HomePagePresenter.swift */,
+				26855D2F274119B900386178 /* HomePageView.swift */,
+				26855D30274119BA00386178 /* HomePageViewController.swift */,
+				26855D31274119BB00386178 /* TableViewCell.swift */,
 			);
-			name = "Home page";
-			path = "Controllers/Home page";
+			path = "Home page";
 			sourceTree = "<group>";
 		};
-		2666F6CE27247CAC00D9F413 /* Maps (world) */ = {
+		26855D3E27411AA400386178 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				26257543272B6DAF008EAF35 /* MapView.swift */,
-				26257545272B6DBD008EAF35 /* MapViewController.swift */,
+				26855D4027411AA400386178 /* DimaSignUp.swift */,
+				26855D4127411AA400386178 /* SignInView.swift */,
+				26855D4227411AA400386178 /* DimaSignUpViewController.swift */,
+				26855D4427411AA400386178 /* SignInViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		26993B82273C8B9D0003AB94 /* Add Question */ = {
+			isa = PBXGroup;
+			children = (
+				26257539272B6D52008EAF35 /* AddQuestionViewController.swift */,
+				2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */,
+				26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */,
+				26855D15273F24F700386178 /* addQuestionPreview.swift */,
+				26855D192740339E00386178 /* addQuestionTwoVC.swift */,
+				26855D2127405CF800386178 /* ModelAsk.swift */,
+			);
+			path = "Add Question";
+			sourceTree = "<group>";
+		};
+		26EB6A99273C709800A7CA0D /* MapWorldQuestion */ = {
+			isa = PBXGroup;
+			children = (
+				26EB6A9E273C70D100A7CA0D /* MapVC.swift */,
+				26EB6A9A273C70D000A7CA0D /* CustomMarkerView.swift */,
+				26EB6A9D273C70D100A7CA0D /* ModelMap.swift */,
+				26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */,
+				26EB6AA5273C70DD00A7CA0D /* UserModel.swift */,
+				26EB6A9C273C70D000A7CA0D /* QuestionPreviewView.swift */,
 				26257547272B6DC5008EAF35 /* MapPresenter.swift */,
 			);
-			name = "Maps (world)";
-			path = "Controllers/Maps (world)";
+			path = MapWorldQuestion;
 			sourceTree = "<group>";
 		};
 		3A7882A97EDD7A0BE4F8FB80 /* Pods */ = {
@@ -305,6 +315,7 @@
 				2666F6AB27247C5000D9F413 /* Frameworks */,
 				2666F6AC27247C5000D9F413 /* Resources */,
 				F67571F10B338993B2FB2673 /* [CP] Embed Pods Frameworks */,
+				191E1D8E7A3C0EEFEAAA3F3A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -389,6 +400,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		191E1D8E7A3C0EEFEAAA3F3A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F67571F10B338993B2FB2673 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,36 +441,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26257536272B6D24008EAF35 /* ProfilePresenter.swift in Sources */,
+				26855D5527411B0500386178 /* ProfileView.swift in Sources */,
 				26257529272B6C49008EAF35 /* TabBarViewController.swift in Sources */,
-				26257540272B6D7B008EAF35 /* HomePageViewController.swift in Sources */,
+				26855D16273F24F700386178 /* addQuestionPreview.swift in Sources */,
 				2625753A272B6D52008EAF35 /* AddQuestionViewController.swift in Sources */,
-				0AC702BE272C801500415CCD /* DimaSignUp.swift in Sources */,
 				2625753C272B6D62008EAF35 /* AddQuestionPresenter.swift in Sources */,
-				26257530272B6CE2008EAF35 /* SearchView.swift in Sources */,
-				2625754C272C16B5008EAF35 /* SignUpViewController.swift in Sources */,
-				26257532272B6D04008EAF35 /* ProfileViewController.swift in Sources */,
-				26257538272B6D44008EAF35 /* AddQuestionView.swift in Sources */,
-				2625754A272C167E008EAF35 /* SignUpView.swift in Sources */,
+				26EB6AA1273C70D100A7CA0D /* QuestionPreviewView.swift in Sources */,
+				26EB6A9F273C70D100A7CA0D /* CustomMarkerView.swift in Sources */,
+				26855D2227405CF800386178 /* ModelAsk.swift in Sources */,
+				26EB6AA2273C70D100A7CA0D /* ModelMap.swift in Sources */,
 				268AA0792724BF9600A71958 /* WelcomCellCollectionViewCell.swift in Sources */,
-				2625752E272B6CD0008EAF35 /* SearchPresenter.swift in Sources */,
 				2666F6B627247C5000D9F413 /* ViewController.swift in Sources */,
-				2625752C272B6CBA008EAF35 /* SearchViewController.swift in Sources */,
 				2666F6D52724B5D400D9F413 /* WelcomPageModel.swift in Sources */,
-				26257546272B6DBD008EAF35 /* MapViewController.swift in Sources */,
-				26257544272B6DAF008EAF35 /* MapView.swift in Sources */,
 				268AA07B2724C08900A71958 /* SomeExtansion.swift in Sources */,
-				0AC702C0272C803C00415CCD /* DimaSignUpViewController.swift in Sources */,
+				26EB6AA9273C70E300A7CA0D /* GMSCircle.swift in Sources */,
 				26257548272B6DC5008EAF35 /* MapPresenter.swift in Sources */,
-				2625753E272B6D72008EAF35 /* HomePagePresenter.swift in Sources */,
+				26855D36274119BC00386178 /* HomePageViewController.swift in Sources */,
+				26855D5627411B0500386178 /* ProfilePresenter.swift in Sources */,
+				26855D1A2740339E00386178 /* addQuestionTwoVC.swift in Sources */,
+				26EB6AA6273C70DD00A7CA0D /* MapDetailsVC.swift in Sources */,
+				26855D1E27405A2A00386178 /* SearchView.swift in Sources */,
+				26855D2027405A3800386178 /* SearchPresenter.swift in Sources */,
+				26855D5027411AA400386178 /* SignInViewController.swift in Sources */,
+				26855D4C27411AA400386178 /* DimaSignUp.swift in Sources */,
+				26855D37274119BC00386178 /* TableViewCell.swift in Sources */,
 				268AA07F2724C31600A71958 /* WelcomViewControllerExtansion.swift in Sources */,
 				2666F6B227247C5000D9F413 /* AppDelegate.swift in Sources */,
-				0AC702C4272C8E2600415CCD /* SignInViewController.swift in Sources */,
-				0AC702C2272C8AD500415CCD /* SignInView.swift in Sources */,
+				26855D18273F39E800386178 /* AppTabBar.swift in Sources */,
+				26855D34274119BC00386178 /* HomePagePresenter.swift in Sources */,
+				26EB6AA3273C70D100A7CA0D /* MapVC.swift in Sources */,
 				2666F6B427247C5000D9F413 /* SceneDelegate.swift in Sources */,
+				26855D35274119BC00386178 /* HomePageView.swift in Sources */,
+				26855D1C27405A1600386178 /* SearchViewController.swift in Sources */,
+				26855D4E27411AA400386178 /* DimaSignUpViewController.swift in Sources */,
+				26855D4D27411AA400386178 /* SignInView.swift in Sources */,
+				26855D5727411B0500386178 /* ProfileViewController.swift in Sources */,
 				2666F6D02724B0B300D9F413 /* WelcomViewController.swift in Sources */,
-				26257534272B6D17008EAF35 /* ProfileView.swift in Sources */,
-				26257542272B6D8E008EAF35 /* HomePageView.swift in Sources */,
+				26EB6AA7273C70DD00A7CA0D /* UserModel.swift in Sources */,
 				268AA07D2724C11B00A71958 /* ThemeColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

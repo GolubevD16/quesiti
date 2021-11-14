@@ -2,8 +2,9 @@
 //  SearchPresenter.swift
 //  Quesiti
 //
-//  Created by Даниил Ярмоленко on 29.10.2021.
+//  Created by Даниил Ярмоленко on 13.11.2021.
 //
+
 
 import Foundation
 
@@ -14,6 +15,7 @@ protocol SearchViewPresenter: AnyObject {
 }
 
 class SearchPresenter: SearchViewPresenter {
+    
     
     private weak var view: SearchViewController?
     
