@@ -163,7 +163,7 @@ class WelcomeViewController: UIViewController {
     @objc private func animateLogoLabel(){
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
         label.center = CGPoint(x: view.center.x, y: view.center.y + 150)
-        label.font = UIFont(name: "Alata", size: 48)
+        label.font = .systemFont(ofSize: 48)
         label.text = "Quesiti"
         label.textAlignment = .center
         label.textColor = .white
