@@ -38,6 +38,7 @@
 		26855D5527411B0500386178 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5227411B0400386178 /* ProfileView.swift */; };
 		26855D5627411B0500386178 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5327411B0400386178 /* ProfilePresenter.swift */; };
 		26855D5727411B0500386178 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5427411B0500386178 /* ProfileViewController.swift */; };
+		26855D5B274182EB00386178 /* AnswerOnQuestionVС.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5A274182EB00386178 /* AnswerOnQuestionVС.swift */; };
 		268AA0732724BABC00A71958 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 268AA0722724BABC00A71958 /* Lottie */; };
 		268AA0792724BF9600A71958 /* WelcomCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */; };
 		268AA07B2724C08900A71958 /* SomeExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA07A2724C08900A71958 /* SomeExtansion.swift */; };
@@ -85,6 +86,7 @@
 		26855D5227411B0400386178 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		26855D5327411B0400386178 /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		26855D5427411B0500386178 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		26855D5A274182EB00386178 /* AnswerOnQuestionVС.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AnswerOnQuestionVС.swift"; path = "../../../../AnswerOnQuestionVС.swift"; sourceTree = "<group>"; };
 		268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		268AA07A2724C08900A71958 /* SomeExtansion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeExtansion.swift; sourceTree = "<group>"; };
 		268AA07C2724C11B00A71958 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				26EB6A9A273C70D000A7CA0D /* CustomMarkerView.swift */,
 				26EB6A9D273C70D100A7CA0D /* ModelMap.swift */,
 				26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */,
+				26855D5A274182EB00386178 /* AnswerOnQuestionVС.swift */,
 				26EB6AA5273C70DD00A7CA0D /* UserModel.swift */,
 				26EB6A9C273C70D000A7CA0D /* QuestionPreviewView.swift */,
 				26257547272B6DC5008EAF35 /* MapPresenter.swift */,
@@ -458,6 +461,7 @@
 				26257548272B6DC5008EAF35 /* MapPresenter.swift in Sources */,
 				26855D36274119BC00386178 /* HomePageViewController.swift in Sources */,
 				26855D5627411B0500386178 /* ProfilePresenter.swift in Sources */,
+				26855D5B274182EB00386178 /* AnswerOnQuestionVС.swift in Sources */,
 				26855D1A2740339E00386178 /* addQuestionTwoVC.swift in Sources */,
 				26EB6AA6273C70DD00A7CA0D /* MapDetailsVC.swift in Sources */,
 				26855D1E27405A2A00386178 /* SearchView.swift in Sources */,
@@ -620,9 +624,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = EE6KQ6G544;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Quesiti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -630,6 +635,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alfa.Quesiti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -641,9 +647,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = EE6KQ6G544;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Quesiti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -651,6 +658,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Alfa.Quesiti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

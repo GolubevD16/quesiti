@@ -24,10 +24,25 @@ class ProfileViewController: UIViewController {
         
         return profileView
     }()
+    lazy var btnAddQuestion: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .clear
+        let config = UIImage.SymbolConfiguration(textStyle: .title1)
+        btn.backgroundColor = UIColor.systemOrange
+        btn.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
+        btn.layer.cornerRadius = 25
+        btn.clipsToBounds=true
+        btn.tintColor = UIColor.white
+        btn.imageView?.sizeToFit()
+        btn.addTarget(self, action: #selector(btnAddQuestionAction), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        return btn
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(profileView)
+        view.addSubview(btnAddQuestion)
         navigationController?.navigationBar.isHidden = true
         
         setupLayoutProfileView()
@@ -83,6 +98,11 @@ class ProfileViewController: UIViewController {
             profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileView.topAnchor.constraint(equalTo: view.topAnchor),
             profileView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            btnAddQuestion.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
+            btnAddQuestion.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnAddQuestion.widthAnchor.constraint(equalToConstant: 50),
+            btnAddQuestion.heightAnchor.constraint(equalTo: btnAddQuestion.widthAnchor),
          ])
     }
     
@@ -120,6 +140,11 @@ class ProfileViewController: UIViewController {
         let alert = UIAlertController(title: "Типа полетело на сервер:", message: "\(firstName) \n \(secondName) \n \(email) \n \(phoneNumber) \n \(city) \n \(aboutYou)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    @objc func btnAddQuestionAction() {
+        let addQuuestion: AddQuestionViewController = AddQuestionViewController()
+        addQuuestion.modalPresentationStyle = .fullScreen
+        self.present(addQuuestion, animated: true, completion: nil)
     }
     
     private func registerForKeyboardNotification(){

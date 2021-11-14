@@ -23,6 +23,20 @@ class HomePageViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    lazy var btnAddQuestion: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .clear
+        let config = UIImage.SymbolConfiguration(textStyle: .title1)
+        btn.backgroundColor = UIColor.systemBlue
+        btn.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
+        btn.layer.cornerRadius = 25
+        btn.clipsToBounds=true
+        btn.tintColor = UIColor.white
+        btn.imageView?.sizeToFit()
+        btn.addTarget(self, action: #selector(btnAddQuestionAction), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        return btn
+    }()
     
     lazy var homePageView: HomePageView = {
         let homePageView = HomePageView()
@@ -35,6 +49,7 @@ class HomePageViewController: UIViewController {
         presenter.viewDidLoad()
         view.addSubview(homePageView)
         view.addSubview(tableView)
+        view.addSubview(btnAddQuestion)
         navigationController?.navigationBar.isHidden = true
         
         setupLayoutHomePageView()
@@ -60,6 +75,11 @@ class HomePageViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            btnAddQuestion.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
+            btnAddQuestion.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnAddQuestion.widthAnchor.constraint(equalToConstant: 50),
+            btnAddQuestion.heightAnchor.constraint(equalTo: btnAddQuestion.widthAnchor),
          ])
     }
     
@@ -67,6 +87,12 @@ class HomePageViewController: UIViewController {
         private func didPullToRefresh() {
             tableView.refreshControl?.beginRefreshing()
             tableView.refreshControl?.endRefreshing()
+    }
+    
+    @objc func btnAddQuestionAction() {
+        let addQuuestion: AddQuestionViewController = AddQuestionViewController()
+        addQuuestion.modalPresentationStyle = .fullScreen
+        self.present(addQuuestion, animated: true, completion: nil)
     }
 }
 

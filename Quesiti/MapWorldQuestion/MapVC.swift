@@ -24,9 +24,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var chosenPlace: MyPlace?
     //    var circle = GMSCircle()
     var question = [
-        Question(title: "Какая погода", userID: "bjhksdf23", latitude: 24.8655, longitude: 67.0011, radius: 1000, image: UIImage(named: "people1"), name: "Daniil Yarmolenko"),
-        Question(title: "Какая погода", userID: "bjhksdf23", latitude: 24.868, longitude: 67.0011, radius: 1000, image: UIImage(named: "people2"), name: "Daniil Yarmolenko"),
-        Question(title: "Какая погода", userID: "bjhksdf23", latitude: 24.878, longitude: 67.0011, radius: 1000, image: UIImage(named: "people3"), name: "Daniil Yarmolenko")
+        Question(title: "Какая погода ?", userID: "bjhksdf23", latitude: 24.8655, longitude: 67.0011, radius: 1000, image: UIImage(named: "people1"), name: "Daniil Yarmolenko"),
+        Question(title: "Сегодня большая очередь в библиотеке ?", userID: "bjhksdf23", latitude: 24.868, longitude: 67.0011, radius: 1000, image: UIImage(named: "people2"), name: "Alex"),
+        Question(title: "Кто хочет пойти в кино на премьеру ?", userID: "bjhksdf23", latitude: 24.878, longitude: 67.0011, radius: 1000, image: UIImage(named: "people3"), name: "Sofia")
     ]
     
     let customMarkerWidth: Int = 50
@@ -140,6 +140,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         guard let customMarkerView = marker.iconView as? CustomMarkerView else { return }
         let tag = customMarkerView.tag
+        var long = locationManager.location?.coordinate.longitude // сравнить с координатами вопроса
+        var lat = locationManager.location?.coordinate.latitude // сравнить с координатами
+        
+        
         restaurantTapped(tag: tag)
     }
     
@@ -289,7 +293,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         btn.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
         btn.layer.cornerRadius = 25
         btn.clipsToBounds=true
-        btn.tintColor = UIColor.cyan
+        btn.tintColor = UIColor.white
         //        btn.imageEdgeInsets = UIEdgeInsets(
         //                top: 0,
         //                left: 0,

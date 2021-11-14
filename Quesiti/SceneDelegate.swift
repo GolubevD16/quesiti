@@ -30,8 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        } catch {
 //            print(error)
 //        }
-        
-        
+//        
+//        
         Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
                 let navigationVC = UINavigationController()

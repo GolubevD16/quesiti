@@ -84,6 +84,7 @@ class HomePageView: UIView {
             lineView.heightAnchor.constraint(equalToConstant: 1),
             lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
         ])
     }
 }
