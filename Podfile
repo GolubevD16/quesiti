@@ -6,12 +6,7 @@ target 'Quesiti' do
   use_frameworks!
 
   # Pods for Quesiti
-	pod 'SkyFloatingLabelTextField', '~> 3.0'
-  pod "FlagPhoneNumber"
-  
-  pod 'Kingfisher', '~> 6.0'
-  pod 'SnapKit', '~> 5.0.0'
-  pod 'Then', '~> 2.7.0'
+pod 'Cosmos', '~> 23.0'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'

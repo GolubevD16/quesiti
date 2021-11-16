@@ -140,8 +140,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         guard let customMarkerView = marker.iconView as? CustomMarkerView else { return }
         let tag = customMarkerView.tag
-        var long = locationManager.location?.coordinate.longitude // сравнить с координатами вопроса
-        var lat = locationManager.location?.coordinate.latitude // сравнить с координатами
+//        var long = locationManager.location?.coordinate.longitude // сравнить с координатами вопроса
+//        var lat = locationManager.location?.coordinate.latitude // сравнить с координатами
         
         
         restaurantTapped(tag: tag)
@@ -202,7 +202,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         txtFieldSearch.heightAnchor.constraint(equalToConstant: 35).isActive=true
         setupTextField(textField: txtFieldSearch, img: #imageLiteral(resourceName: "map_Pin"))
         
-        questionPreviewView=QuestionPreviewView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width - 150, height: 100))
+        questionPreviewView=QuestionPreviewView(frame: CGRect(x: 0, y: 0, width: 200, height: 65))
         
         self.view.addSubview(btnMyLocation)
         btnMyLocation.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive=true
@@ -286,10 +286,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     //    }()
     let btnAddQuestion: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .clear
+        btn.backgroundColor = ThemeColors.mainColor
+        btn.applyGradient(colors: [UIColor(red: 48/255, green: 177/255, blue: 206/255, alpha: 1).cgColor, UIColor(red: 49/255, green: 141/255, blue: 178/255, alpha: 1).cgColor])
         //        let config = UIImage.SymbolConfiguration(textStyle: .)
         let config = UIImage.SymbolConfiguration(textStyle: .title1)
-        btn.backgroundColor = ThemeColors.mainColor
         btn.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
         btn.layer.cornerRadius = 25
         btn.clipsToBounds=true

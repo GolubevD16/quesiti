@@ -27,7 +27,7 @@ class HomePageViewController: UIViewController {
         let btn = UIButton()
         btn.backgroundColor = .clear
         let config = UIImage.SymbolConfiguration(textStyle: .title1)
-        btn.backgroundColor = UIColor.systemBlue
+        btn.backgroundColor = ThemeColors.mainColor
         btn.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
         btn.layer.cornerRadius = 25
         btn.clipsToBounds=true

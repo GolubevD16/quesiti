@@ -7,12 +7,12 @@
 
 import UIKit
 
-class ThemeColors {
+struct ThemeColors {
     
     // ---------------------------------------------------------------------------------------------------------------------------------------------------- //
     // APP COLORS
     
-    static var mainColor = UIColor(red: 100/255, green: 90/255, blue: 255/255, alpha: 1)
+    static var mainColor = UIColor(red: 86/255, green: 204/255, blue: 242/255, alpha: 1)
     
     static var secondaryColor = UIColor(red: 140/255, green: 135/255, blue: 255/255, alpha: 0.5)
 

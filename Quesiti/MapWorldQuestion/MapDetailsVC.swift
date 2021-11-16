@@ -8,31 +8,31 @@
 
 import UIKit
 
-class DetailsVC: UIViewController {
+
+
+class DetailsVC: UIViewController{
+    
     
     var passedData = Question(title: "Какая погода ?", userID: "bjhksdf23", latitude: 24.865, longitude: 67.0011, radius: 1000, image: UIImage(systemName: "people1"), name: "Name")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
         setupViews()
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: .tableId)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     
     func setupViews() {
-        self.view.addSubview(myScrollView)
-        myScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive=true
-        myScrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive=true
-        myScrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive=true
-        myScrollView.heightAnchor.constraint(equalToConstant: 800).isActive=true
         //        myScrollView.contentSize.height = 800
         
-        myScrollView.addSubview(containerView)
-        containerView.centerXAnchor.constraint(equalTo: myScrollView.centerXAnchor).isActive=true
-        containerView.topAnchor.constraint(equalTo: myScrollView.topAnchor).isActive=true
-        containerView.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive=true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive=true
+        view.addSubview(containerView)
+        containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
+        containerView.topAnchor.constraint(equalTo: view.topAnchor).isActive=true
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive=true
+        containerView.heightAnchor.constraint(equalToConstant: 300).isActive=true
         
         containerView.addSubview(imgView)
         imgView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive=true
@@ -48,12 +48,11 @@ class DetailsVC: UIViewController {
         lblTitle.heightAnchor.constraint(equalToConstant: 50).isActive=true
         lblTitle.text = passedData.title
         
-        view.addSubview(lblDescription)
-        lblDescription.leftAnchor.constraint(equalTo: lblTitle.leftAnchor).isActive=true
-        lblDescription.topAnchor.constraint(equalTo: lblTitle.bottomAnchor, constant: 10).isActive=true
-        lblDescription.rightAnchor.constraint(equalTo: lblTitle.rightAnchor).isActive=true
-        lblDescription.text = "Здесь будет список ответов"
-        lblDescription.sizeToFit()
+        view.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 2).isActive=true
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive=true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive=true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive=true
         
         view.addSubview(containerButton)
         containerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
@@ -73,13 +72,13 @@ class DetailsVC: UIViewController {
         titleButton.rightAnchor.constraint(equalTo: containerButton.rightAnchor).isActive=true
     }
     
-    let myScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints=false
-        scrollView.showsVerticalScrollIndicator=false
-        scrollView.showsHorizontalScrollIndicator=false
-        return scrollView
-    }()
+//    let myScrollView: UIScrollView = {
+//        let scrollView = UIScrollView()
+//        scrollView.translatesAutoresizingMaskIntoConstraints=false
+//        scrollView.showsVerticalScrollIndicator=false
+//        scrollView.showsHorizontalScrollIndicator=false
+//        return scrollView
+//    }()
     
     let containerView: UIView = {
         let v=UIView()
@@ -163,6 +162,13 @@ class DetailsVC: UIViewController {
         return lbl
     }()
     
+    lazy var tableView: UITableView = {
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     let containerButton: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -172,4 +178,39 @@ class DetailsVC: UIViewController {
     @objc func btnAnswer(_ sender: Any){
         navigationController?.popViewController(animated: true)
     }
+    @objc private func didPullToRefresh() {
+            tableView.refreshControl?.beginRefreshing()
+            tableView.refreshControl?.endRefreshing()
+    }
 }
+
+extension DetailsVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return question.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: .tableId, for: indexPath) as? TableViewCell else {
+            fatalError()
+        }
+        let ques = question[indexPath.row]
+        
+        cell.avatarView.image = UIImage(named: ques[1] ?? "")
+        cell.nameLabel.text = ques[2]
+        cell.questionLabel.text = ques[3]
+        cell.dateLabel.text = ques[4]
+        cell.countOfComsView.text = ques[5]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 80
+    }
+    
+}
+
+private extension String {
+    static let tableId = "TableViewCellReuseID"
+}
+

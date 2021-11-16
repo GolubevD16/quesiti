@@ -124,13 +124,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2610EE4D272868AA007A3BD7 /* SignIn */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SignIn;
-			sourceTree = "<group>";
-		};
 		26257527272B6C09008EAF35 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,13 +173,11 @@
 				2666F6C927247CAC00D9F413 /* Welcome Screen */,
 				2666F6BA27247C5300D9F413 /* Assets.xcassets */,
 				26257527272B6C09008EAF35 /* TabBar */,
-				2666F6CB27247CAC00D9F413 /* Auth Controller */,
 				26993B82273C8B9D0003AB94 /* Add Question */,
 				26EB6A99273C709800A7CA0D /* MapWorldQuestion */,
 				2666F6CC27247CAC00D9F413 /* Profile */,
 				2666F6C527247CAC00D9F413 /* Helper Tools */,
 				2666F6C727247CAC00D9F413 /* Model */,
-				2666F6C627247CAC00D9F413 /* Networking */,
 				2666F6BC27247C5300D9F413 /* LaunchScreen.storyboard */,
 				2666F6BF27247C5300D9F413 /* Info.plist */,
 				0A1290D727306E99002000A6 /* GoogleService-Info.plist */,
@@ -201,13 +192,6 @@
 				268AA07C2724C11B00A71958 /* ThemeColors.swift */,
 			);
 			path = "Helper Tools";
-			sourceTree = "<group>";
-		};
-		2666F6C627247CAC00D9F413 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		2666F6C727247CAC00D9F413 /* Model */ = {
@@ -226,14 +210,6 @@
 				268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */,
 			);
 			path = "Welcome Screen";
-			sourceTree = "<group>";
-		};
-		2666F6CB27247CAC00D9F413 /* Auth Controller */ = {
-			isa = PBXGroup;
-			children = (
-				2610EE4D272868AA007A3BD7 /* SignIn */,
-			);
-			path = "Auth Controller";
 			sourceTree = "<group>";
 		};
 		2666F6CC27247CAC00D9F413 /* Profile */ = {
