@@ -96,6 +96,16 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         self.myMapView.camera = camera
         self.myMapView.delegate = self
         self.myMapView.isMyLocationEnabled = true
+        let long = locationManager.location?.coordinate.longitude
+        let lat = locationManager.location?.coordinate.latitude
+        if (lat != nil && long != nil) {
+            
+            self.setupCircle(latitide: lat ?? 0.0, longitude: long ?? 0.0, radius: radius)
+        }
+        let position = CLLocationCoordinate2D(latitude: lat ?? 0.0, longitude: long ?? 0.0)
+        let marker = GMSMarker(position: position)
+        marker.title = "Hello World"
+        marker.map = myMapView
         
     }
     
@@ -129,22 +139,22 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         
     }
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-      reverseGeocode(coordinate: position.target)
+        reverseGeocode(coordinate: position.target)
     }
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
         btnNextAction()
     }
     
-//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//        guard let customMarkerView = marker.iconView as? CustomMarkerView else { return false }
-//        let img = customMarkerView.img!
-//        let customMarker = CustomMarkerView(frame: CGRect(x: 0, y: 0, width: customMarkerWidth, height: customMarkerHeight), image: img, borderColor: UIColor.white, tag: customMarkerView.tag)
-//        
-//        marker.iconView = customMarker
-//        //        let camera = GMSCameraPosition.
-//        return false
-//    }
+    //    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+    //        guard let customMarkerView = marker.iconView as? CustomMarkerView else { return false }
+    //        let img = customMarkerView.img!
+    //        let customMarker = CustomMarkerView(frame: CGRect(x: 0, y: 0, width: customMarkerWidth, height: customMarkerHeight), image: img, borderColor: UIColor.white, tag: customMarkerView.tag)
+    //
+    //        marker.iconView = customMarker
+    //        //        let camera = GMSCameraPosition.
+    //        return false
+    //    }
     //
     //    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
     //            zoom = mapView.camera.zoom
@@ -199,6 +209,7 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         textField.leftViewMode = UITextField.ViewMode.always
         let imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 20, height: 20))
         imageView.image = img
+        imageView.tintColor = ThemeColors.mainColor
         let paddingView = UIView(frame:CGRect(x: 0, y: 0, width: 30, height: 30))
         paddingView.addSubview(imageView)
         textField.leftView = paddingView
@@ -221,20 +232,34 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         myMapView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive=true
         myMapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive=true
         
+
+        
         self.view.addSubview(txtFieldSearch)
-        txtFieldSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70).isActive=true
+        txtFieldSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive=true
         txtFieldSearch.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive=true
         txtFieldSearch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive=true
         txtFieldSearch.heightAnchor.constraint(equalToConstant: 35).isActive=true
-        setupTextField(textField: txtFieldSearch, img: #imageLiteral(resourceName: "map_Pin"))
+        setupTextField(textField: txtFieldSearch, img: UIImage(systemName: "mappin.circle") ?? #imageLiteral(resourceName: "map_Pin"))
         
         //        questionPreviewView=QuestionPreviewView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: 200))
         addQuestionPreviewView = AddQuestionPreviewView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: 70))
         self.view.addSubview(slider)
+        
+        self.view.addSubview(containerRadiusLabel)
+        containerRadiusLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80).isActive=true
+        containerRadiusLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive=true
+        containerRadiusLabel.heightAnchor.constraint(equalToConstant: 20).isActive=true
+        containerRadiusLabel.widthAnchor.constraint(equalToConstant: 200).isActive=true
+        
+        containerRadiusLabel.addSubview(textRadius)
+        textRadius.centerYAnchor.constraint(equalTo: containerRadiusLabel.centerYAnchor).isActive=true
+        textRadius.centerXAnchor.constraint(equalTo: containerRadiusLabel.centerXAnchor).isActive=true
+        
+        
         self.view.addSubview(btnMyLocation)
         btnMyLocation.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive=true
         btnMyLocation.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-        btnMyLocation.widthAnchor.constraint(equalToConstant: 50).isActive=true
+        btnMyLocation.widthAnchor.constraint(equalToConstant: 40).isActive=true
         btnMyLocation.heightAnchor.constraint(equalTo: btnMyLocation.widthAnchor).isActive=true
         
         self.view.addSubview(btncClose)
@@ -248,23 +273,23 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         btnNext.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
         btnNext.widthAnchor.constraint(equalToConstant: 50).isActive=true
         btnNext.heightAnchor.constraint(equalTo: btnNext.widthAnchor).isActive=true
-//
-//        
-//        self.view.addSubview(btnZoomMinus)
-//        btnZoomMinus.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive=true
-//        btnZoomMinus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-//        btnZoomMinus.widthAnchor.constraint(equalToConstant: 50).isActive=true
-//        btnZoomMinus.heightAnchor.constraint(equalTo: btnZoomMinus.widthAnchor).isActive=true
-//        
-//        self.view.addSubview(btnZoomPlus)
-//        btnZoomPlus.bottomAnchor.constraint(equalTo: btnZoomMinus.topAnchor, constant: -20).isActive=true
-//        btnZoomPlus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-//        btnZoomPlus.widthAnchor.constraint(equalTo: btnZoomMinus.widthAnchor).isActive=true
-//        btnZoomPlus.heightAnchor.constraint(equalTo: btnZoomPlus.widthAnchor).isActive=true
+        //
+        //
+        //        self.view.addSubview(btnZoomMinus)
+        //        btnZoomMinus.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive=true
+        //        btnZoomMinus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
+        //        btnZoomMinus.widthAnchor.constraint(equalToConstant: 50).isActive=true
+        //        btnZoomMinus.heightAnchor.constraint(equalTo: btnZoomMinus.widthAnchor).isActive=true
+        //
+        //        self.view.addSubview(btnZoomPlus)
+        //        btnZoomPlus.bottomAnchor.constraint(equalTo: btnZoomMinus.topAnchor, constant: -20).isActive=true
+        //        btnZoomPlus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
+        //        btnZoomPlus.widthAnchor.constraint(equalTo: btnZoomMinus.widthAnchor).isActive=true
+        //        btnZoomPlus.heightAnchor.constraint(equalTo: btnZoomPlus.widthAnchor).isActive=true
         
         
         
-//        slider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90).isActive=true
+        //        slider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90).isActive=true
         //        slider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive=true
         //        slider.widthAnchor.constraint(equalToConstant: 200).isActive=true
         //        slider.heightAnchor.constraint(equalToConstant: 50).isActive=true
@@ -287,7 +312,7 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
     
     let txtFieldSearch: UITextField = {
         let tf=UITextField()
-        tf.borderStyle = .roundedRect
+        tf.layer.cornerRadius = 15
         tf.backgroundColor = .white
         tf.layer.borderColor = UIColor.darkGray.cgColor
         tf.placeholder="Search for a location"
@@ -302,13 +327,18 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
     
     let btnMyLocation: UIButton = {
         let btn=UIButton()
-        btn.backgroundColor = UIColor.clear
-        let config = UIImage.SymbolConfiguration(textStyle: .title1)
+        btn.backgroundColor = UIColor.white
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        btn.layer.masksToBounds = false
+        btn.layer.shadowRadius = 2.0
+        btn.layer.shadowOpacity = 0.5
+        
+        let config = UIImage.SymbolConfiguration(textStyle: .title2)
         btn.setImage(UIImage(systemName: "location.fill", withConfiguration: config), for: .normal)
-        btn.layer.cornerRadius = 25
-        btn.clipsToBounds=true
-//        btn.tintColor = UIColor.gray
-        btn.imageView?.tintColor=UIColor.blue
+        btn.layer.cornerRadius = 20
+        //        btn.tintColor = UIColor.gray
+        btn.imageView?.tintColor = ThemeColors.mainColor
         btn.addTarget(self, action: #selector(btnMyLocationAction), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
@@ -318,11 +348,14 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         let btn=UIButton()
         btn.backgroundColor = UIColor.clear
         let config = UIImage.SymbolConfiguration(textStyle: .title1)
+        
+        
         btn.setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
+        btn.imageView?.tintColor = ThemeColors.mainColor
         btn.layer.cornerRadius = 25
         btn.clipsToBounds=true
-//        btn.tintColor = UIColor.gray
-        btn.imageView?.tintColor=UIColor.blue
+        //        btn.tintColor = UIColor.gray
+        btn.imageView?.tintColor = ThemeColors.secondaryColor
         btn.addTarget(self, action: #selector(btnClose(_:)), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
@@ -334,48 +367,65 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         btn.setImage(UIImage(systemName: "chevron.right", withConfiguration: config), for: .normal)
         btn.layer.cornerRadius = 25
         btn.clipsToBounds=true
-//        btn.tintColor = UIColor.gray
-        btn.imageView?.tintColor=UIColor.blue
+        //        btn.tintColor = UIColor.gray
+        
+        btn.imageView?.tintColor = ThemeColors.secondaryColor
         btn.addTarget(self, action: #selector(btnNextAction), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
     
-//    
-//    let btnZoomPlus: UIButton = {
-//        let btn = UIButton()
-//        btn.backgroundColor = UIColor.white
-//        btn.setImage(UIImage(systemName: "plus.circle"), for: .normal)
-//        btn.layer.cornerRadius = 25
-//        btn.clipsToBounds=true
-//        btn.tintColor = UIColor.gray
-//        btn.imageView?.tintColor=UIColor.gray
-//        btn.addTarget(self, action: #selector(btnZoomPlusAction), for: .touchUpInside)
-//        btn.translatesAutoresizingMaskIntoConstraints=false
-//        return btn
-//    }()
-//
-//    let btnZoomMinus: UIButton = {
-//        let btn = UIButton()
-//        let config = UIImage.SymbolConfiguration(textStyle: .title1)
-//        btn.backgroundColor = UIColor.white
-//        btn.setImage(UIImage(systemName: "minus.circle", withConfiguration: config), for: .normal)
-//        btn.layer.cornerRadius = 25
-//        btn.clipsToBounds=true
-//        btn.tintColor = UIColor.cyan
-//        //        btn.imageEdgeInsets = UIEdgeInsets(
-//        //                top: 0,
-//        //                left: 0,
-//        //                bottom: 0,
-//        //                right: 0)
-//        btn.imageView?.tintColor = .cyan
-//        btn.imageView?.sizeToFit()
-//        btn.addTarget(self, action: #selector(btnZoomMinusAction), for: .touchUpInside)
-//        btn.translatesAutoresizingMaskIntoConstraints=false
-//        return btn
-//    }()
-//    (frame:CGRect(x: 200, y: 200, width: 300, height: 20))
+    //
+    //    let btnZoomPlus: UIButton = {
+    //        let btn = UIButton()
+    //        btn.backgroundColor = UIColor.white
+    //        btn.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+    //        btn.layer.cornerRadius = 25
+    //        btn.clipsToBounds=true
+    //        btn.tintColor = UIColor.gray
+    //        btn.imageView?.tintColor=UIColor.gray
+    //        btn.addTarget(self, action: #selector(btnZoomPlusAction), for: .touchUpInside)
+    //        btn.translatesAutoresizingMaskIntoConstraints=false
+    //        return btn
+    //    }()
+    //
+    //    let btnZoomMinus: UIButton = {
+    //        let btn = UIButton()
+    //        let config = UIImage.SymbolConfiguration(textStyle: .title1)
+    //        btn.backgroundColor = UIColor.white
+    //        btn.setImage(UIImage(systemName: "minus.circle", withConfiguration: config), for: .normal)
+    //        btn.layer.cornerRadius = 25
+    //        btn.clipsToBounds=true
+    //        btn.tintColor = UIColor.cyan
+    //        //        btn.imageEdgeInsets = UIEdgeInsets(
+    //        //                top: 0,
+    //        //                left: 0,
+    //        //                bottom: 0,
+    //        //                right: 0)
+    //        btn.imageView?.tintColor = .cyan
+    //        btn.imageView?.sizeToFit()
+    //        btn.addTarget(self, action: #selector(btnZoomMinusAction), for: .touchUpInside)
+    //        btn.translatesAutoresizingMaskIntoConstraints=false
+    //        return btn
+    //    }()
+    //    (frame:CGRect(x: 200, y: 200, width: 300, height: 20))
+    let containerRadiusLabel: UIView = {
+        let v = UIView()
+        v.backgroundColor = ThemeColors.secondaryColor
+        v.layer.cornerRadius = 10
+        v.translatesAutoresizingMaskIntoConstraints=false
+        return v
+    }()
     
+    let textRadius: UILabel = {
+       let title = UILabel()
+        title.textColor = .white
+        title.translatesAutoresizingMaskIntoConstraints=false
+        title.text = "Радиус зоны действия 200 м"
+        title.font = UIFont.systemFont(ofSize: 10)
+        title.textAlignment = .center
+        return title
+    }()
     var slider: UISlider {
         let slider = UISlider(frame:CGRect(x: 20, y: view.frame.width*2 - 60, width: view.frame.width-40, height: 20))
         slider.minimumValue = 200
@@ -383,10 +433,10 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         slider.isContinuous = true
         slider.tintColor = UIColor.black
         slider.addTarget(self, action: #selector(AddQuestionViewController.sliderValueChanged(_:)), for: .valueChanged)
-//        slider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive=true
-//        slider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -20).isActive=true
-//        slider.translatesAutoresizingMaskIntoConstraints=false
-//        slider.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
+        //        slider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive=true
+        //        slider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -20).isActive=true
+        //        slider.translatesAutoresizingMaskIntoConstraints=false
+        //        slider.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
         return slider
     }
     
@@ -398,9 +448,20 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
     
     @objc func btnMyLocationAction() {
         let location: CLLocation? = myMapView.myLocation
+        
+        
+        myMapView.clear()
+        var latitude = location?.coordinate.latitude
+        var longitude = location?.coordinate.longitude
+       
         if location != nil {
             myMapView.animate(toLocation: (location?.coordinate)!)
+            self.setupCircle(latitide: latitude ?? 0.0, longitude: longitude ?? 0.0, radius: radius)
         }
+        let position = CLLocationCoordinate2D(latitude: latitude ?? 0.0, longitude: longitude ?? 0.0)
+        let marker = GMSMarker(position: position)
+        marker.title = "Hello World"
+        marker.map = myMapView
     }
     
     @objc func btnZoomPlusAction() {
@@ -421,7 +482,7 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
     }
     @objc func btnNextAction(){
         let next: addQuestionTwoVC = addQuestionTwoVC()
-//        next.data = AskQuestion(title: "", userID: "", latitude: <#T##Double#>, longitude: <#T##Double#>, adress: <#T##String#>, radius: <#T##Int#>, image: <#T##UIImage?#>)
+        //        next.data = AskQuestion(title: "", userID: "", latitude: <#T##Double#>, longitude: <#T##Double#>, adress: <#T##String#>, radius: <#T##Int#>, image: <#T##UIImage?#>)
         next.modalPresentationStyle = .fullScreen
         transitionVc(vc: next, duration: 0.5, type: .fromRight)
     }
@@ -430,6 +491,7 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
         DispatchQueue.main.async {
             self.circle.radius = CLLocationDistance(value)
             let update = GMSCameraUpdate.fit(self.circle.bounds())
+            self.textRadius.text = "Радиус зоны действия \(value) м"
             self.myMapView.animate(with: update)
             self.radius = value
         }
@@ -451,19 +513,19 @@ class AddQuestionViewController: UIViewController, CLLocationManagerDelegate, GM
     //        }
     //    }
     func reverseGeocode(coordinate: CLLocationCoordinate2D) {
-      // 1
-      let geocoder = GMSGeocoder()
-
-      // 2
-      geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
-        guard
-          let address = response?.firstResult(),
-          let lines = address.lines
-          else {
-            return
+        // 1
+        let geocoder = GMSGeocoder()
+        
+        // 2
+        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+            guard
+                let address = response?.firstResult(),
+                let lines = address.lines
+            else {
+                return
+            }
+            self.adressLabel = lines.joined(separator: "\n")
         }
-          self.adressLabel = lines.joined(separator: "\n")
-      }
     }
 }
 

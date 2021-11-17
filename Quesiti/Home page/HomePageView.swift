@@ -42,13 +42,13 @@ class HomePageView: UIView {
         return cityLabel
     }()
     
-    lazy var lineView: UIView = {
-        lineView = UIView()
-        lineView.backgroundColor = .systemBlue
-        lineView.translatesAutoresizingMaskIntoConstraints = false
+//    lazy var lineView: UIView = {
+//        lineView = UIView()
+//        lineView.backgroundColor = .systemBlue
+//        lineView.translatesAutoresizingMaskIntoConstraints = false
         
-        return lineView
-    }()
+//        return lineView
+//    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,7 +56,7 @@ class HomePageView: UIView {
         self.addSubview(avatarView)
         self.addSubview(nameLabel)
         self.addSubview(cityLabel)
-        self.addSubview(lineView)
+//        self.addSubview(lineView)
     }
     
     required init?(coder: NSCoder) {
@@ -80,10 +80,10 @@ class HomePageView: UIView {
             cityLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
             cityLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            lineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
-            lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+//            lineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+//            lineView.heightAnchor.constraint(equalToConstant: 1),
+//            lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+//            lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
         ])
     }

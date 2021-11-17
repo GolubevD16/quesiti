@@ -46,12 +46,10 @@ class HomePageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         view.addSubview(homePageView)
         view.addSubview(tableView)
         view.addSubview(btnAddQuestion)
-        navigationController?.navigationBar.isHidden = true
-        
         setupLayoutHomePageView()
         
         tableView.register(TableViewCell.self, forCellReuseIdentifier: .tableId)
@@ -68,8 +66,9 @@ class HomePageViewController: UIViewController {
         NSLayoutConstraint.activate([
             homePageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homePageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            homePageView.topAnchor.constraint(equalTo: view.topAnchor),
-            homePageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3 * UIScreen.main.bounds.height/5),
+            homePageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -50),
+            homePageView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 270),
+//            homePageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -3 * UIScreen.main.bounds.height/5),
             
             tableView.topAnchor.constraint(equalTo: homePageView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -113,14 +112,23 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         cell.dateLabel.text = ques[4]
         cell.countOfComsView.text = ques[5]
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.clear
+        cell.selectedBackgroundView = backgroundView
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 80
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let rest = DetailsVC()
+        self.navigationController?.pushViewController(rest, animated: true)
     }
     
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 90
+    }
 }
+ 
 
 private extension String {
     static let tableId = "TableViewCellReuseID"

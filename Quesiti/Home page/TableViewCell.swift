@@ -87,10 +87,13 @@ class TableViewCell: UITableViewCell{
     }
     
     override func layoutSubviews() {
-        //contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0))
+            super.layoutSubviews()
         setupLayoutCell()
+        let margins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+                contentView.frame = contentView.frame.inset(by: margins)
     }
-    
+
     private func setupLayoutCell(){
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
@@ -126,6 +129,7 @@ class TableViewCell: UITableViewCell{
             countOfComsView.bottomAnchor.constraint(equalTo: comView.bottomAnchor),
             countOfComsView.heightAnchor.constraint(equalToConstant: 20),
         ])
+        
     }
     
     private func setupContainerView(){

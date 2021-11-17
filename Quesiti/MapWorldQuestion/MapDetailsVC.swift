@@ -13,7 +13,7 @@ import UIKit
 class DetailsVC: UIViewController{
     
     
-    var passedData = Question(title: "Какая погода ?", userID: "bjhksdf23", latitude: 24.865, longitude: 67.0011, radius: 1000, image: UIImage(systemName: "people1"), name: "Name")
+    var passedData = Question(title: "Какая погода ?", userID: "bjhksdf23", latitude: 24.865, longitude: 67.0011, radius: 1000, image: UIImage(named: "people1"), name: "Name")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,13 @@ class DetailsVC: UIViewController{
         tableView.register(TableViewCell.self, forCellReuseIdentifier: .tableId)
         tableView.dataSource = self
         tableView.delegate = self
+        containerTitle.layer.shadowColor = UIColor.black.cgColor
+        containerTitle.layer.shadowRadius = 5
+        containerTitle.layer.shadowOffset = .init(width: 0, height: 2)
+        containerTitle.layer.shadowOpacity = 0.8
+       
+        containerTitle.backgroundColor = .white
+
     }
     
     
@@ -32,7 +39,7 @@ class DetailsVC: UIViewController{
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
         containerView.topAnchor.constraint(equalTo: view.topAnchor).isActive=true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive=true
-        containerView.heightAnchor.constraint(equalToConstant: 300).isActive=true
+        containerView.heightAnchor.constraint(equalToConstant: 350).isActive=true
         
         containerView.addSubview(imgView)
         imgView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive=true
@@ -41,15 +48,21 @@ class DetailsVC: UIViewController{
         imgView.heightAnchor.constraint(equalToConstant: 200).isActive=true
         imgView.image = passedData.image
         
-        containerView.addSubview(lblTitle)
-        lblTitle.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive=true
-        lblTitle.topAnchor.constraint(equalTo: imgView.bottomAnchor).isActive=true
-        lblTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive=true
-        lblTitle.heightAnchor.constraint(equalToConstant: 50).isActive=true
+        containerView.addSubview(containerTitle)
+        containerTitle.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive=true
+        containerTitle.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 10).isActive=true
+        containerTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive=true
+        containerTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive=true
+        
+        containerTitle.addSubview(lblTitle)
+        lblTitle.leftAnchor.constraint(equalTo: containerTitle.leftAnchor ).isActive=true
+        lblTitle.rightAnchor.constraint(equalTo: containerTitle.rightAnchor).isActive=true
+        lblTitle.topAnchor.constraint(equalTo: containerTitle.topAnchor).isActive=true
+        lblTitle.bottomAnchor.constraint(equalTo: containerTitle.bottomAnchor).isActive=true
         lblTitle.text = passedData.title
         
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 2).isActive=true
+        tableView.topAnchor.constraint(equalTo: containerTitle.bottomAnchor, constant: 10).isActive=true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive=true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive=true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive=true
@@ -70,20 +83,47 @@ class DetailsVC: UIViewController{
         titleButton.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor).isActive=true
         titleButton.leftAnchor.constraint(equalTo: containerButton.leftAnchor).isActive=true
         titleButton.rightAnchor.constraint(equalTo: containerButton.rightAnchor).isActive=true
+        
     }
     
-//    let myScrollView: UIScrollView = {
-//        let scrollView = UIScrollView()
-//        scrollView.translatesAutoresizingMaskIntoConstraints=false
-//        scrollView.showsVerticalScrollIndicator=false
-//        scrollView.showsHorizontalScrollIndicator=false
-//        return scrollView
-//    }()
+    //    let myScrollView: UIScrollView = {
+    //        let scrollView = UIScrollView()
+    //        scrollView.translatesAutoresizingMaskIntoConstraints=false
+    //        scrollView.showsVerticalScrollIndicator=false
+    //        scrollView.showsHorizontalScrollIndicator=false
+    //        return scrollView
+    //    }()
     
     let containerView: UIView = {
         let v=UIView()
         v.translatesAutoresizingMaskIntoConstraints=false
         return v
+    }()
+    
+    lazy var containerTitle: UIView = {
+        containerTitle = UIView()
+//        containerTitle.layer.shadowColor = UIColor.black.cgColor
+//        containerTitle.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+//        containerTitle.layer.shadowRadius = 2.0
+//        containerTitle.layer.shadowOpacity = 0.5
+        containerTitle.layer.cornerRadius = 20
+
+        
+        containerShadow.layer.masksToBounds = true
+        
+        containerTitle.translatesAutoresizingMaskIntoConstraints=false
+        return containerTitle
+    }()
+    
+    lazy var containerShadow: UIView = {
+        containerShadow = UIView()
+//        containerTitle.layer.cornerRadius = 20
+        var rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: containerShadow.frame.width, height: containerShadow.frame.height))
+        var path = UIBezierPath(rect: rect);
+        containerShadow.layer.shadowPath = path.cgPath
+        containerShadow.layer.masksToBounds = false
+        containerShadow.translatesAutoresizingMaskIntoConstraints=false
+        return containerShadow
     }()
     
     let imgView: UIImageView = {
@@ -100,6 +140,7 @@ class DetailsVC: UIViewController{
         lbl.text = "Name"
         lbl.font=UIFont.systemFont(ofSize: 28)
         lbl.textColor = UIColor.black
+        lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints=false
         return lbl
     }()
@@ -132,16 +173,16 @@ class DetailsVC: UIViewController{
         btn.tintColor = UIColor.white
         let squarePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 72, height: 72), byRoundingCorners:.allCorners, cornerRadii: CGSize(width: 20.0, height: 20.0))
         let squareLayer = CAShapeLayer()
-//        squarePath.move(to: CGPoint(x: 39, y: 0))
-//
-//        squarePath.addLine(to: CGPoint(x: 79, y: 39))
-//        squarePath.addLine(to: CGPoint(x: 39, y: 79))
-//        squarePath.addLine(to: CGPoint(x: 0, y: 39))
-//        squarePath.addLine(to: CGPoint(x: 39, y: 0))
+        //        squarePath.move(to: CGPoint(x: 39, y: 0))
+        //
+        //        squarePath.addLine(to: CGPoint(x: 79, y: 39))
+        //        squarePath.addLine(to: CGPoint(x: 39, y: 79))
+        //        squarePath.addLine(to: CGPoint(x: 0, y: 39))
+        //        squarePath.addLine(to: CGPoint(x: 39, y: 0))
         //        squarePath.addLine(to: CGPoint(x: 100, y: 0))
-//        squarePath.close()
+        //        squarePath.close()
         squareLayer.path = squarePath.cgPath
-//        squareLayer.transform = CATransform3DMakeRotation(CGFloat(45*Double.pi/180), 0, -49, 1)
+        //        squareLayer.transform = CATransform3DMakeRotation(CGFloat(45*Double.pi/180), 0, -49, 1)
         squareLayer.fillColor = ThemeColors.mainColor.cgColor
         btn.layer.addSublayer(squareLayer)
         btn.clipsToBounds=true
@@ -174,13 +215,13 @@ class DetailsVC: UIViewController{
         v.translatesAutoresizingMaskIntoConstraints=false
         return v
     }()
-        
+    
     @objc func btnAnswer(_ sender: Any){
         navigationController?.popViewController(animated: true)
     }
     @objc private func didPullToRefresh() {
-            tableView.refreshControl?.beginRefreshing()
-            tableView.refreshControl?.endRefreshing()
+        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.endRefreshing()
     }
 }
 
@@ -205,9 +246,8 @@ extension DetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 80
+        return 90
     }
-    
 }
 
 private extension String {

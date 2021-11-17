@@ -196,19 +196,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         myMapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive=true
         
         self.view.addSubview(txtFieldSearch)
-        txtFieldSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive=true
+        txtFieldSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive=true
         txtFieldSearch.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive=true
         txtFieldSearch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive=true
         txtFieldSearch.heightAnchor.constraint(equalToConstant: 35).isActive=true
-        setupTextField(textField: txtFieldSearch, img: #imageLiteral(resourceName: "map_Pin"))
+        setupTextField(textField: txtFieldSearch, img: UIImage(systemName: "mappin.circle") ?? #imageLiteral(resourceName: "map_Pin"))
         
         questionPreviewView=QuestionPreviewView(frame: CGRect(x: 0, y: 0, width: 200, height: 65))
         
         self.view.addSubview(btnMyLocation)
         btnMyLocation.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive=true
         btnMyLocation.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-        btnMyLocation.widthAnchor.constraint(equalToConstant: 50).isActive=true
+        btnMyLocation.widthAnchor.constraint(equalToConstant: 40).isActive=true
         btnMyLocation.heightAnchor.constraint(equalTo: btnMyLocation.widthAnchor).isActive=true
+        
+        self.view.addSubview(btnFilter)
+        btnFilter.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
+        btnFilter.widthAnchor.constraint(equalToConstant: 40).isActive=true
+        btnFilter.heightAnchor.constraint(equalTo: btnFilter.widthAnchor).isActive=true
+        btnFilter.topAnchor.constraint(equalTo: txtFieldSearch.bottomAnchor, constant: 50).isActive=true
         
         self.view.addSubview(btnAddQuestion)
         btnAddQuestion.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65).isActive=true
@@ -245,7 +251,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     let txtFieldSearch: UITextField = {
         let tf=UITextField()
-        tf.borderStyle = .roundedRect
+        tf.layer.cornerRadius = 15
         tf.backgroundColor = .white
         tf.layer.borderColor = UIColor.darkGray.cgColor
         tf.placeholder="Search for a location"
@@ -260,13 +266,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     let btnMyLocation: UIButton = {
         let btn=UIButton()
-        btn.backgroundColor = UIColor.clear
-        let config = UIImage.SymbolConfiguration(textStyle: .title1)
+        btn.backgroundColor = UIColor.white
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        btn.layer.masksToBounds = false
+        btn.layer.shadowRadius = 2.0
+        btn.layer.shadowOpacity = 0.5
+        
+        let config = UIImage.SymbolConfiguration(textStyle: .title2)
         btn.setImage(UIImage(systemName: "location.fill", withConfiguration: config), for: .normal)
-        btn.layer.cornerRadius = 25
-        btn.clipsToBounds=true
+        btn.layer.cornerRadius = 20
         //        btn.tintColor = UIColor.gray
-        btn.imageView?.tintColor=UIColor.blue
+        btn.imageView?.tintColor = ThemeColors.mainColor
+        btn.addTarget(self, action: #selector(btnMyLocationAction), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints=false
+        return btn
+    }()
+    let btnFilter: UIButton = {
+        let btn=UIButton()
+        btn.backgroundColor = UIColor.white
+        btn.layer.cornerRadius = 20
+        let config = UIImage.SymbolConfiguration(textStyle: .title2)
+        btn.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle", withConfiguration: config), for: .normal)
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        btn.layer.masksToBounds = false
+        btn.layer.shadowRadius = 2.0
+        btn.layer.shadowOpacity = 0.5
+        //        btn.tintColor = UIColor.gray
+        btn.imageView?.tintColor = ThemeColors.mainColor
         btn.addTarget(self, action: #selector(btnMyLocationAction), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn

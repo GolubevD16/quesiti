@@ -23,9 +23,6 @@
 		26855D16273F24F700386178 /* addQuestionPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D15273F24F700386178 /* addQuestionPreview.swift */; };
 		26855D18273F39E800386178 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D17273F39E800386178 /* AppTabBar.swift */; };
 		26855D1A2740339E00386178 /* addQuestionTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D192740339E00386178 /* addQuestionTwoVC.swift */; };
-		26855D1C27405A1600386178 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D1B27405A1600386178 /* SearchViewController.swift */; };
-		26855D1E27405A2A00386178 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D1D27405A2A00386178 /* SearchView.swift */; };
-		26855D2027405A3800386178 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D1F27405A3800386178 /* SearchPresenter.swift */; };
 		26855D2227405CF800386178 /* ModelAsk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D2127405CF800386178 /* ModelAsk.swift */; };
 		26855D34274119BC00386178 /* HomePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D2E274119B800386178 /* HomePagePresenter.swift */; };
 		26855D35274119BC00386178 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D2F274119B900386178 /* HomePageView.swift */; };
@@ -39,6 +36,10 @@
 		26855D5627411B0500386178 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5327411B0400386178 /* ProfilePresenter.swift */; };
 		26855D5727411B0500386178 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5427411B0500386178 /* ProfileViewController.swift */; };
 		26855D5B274182EB00386178 /* AnswerOnQuestionVС.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5A274182EB00386178 /* AnswerOnQuestionVС.swift */; };
+		26855D5F2745252800386178 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5C2745252800386178 /* SearchViewController.swift */; };
+		26855D602745252800386178 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5D2745252800386178 /* SearchPresenter.swift */; };
+		26855D612745252800386178 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D5E2745252800386178 /* SearchView.swift */; };
+		26855D632745268300386178 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26855D622745268300386178 /* CollectionViewCell.swift */; };
 		268AA0732724BABC00A71958 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 268AA0722724BABC00A71958 /* Lottie */; };
 		268AA0792724BF9600A71958 /* WelcomCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */; };
 		268AA07B2724C08900A71958 /* SomeExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268AA07A2724C08900A71958 /* SomeExtansion.swift */; };
@@ -71,9 +72,6 @@
 		26855D15273F24F700386178 /* addQuestionPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addQuestionPreview.swift; sourceTree = "<group>"; };
 		26855D17273F39E800386178 /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
 		26855D192740339E00386178 /* addQuestionTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addQuestionTwoVC.swift; sourceTree = "<group>"; };
-		26855D1B27405A1600386178 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		26855D1D27405A2A00386178 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		26855D1F27405A3800386178 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		26855D2127405CF800386178 /* ModelAsk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAsk.swift; sourceTree = "<group>"; };
 		26855D2E274119B800386178 /* HomePagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePagePresenter.swift; sourceTree = "<group>"; };
 		26855D2F274119B900386178 /* HomePageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -87,6 +85,10 @@
 		26855D5327411B0400386178 /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		26855D5427411B0500386178 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		26855D5A274182EB00386178 /* AnswerOnQuestionVС.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AnswerOnQuestionVС.swift"; path = "../../../../AnswerOnQuestionVС.swift"; sourceTree = "<group>"; };
+		26855D5C2745252800386178 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		26855D5D2745252800386178 /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		26855D5E2745252800386178 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		26855D622745268300386178 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		268AA0782724BF9600A71958 /* WelcomCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		268AA07A2724C08900A71958 /* SomeExtansion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeExtansion.swift; sourceTree = "<group>"; };
 		268AA07C2724C11B00A71958 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
@@ -136,9 +138,10 @@
 		2625752A272B6CA1008EAF35 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				26855D1B27405A1600386178 /* SearchViewController.swift */,
-				26855D1D27405A2A00386178 /* SearchView.swift */,
-				26855D1F27405A3800386178 /* SearchPresenter.swift */,
+				26855D5D2745252800386178 /* SearchPresenter.swift */,
+				26855D5E2745252800386178 /* SearchView.swift */,
+				26855D5C2745252800386178 /* SearchViewController.swift */,
+				26855D622745268300386178 /* CollectionViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				26855D2227405CF800386178 /* ModelAsk.swift in Sources */,
 				26EB6AA2273C70D100A7CA0D /* ModelMap.swift in Sources */,
 				268AA0792724BF9600A71958 /* WelcomCellCollectionViewCell.swift in Sources */,
+				26855D632745268300386178 /* CollectionViewCell.swift in Sources */,
 				2666F6B627247C5000D9F413 /* ViewController.swift in Sources */,
 				2666F6D52724B5D400D9F413 /* WelcomPageModel.swift in Sources */,
 				268AA07B2724C08900A71958 /* SomeExtansion.swift in Sources */,
@@ -440,21 +444,21 @@
 				26855D5B274182EB00386178 /* AnswerOnQuestionVС.swift in Sources */,
 				26855D1A2740339E00386178 /* addQuestionTwoVC.swift in Sources */,
 				26EB6AA6273C70DD00A7CA0D /* MapDetailsVC.swift in Sources */,
-				26855D1E27405A2A00386178 /* SearchView.swift in Sources */,
-				26855D2027405A3800386178 /* SearchPresenter.swift in Sources */,
 				26855D5027411AA400386178 /* SignInViewController.swift in Sources */,
 				26855D4C27411AA400386178 /* DimaSignUp.swift in Sources */,
 				26855D37274119BC00386178 /* TableViewCell.swift in Sources */,
 				268AA07F2724C31600A71958 /* WelcomViewControllerExtansion.swift in Sources */,
+				26855D602745252800386178 /* SearchPresenter.swift in Sources */,
 				2666F6B227247C5000D9F413 /* AppDelegate.swift in Sources */,
 				26855D18273F39E800386178 /* AppTabBar.swift in Sources */,
+				26855D5F2745252800386178 /* SearchViewController.swift in Sources */,
 				26855D34274119BC00386178 /* HomePagePresenter.swift in Sources */,
 				26EB6AA3273C70D100A7CA0D /* MapVC.swift in Sources */,
 				2666F6B427247C5000D9F413 /* SceneDelegate.swift in Sources */,
 				26855D35274119BC00386178 /* HomePageView.swift in Sources */,
-				26855D1C27405A1600386178 /* SearchViewController.swift in Sources */,
 				26855D4E27411AA400386178 /* DimaSignUpViewController.swift in Sources */,
 				26855D4D27411AA400386178 /* SignInView.swift in Sources */,
+				26855D612745252800386178 /* SearchView.swift in Sources */,
 				26855D5727411B0500386178 /* ProfileViewController.swift in Sources */,
 				2666F6D02724B0B300D9F413 /* WelcomViewController.swift in Sources */,
 				26EB6AA7273C70DD00A7CA0D /* UserModel.swift in Sources */,
