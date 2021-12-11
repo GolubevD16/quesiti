@@ -13,7 +13,7 @@ class TableViewCell: UITableViewCell{
     
     lazy var avatarView: UIImageView = {
         avatarView = UIImageView()
-        avatarView.contentMode = .scaleAspectFit
+        avatarView.contentMode = .scaleToFill
         avatarView.backgroundColor = .black
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = 10
@@ -35,6 +35,7 @@ class TableViewCell: UITableViewCell{
         questionLabel = UILabel(frame: .zero)
         questionLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         questionLabel.textColor = .black
+        questionLabel.numberOfLines = 0
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return questionLabel
@@ -49,14 +50,14 @@ class TableViewCell: UITableViewCell{
         return dateLabel
     }()
     
-    lazy var likeButton: UIButton = {
-        likeButton = UIButton()
-        likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-        likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        return likeButton
-    }()
+//    lazy var likeButton: UIButton = {
+//        likeButton = UIButton()
+//        likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+//        likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+//        likeButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return likeButton
+//    }()
     
     private var isLike = false
     
@@ -103,27 +104,23 @@ class TableViewCell: UITableViewCell{
             
             avatarView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: .padding),
             avatarView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            avatarView.heightAnchor.constraint(equalToConstant: 50),
-            avatarView.widthAnchor.constraint(equalToConstant: 50),
+            avatarView.heightAnchor.constraint(equalToConstant: 70),
+            avatarView.widthAnchor.constraint(equalToConstant: 70),
             
-            nameLabel.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
             nameLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: .padding),
             
             questionLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            questionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            questionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
+            questionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
             
-            dateLabel.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
             
             comView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -40),
             comView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
             comView.heightAnchor.constraint(equalToConstant: 20),
             comView.widthAnchor.constraint(equalToConstant: 20),
-            
-            likeButton.trailingAnchor.constraint(equalTo: comView.leadingAnchor, constant: -8),
-            likeButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
-            likeButton.heightAnchor.constraint(equalToConstant: 20),
-            likeButton.widthAnchor.constraint(equalToConstant: 20),
             
             countOfComsView.leadingAnchor.constraint(equalTo: comView.trailingAnchor, constant: 4),
             countOfComsView.bottomAnchor.constraint(equalTo: comView.bottomAnchor),
@@ -142,23 +139,23 @@ class TableViewCell: UITableViewCell{
         containerView.backgroundColor = .white
         
         
-        [avatarView, nameLabel, questionLabel, dateLabel, likeButton, comView, countOfComsView].forEach {
+        [avatarView, nameLabel, questionLabel, dateLabel, comView, countOfComsView].forEach {
             containerView.addSubview($0)
         }
         
         contentView.addSubview(containerView)
     }
     
-    @objc func like(_ textField: UITextField){
-        if !isLike {
-            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
-            isLike = true
-        }
-        else {
-            likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-            isLike = false
-        }
-    }
+//    @objc func like(_ textField: UITextField){
+//        if !isLike {
+//            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+//            isLike = true
+//        }
+//        else {
+//            likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+//            isLike = false
+//        }
+//    }
 }
 
 private extension CGFloat {

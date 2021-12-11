@@ -9,12 +9,13 @@ import Foundation
 import UIKit
 
 struct AskQuestion {
-    let questionID: String = UUID().uuidString
-    let title: String
-    let userID: String
-    let latitude: Double
-    let longitude: Double
-    let adress: String
-    let radius: Int
-    let image: UIImage!
+    let titleQuestion: String
+    let textQuestion: String
+    //var id: String
+    var latitude: Double
+    var longitude: Double
+    var radius: Int
+    var adress: String
+    var imageString: String
+    var answerCount: Int
 }

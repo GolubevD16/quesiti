@@ -9,34 +9,38 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import SwiftUI
-
+import GoogleMapsUtils
+import Firebase
+import CoreLocation
 struct MyPlace {
     var name: String
     var lat: Double
     var long: Double
 }
-
+var userOfQuestion = [UserPlusQuestionLocalModal(uid: "", userName: "", data: 0.0, questionTitle: "", questionText: "", userImage: UIImage(named: "avatar")!, radius: 200, time: Date(timeIntervalSince1970: 10), countAnswer: 0)]
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, GMSAutocompleteViewControllerDelegate, UITextFieldDelegate {
+    
+    let circle = GMSCircle()
+    var imgString: String = ""
+    let kClusterItemCount = 10000
+    //    var filter = false //filterViewCheck
     var presenter: MapViewPresenter!
     var zoom: Float = 15.0
     let currentLocationMarker = GMSMarker()
     var locationManager = CLLocationManager()
+    var clusterManager: GMUClusterManager!
     var chosenPlace: MyPlace?
     //    var circle = GMSCircle()
-    var question = [
-        Question(title: "Какая погода ?", userID: "bjhksdf23", latitude: 24.8655, longitude: 67.0011, radius: 1000, image: UIImage(named: "people1"), name: "Daniil Yarmolenko"),
-        Question(title: "Сегодня большая очередь в библиотеке ?", userID: "bjhksdf23", latitude: 24.868, longitude: 67.0011, radius: 1000, image: UIImage(named: "people2"), name: "Alex"),
-        Question(title: "Кто хочет пойти в кино на премьеру ?", userID: "bjhksdf23", latitude: 24.878, longitude: 67.0011, radius: 1000, image: UIImage(named: "people3"), name: "Sofia")
-    ]
-    
+    //let us = User(dictionary: [:])
+    var questions: [QuestionModel] = []
+    let ref = Database.database().reference()
     let customMarkerWidth: Int = 50
     let customMarkerHeight: Int = 70
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         myMapView.delegate=self
+        //        getAllQuestions()
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -44,12 +48,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         locationManager.startMonitoringSignificantLocationChanges()
         
         setupViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(showPartyMarkers), name: Notification.Name("showPartyMarkers"), object: nil)
         
+        questionPreviewView=QuestionPreviewView(frame: CGRect(x: 0, y: 0, width: 200, height: 65))
+        setupTextField(textField: txtFieldSearch, img: UIImage(systemName: "mappin.circle") ?? #imageLiteral(resourceName: "map_Pin"))
         initGoogleMaps()
         
+        let iconGenerator = GMUDefaultClusterIconGenerator(buckets: [15], backgroundColors: [ThemeColors.mainColor])
+        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+        let renderer = GMUDefaultClusterRenderer(mapView: myMapView,
+                                                 clusterIconGenerator: iconGenerator)
+        clusterManager = GMUClusterManager(map: myMapView, algorithm: algorithm,
+                                           renderer: renderer)
         txtFieldSearch.delegate=self
-        
-        
+        showPartyMarkers()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        clusterManager.setMapDelegate(self)
+        clusterManager.cluster()
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -68,9 +85,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let latitude = place.coordinate.latitude
         let longitude = place.coordinate.longitude
-        
-        showPartyMarkers(lat: longitude, long: longitude)
-        
         let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 17.0)
         myMapView.camera = camera
         txtFieldSearch.text=place.formattedAddress
@@ -113,16 +127,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom: zoom)
         
         self.myMapView.animate(to: camera)
-        showPartyMarkers(lat: lat, long: long)
+        clusterManager.cluster()
     }
     
     // MARK: GOOGLE MAP DELEGATE
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        guard let customMarkerView = marker.iconView as? CustomMarkerView else { return false }
-        let img = customMarkerView.img!
-        let customMarker = CustomMarkerView(frame: CGRect(x: 0, y: 0, width: customMarkerWidth, height: customMarkerHeight), image: img, borderColor: UIColor.white, tag: customMarkerView.tag)
+        //        filterPreviewView.removeFromSuperview()
         
-        marker.iconView = customMarker
+        if let customMarkerView = marker.iconView as? CustomMarkerView{
+            mapView.animate(toZoom: 17)
+            self.setupCircle(latitide:  marker.position.latitude , longitude: marker.position.longitude, radius: userOfQuestion[customMarkerView.tag].radius)
+        }
+        //        else{
+        //            self.setupCircle(latitide:  marker.position.latitude ?? 0.0, longitude: marker.position.longitude ?? 0.0, radius: 0)
+        //        }
+        if marker.userData is GMUCluster {
+            mapView.animate(toZoom: mapView.camera.zoom + 1)
+            NSLog("Did tap cluster")
+            return true
+        }
+        marker.tracksViewChanges = true
         //        let camera = GMSCameraPosition.
         return false
     }
@@ -133,51 +157,115 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         guard let customMarkerView = marker.iconView as? CustomMarkerView else { return nil }
-        let data = question[customMarkerView.tag]
-        questionPreviewView.setData(title: data.title, img: data.image, name: data.name)
+        questionPreviewView.setData(title: userOfQuestion[customMarkerView.tag].questionTitle, img: customMarkerView.imageConst!, name: userOfQuestion[customMarkerView.tag].userName, time: userOfQuestion[customMarkerView.tag].time, countAnswer: userOfQuestion[customMarkerView.tag].countAnswer)
         return questionPreviewView
     }
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         guard let customMarkerView = marker.iconView as? CustomMarkerView else { return }
-        let tag = customMarkerView.tag
-//        var long = locationManager.location?.coordinate.longitude // сравнить с координатами вопроса
-//        var lat = locationManager.location?.coordinate.latitude // сравнить с координатами
+        let key = customMarkerView.keyQuestion
+        let radius = userOfQuestion[customMarkerView.tag].radius
+        let markerLong = marker.position.longitude
+        let markerLat = marker.position.latitude
+        let myLong = locationManager.location?.coordinate.longitude  ?? 0.0// сравнить с координатами вопроса
+        let myLat = locationManager.location?.coordinate.latitude  ?? 0.0// сравнить с координатами
+        var permissionAsq: Bool = false
+        let currenResult = measure(lat1: markerLat, lon1: markerLong, lat2: myLat, lon2: myLong)
+        if(currenResult < radius.doubleValue){
+            permissionAsq = true
+        } else{
+            permissionAsq = false
+        }
+        [markerLong, markerLat, myLong, myLat].forEach{
+            print("\($0)")
+        }
+        print("CURRENT RESULT = \(currenResult), radius = \(radius), permission - \(permissionAsq)")
+        if(key == nil) {
+            return
+        }
+        print("radius = \(radius) + permission = \(permissionAsq)")
+        restaurantTapped(keyQuestion: key ?? "", keyID: customMarkerView.keyID, distance: currenResult, radius: radius, permissionAsq: permissionAsq, imageUser: customMarkerView.imageConst!, countAnswer: userOfQuestion[customMarkerView.tag].countAnswer, nameUser: userOfQuestion[customMarkerView.tag].userName, titleQuestion: userOfQuestion[customMarkerView.tag].questionTitle, textQuestion: userOfQuestion[customMarkerView.tag].questionText, time: userOfQuestion[customMarkerView.tag].time)
         
-        
-        restaurantTapped(tag: tag)
+    }
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        self.setupCircle(latitide: 0.0, longitude: 0.0, radius: 0)
+    }
+    func measure(lat1: Double, lon1: Double, lat2: Double, lon2: Double) -> Double{  // generally used geo measurement function
+        let R = 6378.137; // Radius of earth in M
+        let pi = 3.1415926
+        let dLat = abs(lat2 * pi/180 - lat1 * pi/180)
+        let latPlus = lat2 * pi/180 + lat1 * pi/180
+        let dLon = abs(lon2 * pi/180 - lon1 * pi/180)
+        let conv = sqrt(sin(dLat/2)*sin(dLat/2)+(1-sin(dLat/2)*sin(dLat/2)-sin(latPlus/2)*sin(latPlus/2))*sin(dLon/2)*sin(dLon/2))
+        let rez = 2*R*asin(conv)*1000
+        return rez // meters
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
-        guard let customMarkerView = marker.iconView as? CustomMarkerView else { return }
-        let img = customMarkerView.img!
-        let customMarker = CustomMarkerView(frame: CGRect(x: 0, y: 0, width: customMarkerWidth, height: customMarkerHeight), image: img, borderColor: UIColor.darkGray, tag: customMarkerView.tag)
-        marker.iconView = customMarker
     }
     
-    
-    func showPartyMarkers(lat: Double, long: Double) {
+    @objc func showPartyMarkers() {
         myMapView.clear()
-        for i in 0..<question.count {
-            let marker = GMSMarker()
-            let customMarker = CustomMarkerView(frame: CGRect(x: 0, y: 0, width: customMarkerWidth, height: customMarkerHeight), image: question[i].image, borderColor: UIColor.darkGray, tag: i)
-            marker.iconView = customMarker
-            //            marker.position = CLLocationCoordinate2D(latitude: lat + 0.001*Double(i), longitude: long - 0.001*Double(i))
-            marker.position = CLLocationCoordinate2D(latitude: question[i].latitude, longitude: question[i].longitude)
-            marker.map = self.myMapView
+        var i = 0
+        userOfQuestion = []
+        clusterManager.clearItems()
+        let marker = GMSMarker()
+        print("VIZVAL")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        self.ref.child("questions").observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.exists() {
+                if let location = snapshot.value as? [String:Any] {
+                    for eachLocation in location {
+                        
+                        self.ref.child("questions").child("\(eachLocation.key)").observeSingleEvent(of: .value) { (snapshot) in
+                            if let locationquest = snapshot.value as? [String:Any] {
+                                for eachqueastion in locationquest {
+                                    
+                                    if let questionValue = eachqueastion.value as? [String: Any] {
+                                        
+                                        if let lavLatitude = questionValue["latitude"] as? Double {
+                                            
+                                            if let lavLongitude = questionValue["longitude"] as? Double {
+                                                if let radius = questionValue["radius"] as? Int {
+                                                    let marker = GMSMarker()
+                                                    let questionTitle = questionValue["titleQuestion"] as? String
+                                                    let questionText = questionValue["textQuestion"] as? String
+                                                    let timeDate = questionValue["creationDate"] as? Double
+                                                    let countOfAnswer = questionValue["answerCount"] as? Int
+                                                    let time = Date(timeIntervalSince1970: timeDate ?? 50)
+                                                    self.ref.child("users").child("\(eachLocation.key)").observeSingleEvent(of: .value){ (snapshot) in
+                                                        
+                                                        if let getData = snapshot.value as? [String:Any] {
+                                                            if let imageSTR = getData["avatarURL"] as? String{
+                                                                let username = getData["name"] as? String
+                                                                
+                                                                self.imgString = imageSTR
+                                                                let customMarker = CustomMarkerView(frame: CGRect(x: 0, y: 0, width: 50, height: 70), image: imageSTR, borderColor: UIColor.darkGray, keyQuestion: eachqueastion.key, keyID: eachLocation.key, radius: radius, tag: i )
+                                                                
+                                                                marker.iconView = customMarker
+                                                                marker.position = CLLocationCoordinate2D(latitude: lavLatitude, longitude: lavLongitude)
+                                                                marker.map = self.myMapView
+                                                                let dictionary = UserPlusQuestionLocalModal(uid: uid, userName: username!, data: 0.0, questionTitle: questionTitle!, questionText: questionText!, userImage: customMarker.imageConst!, radius: radius, time: time, countAnswer: countOfAnswer!)
+                                                                userOfQuestion.append(dictionary)
+                                                                i+=1
+                                                                self.clusterManager.add(marker)
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
-    
-    //    private func setupCircle(){
-    //        let circleCenter = CLLocationCoordinate2DMake(CLLocationDegrees(locationManager.location?.coordinate.latitude ?? 0.0), CLLocationDegrees(locationManager.location?.coordinate.longitude ?? 0.0))
-    //        circle.position = circleCenter
-    //        circle.fillColor = UIColor(red: 0.35, green: 0, blue: 0, alpha:  0.05)
-    //        circle.strokeColor = UIColor.red
-    //        circle.strokeWidth = 1
-    //        circle.map = myMapView
-    //
-    //        circle.radius = 200
-    //    }
     
     func setupTextField(textField: UITextField, img: UIImage){
         textField.leftViewMode = UITextField.ViewMode.always
@@ -189,56 +277,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func setupViews() {
-        self.view.addSubview(myMapView)
-        myMapView.topAnchor.constraint(equalTo: view.topAnchor).isActive=true
-        myMapView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive=true
-        myMapView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive=true
-        myMapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive=true
         
-        self.view.addSubview(txtFieldSearch)
-        txtFieldSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive=true
-        txtFieldSearch.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive=true
-        txtFieldSearch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive=true
-        txtFieldSearch.heightAnchor.constraint(equalToConstant: 35).isActive=true
-        setupTextField(textField: txtFieldSearch, img: UIImage(systemName: "mappin.circle") ?? #imageLiteral(resourceName: "map_Pin"))
+        [myMapView, txtFieldSearch, btnMyLocation, btnAddQuestion, btnReload].forEach {
+            view.addSubview($0)
+        }
         
-        questionPreviewView=QuestionPreviewView(frame: CGRect(x: 0, y: 0, width: 200, height: 65))
-        
-        self.view.addSubview(btnMyLocation)
-        btnMyLocation.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive=true
-        btnMyLocation.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-        btnMyLocation.widthAnchor.constraint(equalToConstant: 40).isActive=true
-        btnMyLocation.heightAnchor.constraint(equalTo: btnMyLocation.widthAnchor).isActive=true
-        
-        self.view.addSubview(btnFilter)
-        btnFilter.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-        btnFilter.widthAnchor.constraint(equalToConstant: 40).isActive=true
-        btnFilter.heightAnchor.constraint(equalTo: btnFilter.widthAnchor).isActive=true
-        btnFilter.topAnchor.constraint(equalTo: txtFieldSearch.bottomAnchor, constant: 50).isActive=true
-        
-        self.view.addSubview(btnAddQuestion)
-        btnAddQuestion.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65).isActive=true
-        btnAddQuestion.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive=true
-        btnAddQuestion.widthAnchor.constraint(equalToConstant: 50).isActive=true
-        btnAddQuestion.heightAnchor.constraint(equalTo: btnAddQuestion.widthAnchor).isActive=true
-        
-        //        self.view.addSubview(btnZoomMinus)
-        //        btnZoomMinus.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive=true
-        //        btnZoomMinus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-        //        btnZoomMinus.widthAnchor.constraint(equalToConstant: 50).isActive=true
-        //        btnZoomMinus.heightAnchor.constraint(equalTo: btnZoomMinus.widthAnchor).isActive=true
-        //
-        //        self.view.addSubview(btnZoomPlus)
-        //        btnZoomPlus.bottomAnchor.constraint(equalTo: btnZoomMinus.topAnchor, constant: -20).isActive=true
-        //        btnZoomPlus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive=true
-        //        btnZoomPlus.widthAnchor.constraint(equalTo: btnZoomMinus.widthAnchor).isActive=true
-        //        btnZoomPlus.heightAnchor.constraint(equalTo: btnZoomPlus.widthAnchor).isActive=true
-        //
-        //        self.view.addSubview(btnZoomMinus)
-        //        btnZoomMinus.bottomAnchor.constraint(equalTo: btnZoomPlus.bottomAnchor, constant: -50).isActive=true
-        //        btnZoomPlus.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50).isActive=true
-        //        btnZoomMinus.widthAnchor.constraint(equalToConstant: 50).isActive=true
-        //        btnZoomMinus.heightAnchor.constraint(equalTo: btnMyLocation.widthAnchor).isActive=true
+        NSLayoutConstraint.activate([
+            myMapView.topAnchor.constraint(equalTo: view.topAnchor),
+            myMapView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            myMapView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            myMapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            txtFieldSearch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            txtFieldSearch.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            txtFieldSearch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            txtFieldSearch.heightAnchor.constraint(equalToConstant: 35),
+            
+            btnMyLocation.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            btnMyLocation.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            btnMyLocation.widthAnchor.constraint(equalToConstant: 40),
+            btnMyLocation.heightAnchor.constraint(equalTo: btnMyLocation.widthAnchor),
+            
+            btnReload.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            btnReload.widthAnchor.constraint(equalToConstant: 40),
+            btnReload.heightAnchor.constraint(equalTo: btnReload.widthAnchor),
+            btnReload.topAnchor.constraint(equalTo: txtFieldSearch.bottomAnchor, constant: 50),
+            
+            btnAddQuestion.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
+            btnAddQuestion.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnAddQuestion.widthAnchor.constraint(equalToConstant: 50),
+            btnAddQuestion.heightAnchor.constraint(equalTo: btnAddQuestion.widthAnchor)
+        ])
     }
     
     
@@ -263,6 +332,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let rest = QuestionPreviewView()
         return rest
     }()
+    //    var filterPreviewView: FilterPreviewView = {
+    //        let rest = FilterPreviewView()
+    //        rest.translatesAutoresizingMaskIntoConstraints = false
+    //        return rest
+    //    }()
     
     let btnMyLocation: UIButton = {
         let btn=UIButton()
@@ -282,7 +356,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
-    let btnFilter: UIButton = {
+    //    let btnFilter: UIButton = {
+    //        let btn=UIButton()
+    //        btn.backgroundColor = UIColor.white
+    //        btn.layer.cornerRadius = 20
+    //        let config = UIImage.SymbolConfiguration(textStyle: .title2)
+    //        btn.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle", withConfiguration: config), for: .normal)
+    //        btn.layer.shadowColor = UIColor.black.cgColor
+    //        btn.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+    //        btn.layer.masksToBounds = false
+    //        btn.layer.shadowRadius = 2.0
+    //        btn.layer.shadowOpacity = 0.5
+    //        //        btn.tintColor = UIColor.gray
+    //        btn.imageView?.tintColor = ThemeColors.mainColor
+    //        btn.addTarget(self, action: #selector(btnFilterAction), for: .touchUpInside)
+    //        btn.translatesAutoresizingMaskIntoConstraints=false
+    //        return btn
+    //    }()
+    let btnReload: UIButton = {
         let btn=UIButton()
         btn.backgroundColor = UIColor.white
         btn.layer.cornerRadius = 20
@@ -295,88 +386,44 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         btn.layer.shadowOpacity = 0.5
         //        btn.tintColor = UIColor.gray
         btn.imageView?.tintColor = ThemeColors.mainColor
-        btn.addTarget(self, action: #selector(btnMyLocationAction), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(btnReloadAction), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
     
-    //    let btnZoomPlus: UIButton = {
-    //       let btn = UIButton()
-    //        btn.backgroundColor = UIColor.white
-    //        btn.setImage(UIImage(systemName: "plus.circle"), for: .normal)
-    //        btn.layer.cornerRadius = 25
-    //        btn.clipsToBounds=true
-    //        btn.tintColor = UIColor.gray
-    //        btn.imageView?.tintColor=UIColor.gray
-    //        btn.addTarget(self, action: #selector(btnZoomPlusAction), for: .touchUpInside)
-    //        btn.translatesAutoresizingMaskIntoConstraints=false
-    //        return btn
-    //    }()
     let btnAddQuestion: UIButton = {
         let btn = UIButton()
         btn.backgroundColor = ThemeColors.mainColor
         btn.applyGradient(colors: [UIColor(red: 48/255, green: 177/255, blue: 206/255, alpha: 1).cgColor, UIColor(red: 49/255, green: 141/255, blue: 178/255, alpha: 1).cgColor])
-        //        let config = UIImage.SymbolConfiguration(textStyle: .)
+        
         let config = UIImage.SymbolConfiguration(textStyle: .title1)
         btn.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
         btn.layer.cornerRadius = 25
         btn.clipsToBounds=true
         btn.tintColor = UIColor.white
-        //        btn.imageEdgeInsets = UIEdgeInsets(
-        //                top: 0,
-        //                left: 0,
-        //                bottom: 0,
-        //                right: 0)
-        
         btn.imageView?.sizeToFit()
-        //        let squarePath = UIBezierPath()
-        //        let squareLayer = CAShapeLayer()
-        //        //change the CGPoint values to get the triangle of the shape you want
-        //        squarePath.move(to: CGPoint(x: 24, y: 0))
-        //
-        //        squarePath.addLine(to: CGPoint(x: 49, y: 24))
-        //        squarePath.addLine(to: CGPoint(x: 24, y: 49))
-        //        squarePath.addLine(to: CGPoint(x: 0, y: 24))
-        ////        squarePath.addLine(to: CGPoint(x: 100, y: 0))
-        //        squarePath.close()
-        //        squareLayer.path = squarePath.cgPath
-        //        squareLayer.fillColor = ThemeColors.mainColor.cgColor
-        //        let myImageLayer = CALayer()
-        //        let myImage = UIImage(systemName: "plus.circle")!.cgImage
-        //        myImageLayer.frame = btn.bounds
-        //        myImageLayer.contents = myImage
-        //        squareLayer.addSublayer(myImageLayer)
-        //
-        //        btn.layer.addSublayer(squareLayer)
-        //        btn.clipsToBounds=true
         btn.addTarget(self, action: #selector(btnAddQuestionAction), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints=false
         return btn
     }()
     
-    //    let btnZoomMinus: UIButton = {
-    //       let btn = UIButton()
-    //        let config = UIImage.SymbolConfiguration(textStyle: .title1)
-    //        btn.backgroundColor = UIColor.white
-    //        btn.setImage(UIImage(systemName: "minus.circle", withConfiguration: config), for: .normal)
-    //        btn.layer.cornerRadius = 25
-    //        btn.clipsToBounds=true
-    //        btn.tintColor = UIColor.cyan
-    ////        btn.imageEdgeInsets = UIEdgeInsets(
-    ////                top: 0,
-    ////                left: 0,
-    ////                bottom: 0,
-    ////                right: 0)
-    //        btn.imageView?.tintColor = .cyan
-    //        btn.imageView?.sizeToFit()
-    //        btn.addTarget(self, action: #selector(btnZoomMinusAction), for: .touchUpInside)
-    //        btn.translatesAutoresizingMaskIntoConstraints=false
-    //        return btn
-    //    }()
     
-    @objc func restaurantTapped(tag: Int) {
+    @objc func restaurantTapped(keyQuestion: String, keyID: String, distance: Double, radius: Int, permissionAsq: Bool, imageUser: UIImage, countAnswer: Int, nameUser: String, titleQuestion: String, textQuestion: String, time: Date) {
         let rest = DetailsVC()
-        rest.passedData = question[tag]
+        rest.keyID = keyID
+        rest.keyQuestion = keyQuestion
+        rest.distance = distance
+        rest.radius = radius
+        rest.permissionAsq = permissionAsq
+        rest.imgView.setImage(imageUser, for: .normal)
+        rest.countAnswer = countAnswer
+        rest.nameUser = nameUser
+        rest.time = time
+        
+        rest.titleQuestion = titleQuestion
+        rest.textQuestion = textQuestion
+        //rest.passedData = question[tag]
+        
         self.navigationController?.pushViewController(rest, animated: true)
     }
     
@@ -384,9 +431,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let location: CLLocation? = myMapView.myLocation
         if location != nil {
             myMapView.animate(toLocation: (location?.coordinate)!)
+            myMapView.animate(toZoom: 17)
         }
     }
+    @objc func btnReloadAction() {
+        NotificationCenter.default.post(name: Notification.Name("showPartyMarkers"), object: nil)
+    }
     
+    //
+    //    @objc func btnFilterAction() {
+    //        if(filter == true){
+    //            filterPreviewView.isHidden = true
+    //            filter = false
+    //        } else{
+    //
+    //            filterPreviewView.isHidden = false
+    //            filter = true
+    //        }
+    //    }
     @objc func btnZoomPlusAction() {
         let zoomPlus = zoom+1
         myMapView.animate(toZoom: zoomPlus)
@@ -400,6 +462,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let zoomMinus = zoom-1
         myMapView.animate(toZoom: zoomMinus)
     }
+    func setupCircle(latitide: CLLocationDegrees, longitude: CLLocationDegrees, radius: Int){
+        let circleCenter = CLLocationCoordinate2DMake(CLLocationDegrees(latitide), CLLocationDegrees(longitude))
+        circle.position = circleCenter
+        circle.fillColor = UIColor(red: 0.35, green: 0, blue: 0, alpha:  0.05)
+        circle.strokeColor = UIColor.red
+        circle.strokeWidth = 1
+        circle.map = myMapView
+        
+        circle.radius = CLLocationDistance(radius)
+    }
+    
+    
 }
 
 extension UIViewController {
@@ -421,5 +495,11 @@ extension UIViewController {
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         self.view.window!.layer.add(transition, forKey: kCATransition)
         dismiss(animated: false)
+    }
+}
+
+extension Int {
+    var doubleValue: Double {
+        return Double(self)
     }
 }

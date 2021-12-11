@@ -44,7 +44,7 @@ class ProfileView: UIView {
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(logoButton)
-        for cellNames in ["First name", "Last name", "Email", "Phone number", "City", "About you"]{
+        for cellNames in ["Name", "Email", "Phone number", "City", "About you"]{
             createTableCell(cellNames)
         }
         scrollView.addSubview(changeInfoButton)

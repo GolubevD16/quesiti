@@ -1,14 +1,8 @@
-//
-//  RestaurantPreviewView.swift
-//  googlMapTutuorial2
-//
-//  Created by Muskan on 12/17/17.
-//  Copyright © 2017 akhil. All rights reserved.
-//
 
 import Foundation
 import UIKit
 import Cosmos
+import FirebaseStorage
 
 class QuestionPreviewView: UIView {
     
@@ -20,76 +14,68 @@ class QuestionPreviewView: UIView {
         self.layer.cornerRadius = 20
         self.layer.shadowRadius = 10
         self.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+     
         setupViews()
     }
-    
-    func setData(title: String, img: UIImage, name: String) {
+    func setData(title: String, img: UIImage, name: String, time: Date, countAnswer: Int) {
         lblTitle.text = title
         imgView.image = img
         lblName.text = name
+        timeLabel.text = time.timeAgoDisplay()
+        countOfComsView.text = "\(countAnswer)"
+        
     }
     
     func setupViews() {
         addSubview(containerView)
-        containerView.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
-        containerView.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        containerView.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
         
-        containerView.addSubview(imgView)
-        imgView.leftAnchor.constraint(equalTo: leftAnchor, constant: 7).isActive=true
-        imgView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 7).isActive=true
-        imgView.heightAnchor.constraint(equalToConstant: 40).isActive=true
-        imgView.widthAnchor.constraint(equalTo: imgView.heightAnchor).isActive=true
+        [imgView, cointainerStars, lblName, timeLabel, lblTitle, comView, countOfComsView].forEach {
+            containerView.addSubview($0)
+        }
         
-        containerView.addSubview(cointainerStars)
-        cointainerStars.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 2).isActive=true
-        cointainerStars.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 4).isActive=true
-        cointainerStars.heightAnchor.constraint(equalToConstant: 10).isActive=true
-        cointainerStars.rightAnchor.constraint(equalTo: imgView.rightAnchor, constant: 2).isActive=true
         
-        containerView.addSubview(lblName)
-        lblName.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 3).isActive=true
-        lblName.topAnchor.constraint(equalTo: imgView.topAnchor, constant: 6).isActive=true
-        lblName.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -65).isActive=true
-        lblName.heightAnchor.constraint(equalToConstant: 8).isActive=true
+        NSLayoutConstraint.activate([
+        containerView.leftAnchor.constraint(equalTo: leftAnchor),
+        containerView.topAnchor.constraint(equalTo: topAnchor),
+        containerView.rightAnchor.constraint(equalTo: rightAnchor),
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
         
-        containerView.addSubview(timeLabel)
-        timeLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5).isActive=true
-        timeLabel.topAnchor.constraint(equalTo: imgView.topAnchor, constant: 6).isActive=true
-        timeLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 140).isActive=true
-        timeLabel.bottomAnchor.constraint(equalTo: lblName.bottomAnchor).isActive=true
+        imgView.leftAnchor.constraint(equalTo: leftAnchor, constant: 7),
+        imgView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 7),
+        imgView.heightAnchor.constraint(equalToConstant: 40),
+        imgView.widthAnchor.constraint(equalTo: imgView.heightAnchor),
         
-        containerView.addSubview(lblTitle)
-        lblTitle.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 5).isActive=true
-        lblTitle.topAnchor.constraint(equalTo: lblName.bottomAnchor, constant: 0).isActive=true
-        lblTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5).isActive=true
-        lblTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -14).isActive=true
+        cointainerStars.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 2),
+        cointainerStars.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 4),
+        cointainerStars.heightAnchor.constraint(equalToConstant: 10),
+        cointainerStars.rightAnchor.constraint(equalTo: imgView.rightAnchor, constant: 2),
         
-        containerView.addSubview(likeButton)
-        likeButton.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -65).isActive=true
-        likeButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2).isActive=true
-        likeButton.heightAnchor.constraint(equalToConstant: 10).isActive=true
-        likeButton.widthAnchor.constraint(equalToConstant: 10).isActive=true
+        lblName.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 3),
+        lblName.topAnchor.constraint(equalTo: imgView.topAnchor, constant: 6),
+        lblName.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -65),
+        lblName.heightAnchor.constraint(equalToConstant: 8),
         
-        containerView.addSubview(countOfLike)
-        countOfLike.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 2).isActive=true
-        countOfLike.widthAnchor.constraint(equalToConstant: 13).isActive=true
-        countOfLike.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive=true
-        countOfLike.heightAnchor.constraint(equalToConstant: 10).isActive=true
+        timeLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+        timeLabel.topAnchor.constraint(equalTo: imgView.topAnchor, constant: 6),
+        timeLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 140),
+        timeLabel.bottomAnchor.constraint(equalTo: lblName.bottomAnchor),
         
-        containerView.addSubview(comView)
-        comView.leadingAnchor.constraint(equalTo: countOfLike.trailingAnchor, constant: 4).isActive=true
-        comView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2).isActive=true
-        comView.heightAnchor.constraint(equalToConstant: 10).isActive=true
-        comView.widthAnchor.constraint(equalToConstant: 10).isActive=true
+        lblTitle.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 5),
+        lblTitle.topAnchor.constraint(equalTo: lblName.bottomAnchor, constant: 0),
+        lblTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+        lblTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -14),
         
-        containerView.addSubview(countOfComsView)
-        countOfComsView.leadingAnchor.constraint(equalTo: comView.trailingAnchor, constant: 4).isActive=true
-        countOfComsView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2).isActive=true
-        countOfComsView.bottomAnchor.constraint(equalTo: comView.bottomAnchor).isActive=true
-        countOfComsView.heightAnchor.constraint(equalToConstant: 10).isActive=true
+        comView.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -65),
+        comView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2),
+        comView.heightAnchor.constraint(equalToConstant: 10),
+        comView.widthAnchor.constraint(equalToConstant: 10),
         
+        countOfComsView.leadingAnchor.constraint(equalTo: comView.trailingAnchor, constant: 4),
+        countOfComsView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2),
+        countOfComsView.bottomAnchor.constraint(equalTo: comView.bottomAnchor),
+        countOfComsView.heightAnchor.constraint(equalToConstant: 10)
+        
+        ])
     }
     
     let containerView: UIView = {
@@ -108,7 +94,6 @@ class QuestionPreviewView: UIView {
     
     let imgView: UIImageView = {
         let v=UIImageView()
-        v.image = UIImage(named: "people1")
         v.layer.cornerRadius = 20
         v.clipsToBounds = true
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -117,7 +102,6 @@ class QuestionPreviewView: UIView {
     
     let lblTitle: UILabel = {
         let lbl=UILabel()
-        lbl.text = "Name"
         lbl.font=UIFont.systemFont(ofSize: 10)
         lbl.textColor = UIColor.black
         lbl.numberOfLines = 3
@@ -128,7 +112,7 @@ class QuestionPreviewView: UIView {
     
     let lblName: UILabel = {
         let lbl=UILabel()
-        lbl.text = "Name"
+        
         lbl.font=UIFont.boldSystemFont(ofSize: 8)
         lbl.textColor = UIColor.systemGray
         lbl.textAlignment = .left
@@ -136,23 +120,23 @@ class QuestionPreviewView: UIView {
         return lbl
     }()
     let timeLabel: UILabel = {
-       let timeLbl = UILabel()
+        let timeLbl = UILabel()
         timeLbl.text = "18/11 7:00 p.m"
         timeLbl.font=UIFont.systemFont(ofSize: 6)
         timeLbl.textAlignment = .left
         timeLbl.translatesAutoresizingMaskIntoConstraints=false
         return timeLbl
     }()
-    lazy var likeButton: UIButton = {
-        likeButton = UIButton()
-        likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-        likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        return likeButton
-    }()
-    
-    private var isLike = false
+//    lazy var likeButton: UIButton = {
+//        likeButton = UIButton()
+//        likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+//        likeButton.addTarget(self, action: #selector(like(_:)), for: .touchUpInside)
+//        likeButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return likeButton
+//    }()
+//
+//    private var isLike = false
     
     lazy var comView: UIImageView = {
         comView = UIImageView()
@@ -173,16 +157,16 @@ class QuestionPreviewView: UIView {
         return countOfComsView
     }()
     
-    lazy var countOfLike: UILabel = {
-        countOfLike = UILabel()
-        countOfLike.text = "15"
-        countOfLike.font = UIFont.systemFont(ofSize: 7)
-        countOfLike.textColor = .black
-        countOfLike.translatesAutoresizingMaskIntoConstraints = false
-        
-        return countOfLike
-    }()
-//    
+//    lazy var countOfLike: UILabel = {
+//        countOfLike = UILabel()
+//        countOfLike.text = "15"
+//        countOfLike.font = UIFont.systemFont(ofSize: 7)
+//        countOfLike.textColor = .black
+//        countOfLike.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return countOfLike
+//    }()
+    //
     lazy var cointainerStars: UIView = {
         cointainerStars = UIView()
         
@@ -198,17 +182,17 @@ class QuestionPreviewView: UIView {
         return cointainerStars
     }()
     
-    
-    @objc func like(_ textField: UITextField){
-        if !isLike {
-            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
-            isLike = true
-        }
-        else {
-            likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
-            isLike = false
-        }
-    }
+//
+//    @objc func like(_ textField: UITextField){
+//        if !isLike {
+//            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+//            isLike = true
+//        }
+//        else {
+//            likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+//            isLike = false
+//        }
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

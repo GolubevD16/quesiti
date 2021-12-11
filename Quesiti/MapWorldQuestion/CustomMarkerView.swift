@@ -8,39 +8,52 @@
 
 import Foundation
 import UIKit
+import FirebaseStorage
 
 class CustomMarkerView: UIView {
-    var img: UIImage!
-    var borderColor: UIColor!
+    var imageConst = UIImage(named: "avatar")
+    var borderColor: UIColor = .black
+    var keyQuestion: String!
+    var keyID: String!
+    var radius: Int = 200
     
-    init(frame: CGRect, image: UIImage, borderColor: UIColor, tag: Int) {
+    init(frame: CGRect, image: String, borderColor: UIColor, keyQuestion: String, keyID: String, radius: Int, tag: Int) {
         super.init(frame: frame)
-        self.img = image
-        self.borderColor=borderColor
+        self.setupViews()
         self.tag = tag
-        setupViews()
-    }
-    
-    func setupViews() {
-        let imgView = UIImageView(image: img)
-        imgView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        imgView.layer.cornerRadius = 25
-        imgView.layer.borderColor = borderColor?.cgColor
-        imgView.layer.borderWidth = 4
-        imgView.clipsToBounds = true
-        let lbl=UILabel(frame: CGRect(x: 0, y: 45, width: 50, height: 10))
-        lbl.text = "▾"
-        lbl.font=UIFont.systemFont(ofSize: 24)
-        lbl.textColor = borderColor
-        lbl.textAlignment = .center
-        
-        self.addSubview(imgView)
-        self.addSubview(lbl)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+        self.imgView.image = imageConst
+        if image != "" {
+            Storage.storage().loadUserProfileImage(url: image, completion: {(imageData) in
+
+                
+                self.imgView.image = UIImage(data: imageData)
+                self.imageConst = UIImage(data: imageData)
+                self.imgView.layer.borderColor = self.borderColor.cgColor
+//  
+            })
+        }
+    self.borderColor=borderColor
+    self.keyID = keyID
+    self.keyQuestion = keyQuestion
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01){
+//        }
+}
+
+func setupViews() {
+    self.addSubview(imgView)
+}
+    let imgView: UIImageView = {
+        let img = UIImageView()
+        img.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        img.layer.cornerRadius = 25
+        img.layer.borderWidth = 4
+        img.clipsToBounds = true
+        return img
+    }()
+
+required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+}
 }
 
 

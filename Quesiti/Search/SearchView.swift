@@ -34,7 +34,6 @@ class SearchView: UIView {
     lazy var clearButton: UIButton = {
         clearButton = UIButton()
         clearButton.setImage(UIImage(systemName: "clear"), for: .normal)
-        clearButton.addTarget(self, action: #selector(clickClearButton(_:)), for: .touchUpInside)
         
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -100,8 +99,9 @@ class SearchView: UIView {
             conteinerView.heightAnchor.constraint(equalToConstant: 50),
             
             clearButton.trailingAnchor.constraint(equalTo: conteinerView.trailingAnchor, constant: -16),
-            clearButton.topAnchor.constraint(equalTo: conteinerView.topAnchor),
-            clearButton.bottomAnchor.constraint(equalTo: conteinerView.bottomAnchor),
+            //clearButton.topAnchor.constraint(equalTo: conteinerView.topAnchor),
+            //clearButton.bottomAnchor.constraint(equalTo: conteinerView.bottomAnchor),
+            clearButton.centerYAnchor.constraint(equalTo: conteinerView.centerYAnchor),
             clearButton.leadingAnchor.constraint(equalTo: conteinerView.trailingAnchor, constant: -42),
             
             textField.leadingAnchor.constraint(equalTo: conteinerView.leadingAnchor, constant: 16),
@@ -139,9 +139,5 @@ class SearchView: UIView {
         peopleLine.backgroundColor = .blue
         questionButton.setTitleColor(.gray, for: .normal)
         questionLine.backgroundColor = .white
-    }
-
-    @objc func clickClearButton(_: Any){
-        textField.text = ""
     }
 }

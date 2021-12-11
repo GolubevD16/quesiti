@@ -6,15 +6,24 @@
 //
 
 import UIKit
+import Firebase
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate{
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         delegate = self
-        configureTabBarItems()
-        setValue(AppTabBar(frame: tabBar.frame), forKey: "tabBar")
-                view.backgroundColor = .white
+        NotificationCenter.default.addObserver(self, selector: #selector(configureTabBarItems), name: Notification.Name("configureTabBarItems"), object: nil)
+        if Auth.auth().currentUser == nil {
+            presentLoginController()
+            NotificationCenter.default.post(name: Notification.Name("configureTabBarItems"), object: nil)
+            setValue(AppTabBar(frame: tabBar.frame), forKey: "tabBar")
+                    view.backgroundColor = .white
+        } else {
+            setValue(AppTabBar(frame: tabBar.frame), forKey: "tabBar")
+                    view.backgroundColor = .white
+            NotificationCenter.default.post(name: Notification.Name("configureTabBarItems"), object: nil)
+        }
 //        if #available(iOS 15.0, *) {
 //            let appearance = UITabBarAppearance()
 //            appearance.configureWithOpaqueBackground()
@@ -23,9 +32,18 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate{
 //            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
 //        }
     }
-
     
-    private func configureTabBarItems() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setValue(AppTabBar(frame: tabBar.frame), forKey: "tabBar")
+                view.backgroundColor = .white
+//        configureTabBarItems()
+    }
+    @objc func configureTabBarItems(notification: NSNotification) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        //print(uid, "123")
+        self.selectedIndex = 0
+        
         let homePageVC = HomePageViewController()
         let homePagePresenter = HomePagePresenter(view: homePageVC)
         homePageVC.presenter = homePagePresenter
@@ -48,9 +66,16 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate{
         mapVC.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map"), tag: 2)
         
         let profileVC = ProfileViewController()
+        profileVC.delegate = self
         let profilePresenter = ProfilePresenter(view: profileVC)
         profileVC.presenter = profilePresenter
         profileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 3)
+        
+        Database.database().fetchUser(withUID: uid) { (user) in
+            homePageVC.user = user
+            profileVC.user = user
+            
+        }
         
         let homePageNavigationVC = UINavigationController(rootViewController: homePageVC)
         
@@ -62,6 +87,14 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate{
         let profileNavigationVC = UINavigationController(rootViewController: profileVC)
         setViewControllers([homePageNavigationVC,searchNavigationVC, mapNavigationVC, profileNavigationVC], animated: true)
         
+    }
+    
+    private func presentLoginController() {
+        DispatchQueue.main.async { // wait until MainTabBarController is inside UI
+            let loginController = WelcomeViewController()
+            loginController.modalPresentationStyle = .fullScreen
+            self.present(loginController, animated: true, completion: nil)
+        }
     }
     
     @available(iOS 15.0, *)
@@ -87,4 +120,10 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate{
             navController.navigationBar.standardAppearance = navBarAppearance
             navController.navigationBar.scrollEdgeAppearance = navBarAppearance
         }
+}
+
+extension TabBarViewController: LogOutDelegate{
+    func logOut() {
+        presentLoginController()
+    }
 }

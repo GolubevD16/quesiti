@@ -8,6 +8,11 @@
 import UIKit
 import Firebase
 
+protocol DismissDelegate{
+    func dissmisSignIn()
+    func dissmisSignUp()
+}
+
 class SignInViewController: UIViewController {
 
     var signInView: SignInView!
@@ -49,8 +54,8 @@ class SignInViewController: UIViewController {
          ])
     }
     
-    private func showAlert(){
-        let alert = UIAlertController(title: "Error", message: "Set all text fields", preferredStyle: .alert)
+    private func showAlert(mes: String){
+        let alert = UIAlertController(title: "Error", message: mes, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -65,13 +70,17 @@ class SignInViewController: UIViewController {
         password = text
     }
     @objc func clickSignInButtom(_ textField: UITextField){
-        print("Вы ввели", email, password)
         Auth.auth().signIn(withEmail: email.lowercased(), password: password) { result, error in
-            if error == nil{
-                let tabBarVC = TabBarViewController()
-                tabBarVC.modalPresentationStyle = .fullScreen
-                self.present(tabBarVC, animated: true, completion: nil)
-                
+            if let err = error {
+                self.showAlert(mes: err.localizedDescription)
+                return
+            }
+            
+            if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? TabBarViewController {
+                //mainTabBarController.configureTabBarItems()
+                //mainTabBarController.selectedIndex = 0
+                NotificationCenter.default.post(name: Notification.Name("configureTabBarItems"), object: nil)
+                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
             }
         }
     }
