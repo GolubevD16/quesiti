@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		0A1290D827306E99002000A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A1290D727306E99002000A6 /* GoogleService-Info.plist */; };
 		0AF7F44E2757143200524EBF /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF7F44D2757143200524EBF /* Firebase.swift */; };
+		260281942766A02C000E4CB1 /* Kurale-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2602819327669E66000E4CB1 /* Kurale-Regular.ttf */; };
+		260281952766A031000E4CB1 /* Marta_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2602819027669E57000E4CB1 /* Marta_Bold.otf */; };
+		260281962766A033000E4CB1 /* Marta_Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2602819127669E57000E4CB1 /* Marta_Italic.otf */; };
+		260281972766A036000E4CB1 /* Marta_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2602819227669E58000E4CB1 /* Marta_Regular.otf */; };
+		260281982766A039000E4CB1 /* Nautilus.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2602818F27669D4F000E4CB1 /* Nautilus.otf */; };
+		2602819A2766A04B000E4CB1 /* Troubleside.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 260281992766A046000E4CB1 /* Troubleside.ttf */; };
 		26257529272B6C49008EAF35 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257528272B6C49008EAF35 /* TabBarViewController.swift */; };
 		2625753A272B6D52008EAF35 /* AddQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26257539272B6D52008EAF35 /* AddQuestionViewController.swift */; };
 		2625753C272B6D62008EAF35 /* AddQuestionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */; };
@@ -68,13 +74,20 @@
 		26EB6AA6273C70DD00A7CA0D /* MapDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */; };
 		26EB6AA7273C70DD00A7CA0D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA5273C70DD00A7CA0D /* UserModel.swift */; };
 		26EB6AA9273C70E300A7CA0D /* GMSCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */; };
-		F8542BBD3260D940BDBADA32 /* Pods_Quesiti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F12E16D1AF600711E8D84EC /* Pods_Quesiti.framework */; };
+		79233F0962B045D6003A2DF8 /* Pods_Quesiti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6ED9E182FAF965E01C17E96 /* Pods_Quesiti.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A1290D727306E99002000A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AF7F44D2757143200524EBF /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
-		0F12E16D1AF600711E8D84EC /* Pods_Quesiti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quesiti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F13F138A08435A82F9020B1 /* Pods-Quesiti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.release.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.release.xcconfig"; sourceTree = "<group>"; };
+		2602818F27669D4F000E4CB1 /* Nautilus.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nautilus.otf; sourceTree = "<group>"; };
+		2602819027669E57000E4CB1 /* Marta_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marta_Bold.otf; sourceTree = "<group>"; };
+		2602819127669E57000E4CB1 /* Marta_Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marta_Italic.otf; sourceTree = "<group>"; };
+		2602819227669E58000E4CB1 /* Marta_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marta_Regular.otf; sourceTree = "<group>"; };
+		2602819327669E66000E4CB1 /* Kurale-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kurale-Regular.ttf"; sourceTree = "<group>"; };
+		260281992766A046000E4CB1 /* Troubleside.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Troubleside.ttf; sourceTree = "<group>"; };
+		2602819B2766A75A000E4CB1 /* Fedorov.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fedorov.otf; sourceTree = "<group>"; };
 		26257528272B6C49008EAF35 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		26257539272B6D52008EAF35 /* AddQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionViewController.swift; path = "Quesiti/Add Question/AddQuestionViewController.swift"; sourceTree = SOURCE_ROOT; };
 		2625753B272B6D62008EAF35 /* AddQuestionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddQuestionPresenter.swift; path = "Quesiti/Add Question/AddQuestionPresenter.swift"; sourceTree = SOURCE_ROOT; };
@@ -136,8 +149,8 @@
 		26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailsVC.swift; sourceTree = "<group>"; };
 		26EB6AA5273C70DD00A7CA0D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMSCircle.swift; sourceTree = "<group>"; };
-		97F0136E3A0A7CD68048A087 /* Pods-Quesiti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.debug.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.debug.xcconfig"; sourceTree = "<group>"; };
-		C2C1E0A81A17B69AFC859C92 /* Pods-Quesiti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.release.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.release.xcconfig"; sourceTree = "<group>"; };
+		6010D9CB5A269FCBA605084E /* Pods-Quesiti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.debug.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.debug.xcconfig"; sourceTree = "<group>"; };
+		C6ED9E182FAF965E01C17E96 /* Pods_Quesiti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quesiti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,13 +158,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8542BBD3260D940BDBADA32 /* Pods_Quesiti.framework in Frameworks */,
+				79233F0962B045D6003A2DF8 /* Pods_Quesiti.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2602816D27664F3B000E4CB1 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				2602819B2766A75A000E4CB1 /* Fedorov.otf */,
+				2602819327669E66000E4CB1 /* Kurale-Regular.ttf */,
+				2602819027669E57000E4CB1 /* Marta_Bold.otf */,
+				2602819127669E57000E4CB1 /* Marta_Italic.otf */,
+				2602819227669E58000E4CB1 /* Marta_Regular.otf */,
+				2602818F27669D4F000E4CB1 /* Nautilus.otf */,
+				260281992766A046000E4CB1 /* Troubleside.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		26257527272B6C09008EAF35 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,7 +216,7 @@
 				2666F6B027247C5000D9F413 /* Quesiti */,
 				2666F6AF27247C5000D9F413 /* Products */,
 				3A7882A97EDD7A0BE4F8FB80 /* Pods */,
-				A7B6E1E3A80E11BE8225FE7A /* Frameworks */,
+				880F8B04DCA7CBAE980B2D6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +242,7 @@
 				2625752A272B6CA1008EAF35 /* Search */,
 				2666F6C927247CAC00D9F413 /* Welcome Screen */,
 				2666F6BA27247C5300D9F413 /* Assets.xcassets */,
+				2602816D27664F3B000E4CB1 /* Font */,
 				26257527272B6C09008EAF35 /* TabBar */,
 				26993B82273C8B9D0003AB94 /* Add Question */,
 				26EB6A99273C709800A7CA0D /* MapWorldQuestion */,
@@ -339,16 +367,16 @@
 		3A7882A97EDD7A0BE4F8FB80 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				97F0136E3A0A7CD68048A087 /* Pods-Quesiti.debug.xcconfig */,
-				C2C1E0A81A17B69AFC859C92 /* Pods-Quesiti.release.xcconfig */,
+				6010D9CB5A269FCBA605084E /* Pods-Quesiti.debug.xcconfig */,
+				0F13F138A08435A82F9020B1 /* Pods-Quesiti.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		A7B6E1E3A80E11BE8225FE7A /* Frameworks */ = {
+		880F8B04DCA7CBAE980B2D6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0F12E16D1AF600711E8D84EC /* Pods_Quesiti.framework */,
+				C6ED9E182FAF965E01C17E96 /* Pods_Quesiti.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -360,12 +388,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2666F6C227247C5300D9F413 /* Build configuration list for PBXNativeTarget "Quesiti" */;
 			buildPhases = (
-				9D0C072FD4B8C47D5D7501F0 /* [CP] Check Pods Manifest.lock */,
+				417C64A239B03F6076E307BD /* [CP] Check Pods Manifest.lock */,
 				2666F6AA27247C5000D9F413 /* Sources */,
 				2666F6AB27247C5000D9F413 /* Frameworks */,
 				2666F6AC27247C5000D9F413 /* Resources */,
-				3FD1ADA3E70B58F1CF6F4D64 /* [CP] Embed Pods Frameworks */,
-				34DB7F64F4B6DD7CA50000D6 /* [CP] Copy Pods Resources */,
+				8C69D130B1204F8985403DB9 /* [CP] Embed Pods Frameworks */,
+				C5E4DD361A6ED6D041133528 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -399,8 +427,6 @@
 				Base,
 			);
 			mainGroup = 2666F6A527247C5000D9F413;
-			packageReferences = (
-			);
 			productRefGroup = 2666F6AF27247C5000D9F413 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -415,8 +441,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260281982766A039000E4CB1 /* Nautilus.otf in Resources */,
 				2666F6BE27247C5300D9F413 /* LaunchScreen.storyboard in Resources */,
+				2602819A2766A04B000E4CB1 /* Troubleside.ttf in Resources */,
+				260281972766A036000E4CB1 /* Marta_Regular.otf in Resources */,
+				260281962766A033000E4CB1 /* Marta_Italic.otf in Resources */,
+				260281942766A02C000E4CB1 /* Kurale-Regular.ttf in Resources */,
 				2666F6BB27247C5300D9F413 /* Assets.xcassets in Resources */,
+				260281952766A031000E4CB1 /* Marta_Bold.otf in Resources */,
 				0A1290D827306E99002000A6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,41 +456,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		34DB7F64F4B6DD7CA50000D6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3FD1ADA3E70B58F1CF6F4D64 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9D0C072FD4B8C47D5D7501F0 /* [CP] Check Pods Manifest.lock */ = {
+		417C64A239B03F6076E307BD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,6 +476,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C69D130B1204F8985403DB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5E4DD361A6ED6D041133528 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -682,7 +714,7 @@
 		};
 		2666F6C327247C5300D9F413 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97F0136E3A0A7CD68048A087 /* Pods-Quesiti.debug.xcconfig */;
+			baseConfigurationReference = 6010D9CB5A269FCBA605084E /* Pods-Quesiti.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -705,7 +737,7 @@
 		};
 		2666F6C427247C5300D9F413 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C2C1E0A81A17B69AFC859C92 /* Pods-Quesiti.release.xcconfig */;
+			baseConfigurationReference = 0F13F138A08435A82F9020B1 /* Pods-Quesiti.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

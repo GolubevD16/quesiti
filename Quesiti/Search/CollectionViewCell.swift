@@ -42,7 +42,7 @@ final class CollectionViewCell: UICollectionViewCell{
     
     lazy var nameLabel: UILabel = {
         nameLabel = UILabel(frame: .zero)
-        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        nameLabel.font = UIFont(name: "SF-Pro-Rounded-Regular", size: 16)
         nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -51,8 +51,9 @@ final class CollectionViewCell: UICollectionViewCell{
     
     lazy var cityLabel: UILabel = {
         cityLabel = UILabel(frame: .zero)
-        cityLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        cityLabel.textColor = .black
+        cityLabel.font = UIFont(name: "Kurale-Regular", size: 14)
+        cityLabel.textAlignment = .center
+        cityLabel.textColor = .systemGray
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return cityLabel
@@ -89,7 +90,7 @@ final class CollectionViewCell: UICollectionViewCell{
             nameLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 4),
             
-            cityLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+            cityLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             cityLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
             
 //            cointainerStars.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),

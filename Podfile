@@ -22,5 +22,6 @@ pod 'Cosmos', '~> 23.0'
   pod 'YPImagePicker'
   pod 'ActiveLabel'
   pod 'lottie-ios'
+  pod 'Presentr'
 pod "VerticalAlignmentLabel"
 end

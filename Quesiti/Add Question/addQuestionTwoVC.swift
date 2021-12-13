@@ -11,6 +11,8 @@ import Firebase
 
 class addQuestionTwoVC:  UIViewController, SwiftyTextViewDelegate{
     
+    let scrollView = UIScrollView()
+    
     //для отправки на сервер
     var questionTitle = ""
     var questionText = ""
@@ -29,49 +31,53 @@ class addQuestionTwoVC:  UIViewController, SwiftyTextViewDelegate{
         view.backgroundColor = .white
         
         setupViews()
+        registerForKeyboardNotification()
+    }
+    
+    deinit{
+        removeForKeyboardNotification()
     }
     
     
     func setupViews() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isScrollEnabled = false
         textViewSetUp()
         
         labelAdress.text = self.questionAdress
         labelRadius.text = "Radius = \(self.questionRadius) m"
         
         [textViewTitle, textViewText, btnBack, btnAsk, labelAdress, labelRadius].forEach{
-            view.addSubview($0)
+            scrollView.addSubview($0)
         }
-//        containerView.addSubview(textfieldView)
+        view.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
-//            containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
-//            containerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-//            containerView.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
-//            containerView.heightAnchor.constraint(equalToConstant: view.frame.height/2.5),
-//
-//            textfieldView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 22),
-//            textfieldView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -13),
-//            textfieldView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -22),
-//            textfieldView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 13),
-//
-            btnBack.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-            btnBack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            btnBack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 70),
+            btnBack.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20),
             btnBack.widthAnchor.constraint(equalToConstant: 36),
             btnBack.heightAnchor.constraint(equalTo: btnBack.widthAnchor),
             
-            btnAsk.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            btnAsk.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnAsk.topAnchor.constraint(equalTo: labelAdress.bottomAnchor, constant: 10),
+            btnAsk.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             btnAsk.widthAnchor.constraint(equalToConstant: 150),
             btnAsk.heightAnchor.constraint(equalToConstant: 50),
             
             labelRadius.topAnchor.constraint(equalTo: textViewText.bottomAnchor, constant: 10),
-            labelRadius.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            labelRadius.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
+            //labelRadius.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            //labelRadius.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            labelRadius.centerXAnchor.constraint(equalTo: textViewText.centerXAnchor),
             labelRadius.heightAnchor.constraint(equalToConstant: 20),
             
             labelAdress.topAnchor.constraint(equalTo: labelRadius.bottomAnchor, constant: 5),
-            labelAdress.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            labelAdress.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            //labelAdress.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            labelAdress.widthAnchor.constraint(equalToConstant: textViewTitle.bounds.width),
+            labelAdress.leftAnchor.constraint(equalTo: textViewText.leftAnchor),
             labelAdress.heightAnchor.constraint(equalToConstant: 50)
 //
 //            anonimLabel.topAnchor.constraint(equalTo: labelAdress.bottomAnchor, constant: 25),
@@ -101,26 +107,26 @@ class addQuestionTwoVC:  UIViewController, SwiftyTextViewDelegate{
 //    }()
     func textViewSetUp(){
         
-        textViewTitle.font = .systemFont(ofSize: 20)
+        textViewTitle.font = UIFont(name: "Kurale-Regular", size: 18)
         textViewTitle.textContainer.lineFragmentPadding = 10.0
         textViewTitle.textContainer.lineBreakMode = .byCharWrapping
         textViewTitle.layer.cornerRadius = 20
         textViewTitle.layer.borderWidth = 0.5
         textViewTitle.layer.borderColor = UIColor.black.cgColor
-        textViewTitle.placeholder = "Please, input your answer"
+        textViewTitle.placeholder = "Введите основной вопрос (обязательно)"
         textViewTitle.showTextCountView = true
         textViewText.swiftyDelegate = delegatText
         textViewTitle.swiftyDelegate = self
         textViewTitle.minNumberOfWords = 0
         textViewTitle.maxNumberOfWords = 64
         
-        textViewText.font = .systemFont(ofSize: 20)
+        textViewText.font = UIFont(name: "Kurale-Regular", size: 18)
         textViewText.textContainer.lineFragmentPadding = 10.0
         textViewText.layer.cornerRadius = 20
         textViewText.layer.borderWidth = 0.5
         textViewText.showTextCountView = false
         textViewText.layer.borderColor = UIColor.black.cgColor
-        textViewText.placeholder = "Please, input your answer"
+        textViewText.placeholder = "Введите дополнение вопроса"
     }
     func textViewDidChange(_ textView: UITextView) {
         questionTitle = textViewTitle.text
@@ -266,6 +272,7 @@ class addQuestionTwoVC:  UIViewController, SwiftyTextViewDelegate{
     
     @objc func btnAsk(_ sender: Any){
         self.questionText = textViewText.text
+        if(self.questionTitle != ""){
         guard let uid = Auth.auth().currentUser?.uid else { return }
             Database.database().fetchUser(withUID: uid) { (user) in
                 Database.database().addQuestion(titleQuestion: self.questionTitle, textQuestion: self.questionText, latitude: self.questionLatitude, longitude: self.questionLongitude, radius: self.questionRadius, adress: self.questionAdress, answerCount: 0){ (err) in
@@ -277,6 +284,35 @@ class addQuestionTwoVC:  UIViewController, SwiftyTextViewDelegate{
         NotificationCenter.default.post(name: Notification.Name("showPartyMarkers"), object: nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         print("title \(self.questionTitle) text \(self.questionText)")
+        } else {
+            let alert = UIAlertController(title: "Вы не ввели основной текст вопроса", message: "Поле основного вопроса не может быть пустым, пустым может быть только поле дополнительного вопроса", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func registerForKeyboardNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeForKeyboardNotification(){
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let scrolSize = self.btnAsk.frame.maxY + keyboardSize.height - self.view.bounds.maxY + 8 + self.view.safeAreaInsets.top
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height + scrolSize)
+        scrollView.contentOffset = CGPoint(x: 0, y: 80)
+        scrollView.isScrollEnabled = true
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height - keyboardSize.height)
+        scrollView.isScrollEnabled = false
     }
 }
 

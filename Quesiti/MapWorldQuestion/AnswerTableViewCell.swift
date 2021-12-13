@@ -25,7 +25,7 @@ class AnswerViewTableCell: UITableViewCell{
     
     lazy var nameLabel: UILabel = {
         nameLabel = UILabel(frame: .zero)
-        nameLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        nameLabel.font = UIFont(name: "SF-Pro-Rounded-Regular", size: 14)
         nameLabel.numberOfLines = 0
         nameLabel.textColor = .systemGray
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,8 @@ class AnswerViewTableCell: UITableViewCell{
     
     lazy var questionLabel: UILabel = {
         questionLabel = UILabel(frame: .zero)
-        questionLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        questionLabel.font = UIFont(name: "Kurale-Regular", size: 18)
+        
         questionLabel.textColor = .black
         questionLabel.numberOfLines = 0
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -45,8 +46,8 @@ class AnswerViewTableCell: UITableViewCell{
     
     lazy var dateLabel: UILabel = {
         dateLabel = UILabel()
-        dateLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        dateLabel.textColor = .black
+        dateLabel.font = UIFont(name: "Kurale-Regular", size: 16)
+        dateLabel.textColor = ThemeColors.secondaryColor
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return dateLabel
@@ -93,14 +94,14 @@ class AnswerViewTableCell: UITableViewCell{
             avatarView.heightAnchor.constraint(equalToConstant: 70),
             avatarView.widthAnchor.constraint(equalToConstant: 70),
             
-            nameLabel.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
             nameLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: .padding),
             
             questionLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            questionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
-            questionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            questionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
+            questionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
             
-            dateLabel.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
 //
 //

@@ -298,7 +298,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             btnMyLocation.widthAnchor.constraint(equalToConstant: 40),
             btnMyLocation.heightAnchor.constraint(equalTo: btnMyLocation.widthAnchor),
             
-            btnReload.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            btnReload.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             btnReload.widthAnchor.constraint(equalToConstant: 40),
             btnReload.heightAnchor.constraint(equalTo: btnReload.widthAnchor),
             btnReload.topAnchor.constraint(equalTo: txtFieldSearch.bottomAnchor, constant: 50),
@@ -345,7 +345,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         btn.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         btn.layer.masksToBounds = false
         btn.layer.shadowRadius = 2.0
-        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOpacity = 0.2
         
         let config = UIImage.SymbolConfiguration(textStyle: .title2)
         btn.setImage(UIImage(systemName: "location.fill", withConfiguration: config), for: .normal)
@@ -378,12 +378,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         btn.backgroundColor = UIColor.white
         btn.layer.cornerRadius = 20
         let config = UIImage.SymbolConfiguration(textStyle: .title2)
-        btn.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle", withConfiguration: config), for: .normal)
+        btn.setImage(UIImage(systemName: "goforward", withConfiguration: config), for: .normal)
         btn.layer.shadowColor = UIColor.black.cgColor
         btn.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         btn.layer.masksToBounds = false
         btn.layer.shadowRadius = 2.0
-        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowOpacity = 0.2
         //        btn.tintColor = UIColor.gray
         btn.imageView?.tintColor = ThemeColors.mainColor
         btn.addTarget(self, action: #selector(btnReloadAction), for: .touchUpInside)

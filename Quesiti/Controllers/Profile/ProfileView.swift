@@ -116,7 +116,7 @@ class ProfileView: UIView {
     
     private func createTextField(_ placeholder: String) -> UITextField {
         let textField = UITextField()
-        textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        textField.font = UIFont(name: "Kurale-Regular", size: 17)
         textField.placeholder = "Add Something"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.tag = id

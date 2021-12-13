@@ -1,8 +1,9 @@
 
 import Foundation
 import UIKit
-import Cosmos
+//import Cosmos
 import FirebaseStorage
+import VerticalAlignmentLabel
 
 class QuestionPreviewView: UIView {
     
@@ -22,6 +23,7 @@ class QuestionPreviewView: UIView {
         imgView.image = img
         lblName.text = name
         timeLabel.text = time.timeAgoDisplay()
+        lblTitle.setLineHeight(lineHeight: 0.9)
         countOfComsView.text = "\(countAnswer)"
         
     }
@@ -29,7 +31,7 @@ class QuestionPreviewView: UIView {
     func setupViews() {
         addSubview(containerView)
         
-        [imgView, cointainerStars, lblName, timeLabel, lblTitle, comView, countOfComsView].forEach {
+        [imgView, lblName, timeLabel, lblTitle, comView, countOfComsView].forEach {
             containerView.addSubview($0)
         }
         
@@ -45,13 +47,13 @@ class QuestionPreviewView: UIView {
         imgView.heightAnchor.constraint(equalToConstant: 40),
         imgView.widthAnchor.constraint(equalTo: imgView.heightAnchor),
         
-        cointainerStars.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 2),
-        cointainerStars.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 4),
-        cointainerStars.heightAnchor.constraint(equalToConstant: 10),
-        cointainerStars.rightAnchor.constraint(equalTo: imgView.rightAnchor, constant: 2),
+//        cointainerStars.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 2),
+//        cointainerStars.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 4),
+//        cointainerStars.heightAnchor.constraint(equalToConstant: 10),
+//        cointainerStars.rightAnchor.constraint(equalTo: imgView.rightAnchor, constant: 2),
         
         lblName.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 3),
-        lblName.topAnchor.constraint(equalTo: imgView.topAnchor, constant: 6),
+        lblName.topAnchor.constraint(equalTo: imgView.topAnchor, constant: 3),
         lblName.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -65),
         lblName.heightAnchor.constraint(equalToConstant: 8),
         
@@ -61,11 +63,11 @@ class QuestionPreviewView: UIView {
         timeLabel.bottomAnchor.constraint(equalTo: lblName.bottomAnchor),
         
         lblTitle.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 5),
-        lblTitle.topAnchor.constraint(equalTo: lblName.bottomAnchor, constant: 0),
+        lblTitle.topAnchor.constraint(equalTo: lblName.bottomAnchor, constant: 2),
         lblTitle.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-        lblTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -14),
+        lblTitle.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         
-        comView.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -65),
+        comView.leadingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -40),
         comView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2),
         comView.heightAnchor.constraint(equalToConstant: 10),
         comView.widthAnchor.constraint(equalToConstant: 10),
@@ -100,9 +102,10 @@ class QuestionPreviewView: UIView {
         return v
     }()
     
-    let lblTitle: UILabel = {
-        let lbl=UILabel()
-        lbl.font=UIFont.systemFont(ofSize: 10)
+    let lblTitle: VerticalAlignmentLabel = {
+        let lbl=VerticalAlignmentLabel()
+        lbl.font = UIFont(name: "Kurale-Regular", size: 9)
+        lbl.verticalTextAlignment = .top
         lbl.textColor = UIColor.black
         lbl.numberOfLines = 3
         lbl.textAlignment = .left
@@ -122,8 +125,9 @@ class QuestionPreviewView: UIView {
     let timeLabel: UILabel = {
         let timeLbl = UILabel()
         timeLbl.text = "18/11 7:00 p.m"
-        timeLbl.font=UIFont.systemFont(ofSize: 6)
+        timeLbl.font = UIFont(name: "Kurale-Regular", size: 7)
         timeLbl.textAlignment = .left
+        timeLbl.textColor = ThemeColors.secondaryColor
         timeLbl.translatesAutoresizingMaskIntoConstraints=false
         return timeLbl
     }()
@@ -167,20 +171,20 @@ class QuestionPreviewView: UIView {
 //        return countOfLike
 //    }()
     //
-    lazy var cointainerStars: UIView = {
-        cointainerStars = UIView()
-        
-        var starsRating = CosmosView()
-        starsRating.settings.starSize = 10.0
-        starsRating.settings.starMargin = 0
-        starsRating.rating = 4
-        starsRating.settings.updateOnTouch = false
-        starsRating.updateConstraints()
-        cointainerStars.addSubview(starsRating)
-        
-        cointainerStars.translatesAutoresizingMaskIntoConstraints = false
-        return cointainerStars
-    }()
+//    lazy var cointainerStars: UIView = {
+//        cointainerStars = UIView()
+//
+//        var starsRating = CosmosView()
+//        starsRating.settings.starSize = 10.0
+//        starsRating.settings.starMargin = 0
+//        starsRating.rating = 4
+//        starsRating.settings.updateOnTouch = false
+//        starsRating.updateConstraints()
+//        cointainerStars.addSubview(starsRating)
+//
+//        cointainerStars.translatesAutoresizingMaskIntoConstraints = false
+//        return cointainerStars
+//    }()
     
 //
 //    @objc func like(_ textField: UITextField){

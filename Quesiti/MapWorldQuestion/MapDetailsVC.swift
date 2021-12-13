@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import VerticalAlignmentLabel
+import Presentr
 
 class DetailsVC: UIViewController{
     
@@ -77,7 +78,7 @@ class DetailsVC: UIViewController{
         nameUserQuestion.text = nameUser
         firstTextQuestion.text = titleQuestion
         textQuestionTV.text = textQuestion
-        timeText.text = time.timeAgoDisplayShort()
+        timeText.text = time.timeAgoDisplay()
         
     }
 
@@ -157,10 +158,9 @@ class DetailsVC: UIViewController{
             nameUserQuestion.leftAnchor.constraint(equalTo: imgView.rightAnchor, constant: 5),
             nameUserQuestion.topAnchor.constraint(equalTo: imgView.topAnchor, constant: -2),
             nameUserQuestion.heightAnchor.constraint(equalToConstant: 30),
-            nameUserQuestion.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -80),
             
             timeText.leftAnchor.constraint(equalTo: nameUserQuestion.rightAnchor, constant: 5),
-            timeText.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+            timeText.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
             timeText.topAnchor.constraint(equalTo: nameUserQuestion.topAnchor),
             timeText.bottomAnchor.constraint(equalTo: nameUserQuestion.bottomAnchor),
             
@@ -176,7 +176,7 @@ class DetailsVC: UIViewController{
         textQuestionTV.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 15).isActive=true
         textQuestionTV.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 10).isActive=true
         textQuestionTV.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -15).isActive=true
-        textQuestionTV.heightAnchor.constraint(equalToConstant: 150).isActive=true
+        textQuestionTV.heightAnchor.constraint(equalToConstant: 120).isActive=true
     }
     func setUpButton(){
         view.addSubview(containerButton)
@@ -211,13 +211,12 @@ class DetailsVC: UIViewController{
         //        containerTitle.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         //        containerTitle.layer.shadowRadius = 2.0
         //        containerTitle.layer.shadowOpacity = 0.5
-        textQuestion.layer.cornerRadius = 20
         textQuestion.textAlignment = .left
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = 10
+        style.lineSpacing = 1.2
         let attributes = [NSAttributedString.Key.paragraphStyle: style ]
         textQuestion.typingAttributes = attributes
-        textQuestion.font = .systemFont(ofSize: 15)
+        textQuestion.font = UIFont(name: "Kurale-Regular", size: 15)
         textQuestion.isEditable = false
         textQuestion.layer.masksToBounds = true
         textQuestion.usesStandardTextScaling = true
@@ -238,6 +237,7 @@ class DetailsVC: UIViewController{
     let timeText: UILabel = {
         let text = UILabel()
         text.textColor = ThemeColors.secondaryColor
+        text.font = UIFont(name: "Kurale-Regular", size: 16)
         text.text = ""
         text.translatesAutoresizingMaskIntoConstraints=false
         return text
@@ -263,24 +263,25 @@ class DetailsVC: UIViewController{
         text.text = "Здеесь будет первичный вопрос"
         text.verticalTextAlignment = .top
         text.textAlignment = .left
+        text.font = UIFont(name: "Kurale-Regular", size: 15)
         text.numberOfLines = 0
         text.sizeToFit()
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
     }()
-    let UserQuestion: UILabel = {
-        let text = UILabel()
-        text.text = "Не загрузилось"
-        text.font = .systemFont(ofSize: 15)
-        text.textAlignment = .left
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
+//    let UserQuestion: UILabel = {
+//        let text = UILabel()
+//        text.text = "Не загрузилось"
+//        text.font = .systemFont(ofSize: 15)
+//        text.textAlignment = .left
+//        text.translatesAutoresizingMaskIntoConstraints = false
+//        return text
+//    }()
     
     let textQuestionLabel: UILabel = {
         let lbl=UILabel()
         lbl.text = "Name"
-        lbl.font=UIFont.systemFont(ofSize: 10)
+        lbl.font = UIFont(name: "Kurale-Regular", size: 12)
         lbl.textColor = UIColor.black
         lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints=false
@@ -364,10 +365,16 @@ class DetailsVC: UIViewController{
             let addQuuestion: AddAnswerViewController = AddAnswerViewController()
             addQuuestion.questionID = keyQuestion
             addQuuestion.userQuestionID = keyID
+            let presenter = Presentr(presentationType: .alert)
+            presenter.presentationType = .custom(width: .fluid(percentage: 0.9), height: .fluid(percentage: 0.5), center: .center) // custom(centerPoint: CGPoint(x: self.view.frame.width/2, y: 300)
+            presenter.roundCorners = true
+            presenter.cornerRadius = 30
+            presenter.transitionType = .coverVerticalFromTop
+            presenter.keyboardTranslationType = .moveUp
             addQuuestion.answerCount = countAnswer
-            self.present(addQuuestion, animated: true, completion: nil)
+            customPresentViewController(presenter, viewController: addQuuestion, animated: true, completion: nil)
         } else{
-            let alert = UIAlertController(title: "Вы находитеть вне радиуса", message: "Radius = \(radius), distance = \(distance)", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Вы находитеть вне радиуса", message: "Radius = \(radius), distance = \(String(format: "%.1f", distance))", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -467,6 +474,7 @@ extension DetailsVC: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = "Anonim"
         }
         cell.questionLabel.text = answer.text
+        cell.questionLabel.setLineHeight(lineHeight: 0.9)
         cell.avatarView.user = answer.user
         cell.dateLabel.text = answer.creationDate.timeAgoDisplay()
         cell.selectionStyle = .none

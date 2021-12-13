@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchAllQuestions()
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
         presenter.viewDidLoad()
         view.addSubview(searchView)
         view.addSubview(tableView)
@@ -82,6 +82,19 @@ class SearchViewController: UIViewController {
         tableView.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        let tableRefreshControl = UIRefreshControl()
+        tableRefreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        tableView.refreshControl = tableRefreshControl
+        
+        let collectionRefreshControl = UIRefreshControl()
+        collectionRefreshControl.addTarget(self, action: #selector(didPullToRefresh1), for: .valueChanged)
+        collectionView.refreshControl = collectionRefreshControl
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupProfileView(){
@@ -138,22 +151,37 @@ class SearchViewController: UIViewController {
     }
     
     private func fetchAllUsers() {
-        collectionView.refreshControl?.beginRefreshing()
         
         Database.database().fetchAllUsers(includeCurrentUser: false, completion: { (users) in
             self.users = users
-            self.searchUsers = users
+            if self.search != ""{
+                self.searchUsers = users.filter({ user in
+                    user.name.lowercased().contains(self.search.lowercased())
+                })
+            } else {
+                self.searchUsers = users
+            }
+            
             self.collectionView.reloadData()
-            self.collectionView.refreshControl?.endRefreshing()
+            
+            
+//            self.users = users
+            //self.searchUsers = users
+            self.collectionView.reloadData()
         }) { (_) in
-            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
     private func fetchAllQuestions(){
         Database.database().fetchAllPosts { posts in
             self.questions = posts //здесь полная инфа по всем постам
-            self.searchQuestions = posts
+            if self.search != ""{
+                self.searchQuestions = posts.filter({ question in
+                    question.titleQuestion.lowercased().contains(self.search.lowercased())
+                })
+            } else {
+                self.searchQuestions = posts
+            }
             self.tableView.reloadData()
         }
     }
@@ -185,7 +213,7 @@ class SearchViewController: UIViewController {
     @objc func searchField(_ textField: UITextField){
         guard let text = textField.text else { return }
         search = text
-        print(users)
+            //print(users)
         
         if search != ""{
             searchQuestions = questions.filter({ question in
@@ -198,6 +226,7 @@ class SearchViewController: UIViewController {
             searchQuestions = questions
             searchUsers = users
         }
+        
         self.tableView.reloadData()
         self.collectionView.reloadData()
     }
@@ -210,10 +239,29 @@ class SearchViewController: UIViewController {
         self.tableView.reloadData()
         self.collectionView.reloadData()
     }
+    
+    @objc
+        private func didPullToRefresh() {
+            tableView.refreshControl?.beginRefreshing()
+            fetchAllQuestions()
+            guard let text = searchView.textField.text else { return }
+            search = text
+            //print(users)
+            
+            tableView.refreshControl?.endRefreshing()
+    }
+    
+    @objc
+        private func didPullToRefresh1() {
+            collectionView.refreshControl?.beginRefreshing()
+            fetchAllUsers()
+            collectionView.refreshControl?.endRefreshing()
+    }
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        searchQuestions = searchQuestions.sorted {(ques1: QuestionModel, ques2: QuestionModel) in ques1.creationDate > ques2.creationDate}
         return searchQuestions.count
     }
     
@@ -234,6 +282,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         //cell.avatarView.image = UIImage(named: ques.user.avatarURL)
         cell.nameLabel.text = ques.user.name
         cell.questionLabel.text = ques.titleQuestion
+        cell.questionLabel.setLineHeight(lineHeight: 0.85)
         cell.dateLabel.text = ques.creationDate.timeAgoDisplay()
         cell.countOfComsView.text = "\(ques.answerCount)"
         
@@ -259,13 +308,13 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         rest.countAnswer = ques.answerCount
         rest.nameUser = ques.user.name
         rest.time = ques.creationDate
-
         rest.titleQuestion = ques.titleQuestion
         rest.textQuestion = ques.textQuestion
+        navigationController?.navigationBar.isHidden = false
         self.navigationController?.pushViewController(rest, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 80
+            return 120
     }
 }
 
@@ -305,6 +354,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let rest = OtherProfileViewController()
+        navigationController?.navigationBar.isHidden = false
         rest.user = searchUsers[indexPath.row]
         rest.currentUser = user
       

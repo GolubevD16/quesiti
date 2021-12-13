@@ -26,6 +26,7 @@ class SearchView: UIView {
     lazy var textField: UITextField = {
         textField = UITextField()
         textField.placeholder = "Start your question..."
+        textField.font = UIFont(name: "Kurale-Regular", size: 18)
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField

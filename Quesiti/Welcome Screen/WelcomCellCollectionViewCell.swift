@@ -68,7 +68,7 @@ class WelcomCell: UICollectionViewCell {
         private func setupTopicLabel() {
             addSubview(topicLabel)
             topicLabel.translatesAutoresizingMaskIntoConstraints  = false
-            topicLabel.font = UIFont(name: "Alata", size: 28)
+            topicLabel.font = UIFont(name: "Kurale-Regular", size: 28)
             topicLabel.textAlignment = .center
             let constraints = [
                 topicLabel.topAnchor.constraint(equalTo: topicImage.bottomAnchor, constant: 16),
@@ -85,7 +85,7 @@ class WelcomCell: UICollectionViewCell {
             descriptionLabel.textColor = .gray
             descriptionLabel.textAlignment = .center
             descriptionLabel.numberOfLines = 0
-            descriptionLabel.font = UIFont(name: "Alata", size: 18)
+            descriptionLabel.font = UIFont(name: "Troubleside", size: 18)
             let constraints = [
                 descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
                 descriptionLabel.topAnchor.constraint(equalTo: topicLabel.bottomAnchor, constant: 8),

@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
+    
+    let scrollView = UIScrollView()
+
+    //MARK: Internal Properties
     var date = Date.timeIntervalBetween1970AndReferenceDate
     var textQuestion = ""
     var questionID = ""
@@ -17,17 +21,25 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
         super.viewDidLoad()
         view.backgroundColor = .white
         setupViews()
-        // Do any additional setup after loading the view.
+//        registerForKeyboardNotification()
     }
+    
+//    deinit{
+//        removeForKeyboardNotification()
+//    }
+//
     func setupViews() {
         
-        textView.font = .systemFont(ofSize: 20)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isScrollEnabled = false
+        
+        textView.font = UIFont(name: "Kurale-Regular", size: 20)
         textView.textContainer.lineFragmentPadding = 10.0
         textView.layer.cornerRadius = 20
         textView.layer.borderWidth = 0.5
         textView.layer.borderColor = UIColor.black.cgColor
         textView.enablesReturnKeyAutomatically = true
-        textView.placeholder = "Please input answer"
+        textView.placeholder = "Пожалуйста, введите свой ответ"
         textView.minNumberOfWords = 0
         textView.maxNumberOfWords = 64
         textView.showTextCountView = true
@@ -37,7 +49,13 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
             view.addSubview($0)
         }
         
+        
         NSLayoutConstraint.activate([
+//            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+//
             btncClose.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             btncClose.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             btncClose.widthAnchor.constraint(equalToConstant: 50),
@@ -53,8 +71,8 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
             btnAnonim.heightAnchor.constraint(equalToConstant: 40),
             btnAnonim.widthAnchor.constraint(equalTo: btnAnonim.heightAnchor),
             
-            btnAsk.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            btnAsk.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            btnAsk.topAnchor.constraint(equalTo: anonimLabel.bottomAnchor, constant: 20),
+            btnAsk.centerXAnchor.constraint(equalTo: textView.centerXAnchor),
             btnAsk.widthAnchor.constraint(equalToConstant: 150),
             btnAsk.heightAnchor.constraint(equalToConstant: 50)
             
@@ -74,7 +92,7 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
 
        return true
    }
-    var textView: SwiftyTextView = SwiftyTextView.init(frame: CGRect.init(x: 20, y: 80, width: 350, height: 300))
+    var textView: SwiftyTextView = SwiftyTextView.init(frame: CGRect.init(x: 15, y: 60, width: 320, height: 180))
 //
     let btncClose: UIButton = {
         let btn=UIButton()
@@ -95,7 +113,7 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
     let btnAsk: UIButton = {
         let btn=UIButton()
         btn.backgroundColor = UIColor.systemBlue
-        btn.setTitle("Ask",
+        btn.setTitle("Answer",
                      for: .normal)
         btn.setTitleColor(.white,
                           for: .normal)
@@ -112,7 +130,7 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
     let anonimLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "Anonim"
-        lbl.font = .systemFont(ofSize: 24)
+        lbl.font = UIFont(name: "Kurale-Regular", size: 25)
         lbl.translatesAutoresizingMaskIntoConstraints=false
         return lbl
     }()
@@ -158,6 +176,7 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
     }
     @objc func btnAsk(_ sender: Any){
         textQuestion = textView.text
+        if(textView.text != "" ){
         Database.database().addAnswerToQuestion(withId: questionID, text: textQuestion, anonimState: anonimState) { (err) in
             if err != nil {
                 return
@@ -174,7 +193,36 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
         NotificationCenter.default.post(name: Notification.Name("refreshQuestion"), object: nil)
         NotificationCenter.default.post(name: Notification.Name("showPartyMarkers"), object: nil)
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else{
+            let alert = UIAlertController(title: "Вы не ввели ответ", message: "Поле ответа не может быть пустым", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+//    private func registerForKeyboardNotification(){
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//    private func removeForKeyboardNotification(){
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//    @objc func keyboardWillShow(notification: Notification) {
+//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+//        let scrolSize = self.btnAsk.frame.maxY + keyboardSize.height - self.view.bounds.maxY + 8 + self.view.safeAreaInsets.top
+//        scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height + scrolSize)
+//        scrollView.contentOffset = CGPoint(x: 0, y: 10)
+//        scrollView.isScrollEnabled = true
+//    }
+//
+//    @objc func keyboardWillHide(notification: Notification) {
+//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+//        scrollView.contentSize = CGSize(width: view.bounds.width, height: view.bounds.height - keyboardSize.height)
+//        scrollView.isScrollEnabled = false
+//    }
     /*
      // MARK: - Navigation
      

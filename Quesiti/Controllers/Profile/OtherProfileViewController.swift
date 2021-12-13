@@ -172,6 +172,7 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
         //cell.avatarView.image = UIImage(named: ques.user.avatarURL)
         cell.nameLabel.text = ques.user.name
         cell.questionLabel.text = ques.titleQuestion
+        cell.questionLabel.setLineHeight(lineHeight: 1.15)
         cell.dateLabel.text = ques.creationDate.timeAgoDisplay()
         cell.countOfComsView.text = "\(ques.answerCount)"
         let backgroundView = UIView()

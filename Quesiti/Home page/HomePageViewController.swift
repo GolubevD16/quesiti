@@ -65,7 +65,7 @@ class HomePageViewController: UIViewController {
         btn.tintColor = UIColor.white
         btn.imageView?.sizeToFit()
         btn.addTarget(self, action: #selector(btnAddQuestionAction), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints=false
+        btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
@@ -107,7 +107,7 @@ class HomePageViewController: UIViewController {
         homePageView.answerQuestionsLine.backgroundColor = .white
         guard let id = user?.uid else {print("poteryvsya");return}
         reloadUser(uid: id)
-        fetchQuestionsOfUsers(uid: id)
+        //fetchQuestionsOfUsers(uid: id)
         if let url = user?.avatarURL{
             if url != "" {
                 Storage.storage().loadUserProfileImage(url: url, completion: {(imageData) in
@@ -189,7 +189,7 @@ class HomePageViewController: UIViewController {
             homePageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homePageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homePageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -50),
-            homePageView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 300),
+            homePageView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 310),
             
             tableView.topAnchor.constraint(equalTo: homePageView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -206,6 +206,29 @@ class HomePageViewController: UIViewController {
     @objc
         private func didPullToRefresh() {
             tableView.refreshControl?.beginRefreshing()
+            if homePageView.myQuestionsLine.backgroundColor == .blue{
+                fetchQuestionsOfUsers(uid: user?.uid ?? "")
+            }
+            if homePageView.folowingQuestionsLine.backgroundColor == .blue{
+                Database.database().fetchFolQuestion(withUID: user?.uid ?? "") { questions in
+                    self.questionsOfUser = questions
+                    self.tableView.reloadData()
+                }
+            }
+            
+            if homePageView.answerQuestionsLine.backgroundColor == .blue{
+                Database.database().fetchMyAnswers(withUID: user?.uid ?? "") { questions in
+                    self.questionsOfUser = questions
+                    self.tableView.reloadData()
+                }
+            }
+            //reloadUser(uid: user?.uid ?? "")
+            Database.database().fetchAllPostsOfUser(withUID: user?.uid ?? "") { questions, count in
+                self.homePageView.questionsCount.text = String(questions.count)
+            } withCancel: { _ in
+                return
+            }
+            
             tableView.refreshControl?.endRefreshing()
     }
     
@@ -218,6 +241,7 @@ class HomePageViewController: UIViewController {
 
 extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        questionsOfUser = questionsOfUser.sorted {(ques1: QuestionModel, ques2: QuestionModel) in ques1.creationDate > ques2.creationDate}
         return questionsOfUser.count
     }
     
@@ -237,6 +261,7 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         //cell.avatarView.image = UIImage(named: ques.user.avatarURL)
         cell.nameLabel.text = ques.user.name
         cell.questionLabel.text = ques.titleQuestion
+        cell.questionLabel.setLineHeight(lineHeight: 0.85)
         cell.dateLabel.text = ques.creationDate.timeAgoDisplay()
         cell.countOfComsView.text = "\(ques.answerCount)"
         let backgroundView = UIView()

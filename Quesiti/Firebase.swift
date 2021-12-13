@@ -67,7 +67,7 @@ extension Storage {
 }
 
 extension Database {
-
+    
     //MARK: Users
     
     func fetchUser(withUID uid: String, completion: @escaping (User) -> ()) {
@@ -120,7 +120,7 @@ extension Database {
                 return
             }
             var ques = [QuestionModel]()
-
+            
             dictionaries.forEach({ (key, value) in
                 Database.database().fetchAllPostsOfUser(withUID: key) { questions, count in
                     ques.append(contentsOf: questions)
@@ -156,7 +156,7 @@ extension Database {
             }
         })
     }
-                               
+    
     func addQuestion(titleQuestion: String, textQuestion: String, latitude: Double, longitude: Double, radius: Int, adress: String, answerCount: Int, completion: @escaping (Error?) -> ()){
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -175,14 +175,14 @@ extension Database {
     }
     
     func fetchPost(withUID uid: String, postId: String, completion: @escaping (QuestionModel) -> (), withCancel cancel: ((Error) -> ())? = nil) {
-//        guard let currentLoggedInUser = Auth.auth().currentUser?.uid else { return }
-
+        //        guard let currentLoggedInUser = Auth.auth().currentUser?.uid else { return }
+        
         let ref = Database.database().reference().child("questions").child(uid).child(postId)
-
+        
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-
+            
             guard let postDictionary = snapshot.value as? [String: Any] else { return }
-
+            
             Database.database().fetchUser(withUID: uid, completion: { (user) in
                 var post = QuestionModel(user: user, dictionary: postDictionary)
                 post.id = postId
@@ -199,9 +199,9 @@ extension Database {
                 completion([], 0)
                 return
             }
-
+            
             var posts = [QuestionModel]()
-
+            
             dictionaries.forEach({ (postId, value) in
                 Database.database().fetchPost(withUID: uid, postId: postId, completion: { (post) in
                     posts.append(post)
@@ -222,7 +222,7 @@ extension Database {
                 completion("0")
                 return
             }
-
+            
             completion(String(dictionaries.count))
         })
     }
@@ -235,7 +235,7 @@ extension Database {
                 completion("0")
                 return
             }
-
+            
             completion(String(dictionaries.count))
         })
     }
@@ -375,7 +375,7 @@ extension Database {
     func addQuestionUserAnswer(idQuestion: String, completion: @escaping (Error?) -> ()){
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-       
+        
         let values = [idQuestion: 1]
         Database.database().reference().child("questionsAnswer").child(uid).updateChildValues(values) { (err, ref) in
             if let err = err {
@@ -397,4 +397,39 @@ extension Database {
         }
     }
     
+    func deletePost(withUID uid: String, postId: String, completion: ((Error?) -> ())? = nil) {
+        Database.database().reference().child("questions").child(uid).child(postId).removeValue { (err, _) in
+            if let err = err {
+                print("Failed to delete post:", err)
+                completion?(err)
+                return
+            }
+            
+            Database.database().reference().child("answer").child(postId).removeValue(completionBlock: { (err, _) in
+                if let err = err {
+                    print("Failed to delete comments on post:", err)
+                    completion?(err)
+                    return
+                }
+                FirebaseDatabase.Database.database().reference(withPath: "questionsAnswer").observeSingleEvent(of: .value) { (snapshot) in
+                    if let locationquest = snapshot.value as? [String:Any] {
+                        for eachqueastion in locationquest {
+                            if let questionValue = eachqueastion.value as? [String: Any] {
+                                if let questionREM = questionValue[postId]{
+                                    Database.database().reference().child("questionsAnswer").child("\(eachqueastion.key)").child("\(questionValue.keys)").removeValue(completionBlock: { (err, _) in
+                                        if let err = err {
+                                            print("Failed to delete comments on post:", err)
+                                            completion?(err)
+                                            return
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
 }
+

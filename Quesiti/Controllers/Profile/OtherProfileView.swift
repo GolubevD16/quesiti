@@ -25,7 +25,7 @@ class OtherProfileView: UIView {
         nameLabel = UILabel()
         nameLabel.text = user[2] ?? ""
         nameLabel.textColor = .black
-        nameLabel.font = UIFont.systemFont(ofSize: 20)
+        nameLabel.font = UIFont(name: "SF-Pro-Rounded-Regular", size: 25)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return nameLabel
@@ -34,8 +34,8 @@ class OtherProfileView: UIView {
     lazy var cityLabel: UILabel = {
         cityLabel = UILabel()
         cityLabel.text = user[3] ?? ""
-        cityLabel.textColor = .lightGray
-        cityLabel.font = UIFont.systemFont(ofSize: 14)
+        cityLabel.textColor =  .systemGray2
+        cityLabel.font = UIFont(name: "Kurale-Regular", size: 16)
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return cityLabel
@@ -43,8 +43,9 @@ class OtherProfileView: UIView {
     
     lazy var aboutYouText: UITextView = {
         aboutYouText = UITextView()
+        aboutYouText.isEditable = false
         aboutYouText.text = "No info"
-        aboutYouText.font = UIFont.systemFont(ofSize: 16)
+        aboutYouText.font = UIFont(name: "Kurale-Regular", size: 16)
         aboutYouText.textContainer.maximumNumberOfLines = 0
         aboutYouText.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(aboutYouText)

@@ -75,7 +75,7 @@ open class SwiftyTextView: UITextView {
             textLayer.fontSize = font!.pointSize
             
             textLayer.string = placeholder
-            textLayer.frame = CGRect(origin: CGPoint(x: 8, y: bounds.minY + 8), size: bounds.size)
+                        textLayer.frame = CGRect(origin: CGPoint(x: 8, y: bounds.minY + 8), size: bounds.size)
             
             layer.insertSublayer(textLayer, at: 0)
         }

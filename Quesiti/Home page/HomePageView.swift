@@ -26,8 +26,8 @@ class HomePageView: UIView {
     lazy var nameLabel: UILabel = {
         nameLabel = UILabel()
         nameLabel.text = user[2] ?? ""
-        nameLabel.textColor = .gray
-        nameLabel.font = UIFont.systemFont(ofSize: 20)
+        nameLabel.textColor = .black
+        nameLabel.font = UIFont(name: "SF-Pro-Rounded-Regular", size: 25)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return nameLabel
@@ -37,7 +37,7 @@ class HomePageView: UIView {
         cityLabel = UILabel()
         cityLabel.text = user[3] ?? ""
         cityLabel.textColor = .systemGray2
-        cityLabel.font = UIFont.systemFont(ofSize: 14)
+        cityLabel.font = UIFont(name: "Kurale-Regular", size: 16)
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return cityLabel
@@ -46,7 +46,8 @@ class HomePageView: UIView {
     lazy var aboutYouText: UITextView = {
         aboutYouText = UITextView()
         aboutYouText.text = "About you..."
-        aboutYouText.font = UIFont.systemFont(ofSize: 16)
+        aboutYouText.font = UIFont(name: "Kurale-Regular", size: 16)
+        aboutYouText.textAlignment = .center
         aboutYouText.textContainer.maximumNumberOfLines = 0
         aboutYouText.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(aboutYouText)
@@ -210,20 +211,20 @@ class HomePageView: UIView {
         NSLayoutConstraint.activate([
             avatarView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             avatarView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarView.heightAnchor.constraint(equalToConstant: 130),
-            avatarView.widthAnchor.constraint(equalToConstant: 130),
+            avatarView.heightAnchor.constraint(equalToConstant: 150),
+            avatarView.widthAnchor.constraint(equalToConstant: 150),
             
             nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 8),
             nameLabel.centerXAnchor.constraint(equalTo: avatarView.centerXAnchor),
             
-            cityLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            cityLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 0),
             cityLabel.centerXAnchor.constraint(equalTo: avatarView.centerXAnchor),
             
             questionsCount.centerXAnchor.constraint(equalTo: questionsLabel.centerXAnchor),
             questionsCount.topAnchor.constraint(equalTo: avatarView.topAnchor, constant: 24),
             
             questionsLabel.topAnchor.constraint(equalTo: questionsCount.bottomAnchor, constant: 4),
-            questionsLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 10),
+            questionsLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 4),
             
             subsCount.centerXAnchor.constraint(equalTo: subscriptionsLabel.centerXAnchor),
             subsCount.topAnchor.constraint(equalTo: questionsCount.topAnchor),
@@ -262,7 +263,7 @@ class HomePageView: UIView {
             answerQuestionsLine.widthAnchor.constraint(equalToConstant: 50),
             
             aboutYouText.leadingAnchor.constraint(equalTo: questionsLabel.leadingAnchor),
-            aboutYouText.topAnchor.constraint(equalTo: subscriptionsLabel.bottomAnchor, constant: 8),
+            aboutYouText.topAnchor.constraint(equalTo: subscriptionsLabel.bottomAnchor, constant: 2),
             aboutYouText.trailingAnchor.constraint(equalTo: followersLabel.trailingAnchor),
             aboutYouText.bottomAnchor.constraint(equalTo: cityLabel.bottomAnchor),
         ])

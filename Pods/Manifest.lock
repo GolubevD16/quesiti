@@ -536,6 +536,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - Presentr (1.9)
   - PromisesObjC (2.0.0)
   - PryntTrimmerView (4.0.2)
   - SDWebImage (4.4.8):
@@ -562,6 +563,7 @@ DEPENDENCIES:
   - GooglePlaces
   - JGProgressHUD (~> 2.0.3)
   - lottie-ios
+  - Presentr
   - SDWebImage (~> 4.4.2)
   - VerticalAlignmentLabel
   - YPImagePicker
@@ -596,6 +598,7 @@ SPEC REPOS:
     - leveldb-library
     - lottie-ios
     - nanopb
+    - Presentr
     - PromisesObjC
     - PryntTrimmerView
     - SDWebImage
@@ -632,6 +635,7 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
@@ -639,6 +643,6 @@ SPEC CHECKSUMS:
   VerticalAlignmentLabel: 8a13ee9970aa38868aa40fece249dbc2a9df59ed
   YPImagePicker: 1463a19a36244e209dcb03c30e63559c5afa9602
 
-PODFILE CHECKSUM: 60dc054d7e008322e59a8f33c3652b84b07767c9
+PODFILE CHECKSUM: 87bae894552fc9ef6b38d525dbf202255a6f4284
 
 COCOAPODS: 1.11.2

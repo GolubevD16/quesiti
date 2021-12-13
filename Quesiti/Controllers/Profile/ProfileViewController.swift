@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-   
+    
     lazy var profileView: ProfileView = {
         let profileView = ProfileView()
         
@@ -89,13 +89,13 @@ class ProfileViewController: UIViewController {
                 })
             }
         }
-
+        
         if let theTextFieldName = profileView.stackView.viewWithTag(1) as? UITextField{
             theTextFieldName.text = user?.name
             name = user?.name ?? ""
             theTextFieldName.addTarget(self, action: #selector(changeName(_:)), for: .editingChanged)
         }
-    
+        
         if let theTextFieldEmail = profileView.stackView.viewWithTag(2) as? UITextField{
             theTextFieldEmail.text = user?.email
             email = user?.email ?? ""
@@ -140,7 +140,7 @@ class ProfileViewController: UIViewController {
             logOutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             logOutButton.widthAnchor.constraint(equalToConstant: 80),
             logOutButton.heightAnchor.constraint(equalToConstant: 25),
-         ])
+        ])
     }
     
     @objc func changeName(_ textField: UITextField){
@@ -172,25 +172,16 @@ class ProfileViewController: UIViewController {
         
         guard let id = self.user?.uid else {return}
         
-//        let alert = UIAlertController(title: "Типа полетело на сервер:", message: "\(firstName) \n \(secondName) \n \(email) \n \(phoneNumber) \n \(city) \n \(aboutYou)", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        present(alert, animated: true, completion: nil)
+        
         
         Storage.storage().uploadUserProfileImage(currentUserId: id, image: profileView.logoButton.imageView?.image ?? UIImage(), completion: {(profileImageUrl) in
             let changeInfoList = ["name": self.name, "email": self.email.lowercased(), "phoneNumber": self.phoneNumber, "city": self.city, "aboutYou": self.aboutYou, "avatarURL": profileImageUrl]
             let ref = Database.database().reference().child("users")
             ref.child(id).updateChildValues(changeInfoList)
-//            Database.database().reference().child("users").updateChildValues(changeInfoList, withCompletionBlock: { (err, ref) in
-//                if let err = err {
-//                    print("Failed to upload user to database:", err)
-//                    return
-//                }
-//                //(self.user?.uid ?? "кто-то")
-//                guard let id = self.user?.uid else {return}
-//                let ref = Database.database().reference().child("users")
-//                ref.child(id).updateChildValues(changeInfoList)
-//            })
         })
+        let alert = UIAlertController(title: "Success", message: "Info updated successfully", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func clickPhotoButton(_ sender: Any){
