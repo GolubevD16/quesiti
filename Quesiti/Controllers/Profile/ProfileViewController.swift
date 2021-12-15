@@ -113,10 +113,12 @@ class ProfileViewController: UIViewController {
             theTextFieldCity.addTarget(self, action: #selector(changeCity(_:)), for: .editingChanged)
         }
         
-        if let theTextFieldAboutYou = profileView.stackView.viewWithTag(5) as? UITextField{
+        if let theTextFieldAboutYou = profileView.stackView.viewWithTag(5) as? UITextView{
             theTextFieldAboutYou.text = user?.aboutYou
             aboutYou = user?.aboutYou ?? ""
-            theTextFieldAboutYou.addTarget(self, action: #selector(changeAboutYou(_:)), for: .editingChanged)
+            theTextFieldAboutYou.delegate = self
+            
+//            theTextFieldAboutYou.addTarget(self, action: #selector(changeAboutYou(_:)), for: .editingChanged)
         }
         
         profileView.changeInfoButton.addTarget(self, action: #selector(changeInfo(_:)), for: .touchUpInside)
@@ -163,10 +165,10 @@ class ProfileViewController: UIViewController {
         city = text
     }
     
-    @objc func changeAboutYou(_ textField: UITextField){
-        guard let text = textField.text else { return }
-        aboutYou = text
-    }
+//    @objc func changeAboutYou(_ textField: UITextField){
+//        guard let text = textField.text else { return }
+//        aboutYou = text
+//    }
     
     @objc func changeInfo(_ sender: Any) {
         
@@ -236,5 +238,12 @@ extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerCo
         picker.dismiss(animated: true, completion: nil)
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {return}
         profileView.logoButton.setImage(image, for: .normal)
+    }
+}
+
+extension ProfileViewController: UITextViewDelegate{
+    func textViewDidChange(_ textView: UITextView) {
+        guard let text = textView.text else { return }
+        aboutYou = text
     }
 }

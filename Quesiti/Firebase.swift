@@ -120,11 +120,16 @@ extension Database {
                 return
             }
             var ques = [QuestionModel]()
+            let countOfUsers = dictionaries.count
+            var c = 0
             
             dictionaries.forEach({ (key, value) in
                 Database.database().fetchAllPostsOfUser(withUID: key) { questions, count in
+                    c += 1
                     ques.append(contentsOf: questions)
-                    completion(ques)
+                    if c == countOfUsers{
+                        completion(ques)
+                    }
                 } withCancel: { _ in
                     print("error")
                 }
@@ -151,7 +156,7 @@ extension Database {
                         }
                     }
                 }
-                print(ques.count)
+//                print(ques.count)?\
                 completion(ques)
             }
         })
@@ -321,6 +326,28 @@ extension Database {
             })
         }
     }
+    
+    func deleteQuestion(withUID uid: String, postId: String) {
+        Database.database().reference().child("questions").child(uid).child(postId).removeValue()
+        Database.database().reference().child("answer").child(postId).removeValue()
+        
+        let ref = Database.database().reference().child("questionsAnswer")
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let dictionaries = snapshot.value as? [String: Any] else {
+                return
+            }
+            dictionaries.forEach { (key, value) in
+                let dict = value as? [String : Any]
+                dict?.forEach { (idd, _) in
+                    if idd == postId{
+//                        print(postId, idd)
+                        Database.database().reference().child("questionsAnswer").child(key).child(postId).removeValue()
+                    }
+                }
+            }
+        })
+    }
+    
     //MARK: Answer
     func addAnswerToQuestion(withId questionID: String, text: String, anonimState: Bool, completion: @escaping (Error?) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else { return }

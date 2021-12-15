@@ -56,14 +56,15 @@ class DetailsVC: UIViewController{
             setupViewsWithTextQuestion()
         }
         if(countAnswer==0){
-            print("DEBAG \(countAnswer)")
+//            print("DEBAG \(countAnswer)")
             setupViewsWithoutAnswer()
         } else {
-            print("DEBAG \(countAnswer)")
+//            print("DEBAG \(countAnswer)")
             setupWithAnswer()
         }
         self.view.backgroundColor = UIColor.white
         NotificationCenter.default.addObserver(self, selector: #selector(refreshQuestion), name: Notification.Name("refreshQuestion"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(checkPostDelete), name: Notification.Name("checkPostDelete"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(countAnswerPlus), name: Notification.Name("countAnswerPlus"), object: nil)
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshQuestion), for: .valueChanged)
@@ -263,7 +264,7 @@ class DetailsVC: UIViewController{
         text.text = "Здеесь будет первичный вопрос"
         text.verticalTextAlignment = .top
         text.textAlignment = .left
-        text.font = UIFont(name: "Kurale-Regular", size: 15)
+        text.font = UIFont(name: "Kurale-Regular", size: 17)
         text.numberOfLines = 0
         text.sizeToFit()
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -371,6 +372,8 @@ class DetailsVC: UIViewController{
             presenter.cornerRadius = 30
             presenter.transitionType = .coverVerticalFromTop
             presenter.keyboardTranslationType = .moveUp
+            presenter.dismissAnimated = true
+            presenter.dismissTransitionType = .coverVertical
             addQuuestion.answerCount = countAnswer
             customPresentViewController(presenter, viewController: addQuuestion, animated: true, completion: nil)
         } else{
@@ -405,10 +408,14 @@ class DetailsVC: UIViewController{
             return
         }
         let rest = OtherProfileViewController()
-        print("user")
+//        print("user")
         rest.user = user
         self.navigationController?.pushViewController(rest, animated: false)
     }
+    @objc func checkPostDelete(){
+        self.navigationController?.popViewController(animated: false)
+    }
+    
     @objc func imgTapCell(_ sender: ButtonWithUser){
         let id = Auth.auth().currentUser?.uid
         if(sender.user == nil){
@@ -417,7 +424,7 @@ class DetailsVC: UIViewController{
         if(sender.user!.uid == id){
             return
         }
-        print("\(sender.user!.uid)")
+//        print("\(sender.user!.uid)")
         let rest = OtherProfileViewController()
         rest.user = sender.user!
       
@@ -447,6 +454,9 @@ class DetailsVC: UIViewController{
 
 extension DetailsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        answers = answers.sorted {(ans1: Answer, ans2: Answer) in
+            ans1.creationDate > ans2.creationDate
+        }
         return answers.count
     }
     
@@ -474,7 +484,7 @@ extension DetailsVC: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = "Anonim"
         }
         cell.questionLabel.text = answer.text
-        cell.questionLabel.setLineHeight(lineHeight: 0.9)
+        cell.questionLabel.setLineHeight(lineHeight: 0.85)
         cell.avatarView.user = answer.user
         cell.dateLabel.text = answer.creationDate.timeAgoDisplay()
         cell.selectionStyle = .none

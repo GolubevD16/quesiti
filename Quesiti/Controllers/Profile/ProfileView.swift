@@ -38,15 +38,24 @@ class ProfileView: UIView {
         return changeInfoButton
     }()
     
+    lazy var textView: UITextView = {
+        textView = UITextView()
+        textView.font = UIFont(name: "Kurale-Regular", size: 17)
+        textView.translatesAutoresizingMaskIntoConstraints = true
+        
+        return textView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(logoButton)
-        for cellNames in ["Name", "Email", "Phone number", "City", "About you"]{
+        for cellNames in ["Name", "Email", "Phone number", "City"]{
             createTableCell(cellNames)
         }
+        self.stackView.addArrangedSubview(createAboutYou())
         scrollView.addSubview(changeInfoButton)
         setupStack()
         stackView.spacing = self.bounds.height / 200
@@ -120,6 +129,7 @@ class ProfileView: UIView {
         textField.placeholder = "Add Something"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.tag = id
+        
         id += 1
         
         return textField
@@ -134,13 +144,44 @@ class ProfileView: UIView {
         return line
     }
     
-    private func createSpacing() -> UIView {
+    private func createSpacing(_ padding: CGFloat = 16) -> UIView {
         let line = UIView()
         line.backgroundColor = .white
         line.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([line.heightAnchor.constraint(equalToConstant: 16)])
+        NSLayoutConstraint.activate([line.heightAnchor.constraint(equalToConstant: padding)])
         
         return line
+    }
+    
+    private func createAboutYou() -> UIView{
+        let conteiner = UIView()
+        conteiner.clipsToBounds = true
+        conteiner.backgroundColor = .clear
+        conteiner.layer.cornerRadius = 10
+        conteiner.layer.borderWidth = 1
+        conteiner.layer.borderColor = UIColor.lightGray.cgColor
+        conteiner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([conteiner.heightAnchor.constraint(equalToConstant: 75)])
+        
+        let aboutYou = UITextView()
+        self.stackView.addArrangedSubview(createCellLabelView("About you"))
+        self.stackView.addArrangedSubview(createSpacing(5))
+        aboutYou.font = UIFont(name: "Kurale-Regular", size: 17)
+        aboutYou.textContainer.lineBreakMode = .byTruncatingTail
+        conteiner.addSubview(aboutYou)
+        
+        aboutYou.tag = id
+        id += 1
+        
+        aboutYou.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            aboutYou.leadingAnchor.constraint(equalTo: conteiner.leadingAnchor),
+            aboutYou.topAnchor.constraint(equalTo: conteiner.topAnchor),
+            aboutYou.trailingAnchor.constraint(equalTo: conteiner.trailingAnchor),
+            aboutYou.bottomAnchor.constraint(equalTo: conteiner.bottomAnchor),
+        ])
+        
+        return conteiner
     }
     
     private func createTableCell(_ text: String) {

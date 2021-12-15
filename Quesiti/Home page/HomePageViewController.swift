@@ -19,6 +19,7 @@ class HomePageViewController: UIViewController {
     var locationManager = CLLocationManager()
     var questionsOfUser: [QuestionModel] = []
     var presenter: HomePageViewPresenter!
+    var checkEmpty: Bool = false
     var user: User?{
         didSet{
             homePageView.nameLabel.text = user?.name
@@ -76,6 +77,28 @@ class HomePageViewController: UIViewController {
         
         return homePageView
     }()
+    
+    lazy var emptyViewLabel: UILabel = {
+        emptyViewLabel = UILabel()
+        emptyViewLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyViewLabel.font = .systemFont(ofSize: 20)
+        
+        return emptyViewLabel
+    }()
+    
+    lazy var emptyView: UIView = {
+        emptyView = UIView()
+        emptyView.backgroundColor = .clear
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        emptyView.addSubview(emptyViewLabel)
+        NSLayoutConstraint.activate([
+            emptyViewLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+            emptyViewLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
+        ])
+        
+        return emptyView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +122,7 @@ class HomePageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //checkEmpty = false
         homePageView.myQuestionsButton.setTitleColor(.black, for: .normal)
         homePageView.myQuestionsLine.backgroundColor = .blue
         homePageView.folowingQuestionsButton.setTitleColor(.systemGray4, for: .normal)
@@ -137,23 +161,49 @@ class HomePageViewController: UIViewController {
     
     @objc
     private func clickFolButton(){
+        if checkEmpty {
+            emptyView.removeFromSuperview()
+            checkEmpty = false
+        }
         
         Database.database().fetchFolQuestion(withUID: user?.uid ?? "") { questions in
-            self.questionsOfUser = questions
-            self.tableView.reloadData()
+            if questions.count != 0{
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+            } else {
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+                self.checkEmpty = true
+                self.addEmptyView(title: "Здесь пока ничего нет")
+            }
         }
     }
     
     @objc
     private func clickMyQuesButton(){
+        if checkEmpty {
+            emptyView.removeFromSuperview()
+            checkEmpty = false
+        }
         fetchQuestionsOfUsers(uid: user?.uid ?? "")
     }
     
     @objc
     private func clickMyAnswersButton(){
+        if checkEmpty {
+            emptyView.removeFromSuperview()
+            checkEmpty = false
+        }
         Database.database().fetchMyAnswers(withUID: user?.uid ?? "") { questions in
-            self.questionsOfUser = questions
-            self.tableView.reloadData()
+            if questions.count != 0 {
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+            } else {
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+                self.addEmptyView(title: "Вы не отвечали на вопросы")
+                self.checkEmpty = true
+            }
         }
     }
     
@@ -175,12 +225,37 @@ class HomePageViewController: UIViewController {
     
     private func fetchQuestionsOfUsers(uid: String){
         Database.database().fetchAllPostsOfUser(withUID: uid) { questions, count in
-            self.questionsOfUser = questions
-            self.tableView.reloadData()
-            self.homePageView.questionsCount.text = String(questions.count)
+            if questions.count != 0{
+                if self.checkEmpty {
+                    self.emptyView.removeFromSuperview()
+                    self.checkEmpty = false
+                    self.homePageView.questionsCount.text = String(questions.count)
+                }
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+                self.homePageView.questionsCount.text = String(questions.count)
+            } else {
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+                self.checkEmpty = true
+                self.addEmptyView(title: "У вас нет активных вопросов")
+                self.homePageView.questionsCount.text = String(questions.count)
+            }
         } withCancel: { _ in
             return
         }
+    }
+    
+    private func addEmptyView(title: String){
+        view.addSubview(emptyView)
+        emptyViewLabel.text = title
+        view.bringSubviewToFront(btnAddQuestion)
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: homePageView.bottomAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
     
     private func setupLayoutHomePageView(){
@@ -265,7 +340,7 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         cell.dateLabel.text = ques.creationDate.timeAgoDisplay()
         cell.countOfComsView.text = "\(ques.answerCount)"
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.clear
+        backgroundView.backgroundColor = UIColor.white
         cell.selectedBackgroundView = backgroundView
         return cell
     }
@@ -292,6 +367,38 @@ extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
         self.navigationController?.pushViewController(rest, animated: true)
     }
     
+    private func showAlert(mes: String, iP: IndexPath, completion: @escaping () -> ()){
+        let alert = UIAlertController(title: "Вы дейстрительно хотите удалить вопрос?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { _ in
+            completion()
+        }))
+        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if homePageView.myQuestionsLine.backgroundColor == .blue{
+            let myDel = UIContextualAction(style: .destructive, title: nil) { (_, _, complitionHand) in
+                self.showAlert(mes: "Your question has been deleted.", iP: indexPath) {
+                    Database.database().deleteQuestion(withUID: self.user?.uid ?? "", postId: self.questionsOfUser[indexPath.row].id)
+                    self.questionsOfUser.remove(at: indexPath.row)
+                    if self.questionsOfUser.count == 0{
+                        self.checkEmpty = true
+                        self.addEmptyView(title: "У вас нет активных вопросов")
+                    }
+                    self.homePageView.questionsCount.text = String(self.questionsOfUser.count)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    NotificationCenter.default.post(name: Notification.Name("showPartyMarkers"), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name("checkPostDelete"), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name("didPullToRefresh"), object: nil)
+                }
+            }
+            myDel.image = UIImage(systemName: "trash")
+            
+            return UISwipeActionsConfiguration(actions: [myDel])
+        }
+        return UISwipeActionsConfiguration(actions: [])
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 120

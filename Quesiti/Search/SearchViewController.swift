@@ -71,6 +71,7 @@ class SearchViewController: UIViewController {
         fetchAllQuestions()
         navigationController?.navigationBar.isHidden = true
         presenter.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(didPullToRefresh), name: Notification.Name("didPullToRefresh"), object: nil)
         view.addSubview(searchView)
         view.addSubview(tableView)
         view.addSubview(btnAddQuestion)
@@ -164,9 +165,6 @@ class SearchViewController: UIViewController {
             
             self.collectionView.reloadData()
             
-            
-//            self.users = users
-            //self.searchUsers = users
             self.collectionView.reloadData()
         }) { (_) in
         }

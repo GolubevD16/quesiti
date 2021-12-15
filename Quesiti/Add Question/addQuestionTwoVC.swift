@@ -283,7 +283,7 @@ class addQuestionTwoVC:  UIViewController, SwiftyTextViewDelegate{
             }
         NotificationCenter.default.post(name: Notification.Name("showPartyMarkers"), object: nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        print("title \(self.questionTitle) text \(self.questionText)")
+//        print("title \(self.questionTitle) text \(self.questionText)")
         } else {
             let alert = UIAlertController(title: "Вы не ввели основной текст вопроса", message: "Поле основного вопроса не может быть пустым, пустым может быть только поле дополнительного вопроса", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))

@@ -175,14 +175,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         } else{
             permissionAsq = false
         }
-        [markerLong, markerLat, myLong, myLat].forEach{
-            print("\($0)")
-        }
-        print("CURRENT RESULT = \(currenResult), radius = \(radius), permission - \(permissionAsq)")
+//        [markerLong, markerLat, myLong, myLat].forEach{
+//            print("\($0)")
+//        }
+//        print("CURRENT RESULT = \(currenResult), radius = \(radius), permission - \(permissionAsq)")
         if(key == nil) {
             return
         }
-        print("radius = \(radius) + permission = \(permissionAsq)")
+//        print("radius = \(radius) + permission = \(permissionAsq)")
         restaurantTapped(keyQuestion: key ?? "", keyID: customMarkerView.keyID, distance: currenResult, radius: radius, permissionAsq: permissionAsq, imageUser: customMarkerView.imageConst!, countAnswer: userOfQuestion[customMarkerView.tag].countAnswer, nameUser: userOfQuestion[customMarkerView.tag].userName, titleQuestion: userOfQuestion[customMarkerView.tag].questionTitle, textQuestion: userOfQuestion[customMarkerView.tag].questionText, time: userOfQuestion[customMarkerView.tag].time)
         
     }
@@ -209,7 +209,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         userOfQuestion = []
         clusterManager.clearItems()
         let marker = GMSMarker()
-        print("VIZVAL")
+//        print("VIZVAL")
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         self.ref.child("questions").observeSingleEvent(of: .value) { (snapshot) in

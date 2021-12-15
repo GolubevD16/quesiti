@@ -53,6 +53,32 @@ class OtherProfileViewController: UIViewController {
         return btn
     }()
     
+    lazy var emptyViewLabel: UILabel = {
+        emptyViewLabel = UILabel()
+        emptyViewLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyViewLabel.textAlignment = .center
+        emptyViewLabel.numberOfLines = 2
+        emptyViewLabel.font = .systemFont(ofSize: 20)
+        
+        return emptyViewLabel
+    }()
+    
+    lazy var emptyView: UIView = {
+        emptyView = UIView()
+        emptyView.backgroundColor = .clear
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        emptyView.addSubview(emptyViewLabel)
+        NSLayoutConstraint.activate([
+            emptyViewLabel.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor),
+            emptyViewLabel.topAnchor.constraint(equalTo: emptyView.topAnchor),
+            emptyViewLabel.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor),
+            emptyViewLabel.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor),
+        ])
+        
+        return emptyView
+    }()
+    
     lazy var otherProfileView: OtherProfileView = {
         let otherProfileView = OtherProfileView()
         otherProfileView.nameLabel.text = user?.name
@@ -105,19 +131,38 @@ class OtherProfileViewController: UIViewController {
     
     private func fetchQuestionsOfUsers(){
         guard let us = user else {return}
-        print(us.uid)
+        //print(us.uid)
         Database.database().fetchAllPostsOfUser(withUID: us.uid) { questions, count in
-            self.questionsOfUser = questions
-            self.tableView.reloadData()
             self.otherProfileView.questionsCount.text = String(questions.count)
+            if questions.count != 0{
+                self.questionsOfUser = questions
+                self.tableView.reloadData()
+            } else {
+                self.tableView.reloadData()
+                //self.checkEmpty = true
+                self.addEmptyView(title: "Этот пользователь ещё не задавал вопросы")
+            }
+            self.tableView.reloadData()
         } withCancel: { _ in
             return
         }
     }
     
+    private func addEmptyView(title: String){
+        view.addSubview(emptyView)
+        emptyViewLabel.text = title
+        view.bringSubviewToFront(btnAddQuestion)
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: otherProfileView.bottomAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+    }
+    
     private func setupStats(){
         guard let us = user else {return}
-        print(isFol)
+        //print(isFol)
         Database.database().checkCountOfSubs(withUID: us.uid) { subs in
             self.otherProfileView.folCount.text = subs
         }
@@ -141,6 +186,8 @@ class OtherProfileViewController: UIViewController {
     @objc
         private func didPullToRefresh() {
             tableView.refreshControl?.beginRefreshing()
+            setupStats()
+            fetchQuestionsOfUsers()
             tableView.refreshControl?.endRefreshing()
     }
     
@@ -172,7 +219,7 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
         //cell.avatarView.image = UIImage(named: ques.user.avatarURL)
         cell.nameLabel.text = ques.user.name
         cell.questionLabel.text = ques.titleQuestion
-        cell.questionLabel.setLineHeight(lineHeight: 1.15)
+        cell.questionLabel.setLineHeight(lineHeight: 0.85)
         cell.dateLabel.text = ques.creationDate.timeAgoDisplay()
         cell.countOfComsView.text = "\(ques.answerCount)"
         let backgroundView = UIView()

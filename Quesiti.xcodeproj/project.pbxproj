@@ -74,13 +74,11 @@
 		26EB6AA6273C70DD00A7CA0D /* MapDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */; };
 		26EB6AA7273C70DD00A7CA0D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA5273C70DD00A7CA0D /* UserModel.swift */; };
 		26EB6AA9273C70E300A7CA0D /* GMSCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */; };
-		79233F0962B045D6003A2DF8 /* Pods_Quesiti.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6ED9E182FAF965E01C17E96 /* Pods_Quesiti.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A1290D727306E99002000A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AF7F44D2757143200524EBF /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
-		0F13F138A08435A82F9020B1 /* Pods-Quesiti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.release.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.release.xcconfig"; sourceTree = "<group>"; };
 		2602818F27669D4F000E4CB1 /* Nautilus.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nautilus.otf; sourceTree = "<group>"; };
 		2602819027669E57000E4CB1 /* Marta_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marta_Bold.otf; sourceTree = "<group>"; };
 		2602819127669E57000E4CB1 /* Marta_Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marta_Italic.otf; sourceTree = "<group>"; };
@@ -149,8 +147,6 @@
 		26EB6AA4273C70DD00A7CA0D /* MapDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailsVC.swift; sourceTree = "<group>"; };
 		26EB6AA5273C70DD00A7CA0D /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		26EB6AA8273C70E300A7CA0D /* GMSCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMSCircle.swift; sourceTree = "<group>"; };
-		6010D9CB5A269FCBA605084E /* Pods-Quesiti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quesiti.debug.xcconfig"; path = "Target Support Files/Pods-Quesiti/Pods-Quesiti.debug.xcconfig"; sourceTree = "<group>"; };
-		C6ED9E182FAF965E01C17E96 /* Pods_Quesiti.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quesiti.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +154,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79233F0962B045D6003A2DF8 /* Pods_Quesiti.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +211,6 @@
 				2666F6B027247C5000D9F413 /* Quesiti */,
 				2666F6AF27247C5000D9F413 /* Products */,
 				3A7882A97EDD7A0BE4F8FB80 /* Pods */,
-				880F8B04DCA7CBAE980B2D6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -307,8 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				26855D2E274119B800386178 /* HomePagePresenter.swift */,
-				26855D2F274119B900386178 /* HomePageView.swift */,
 				26855D30274119BA00386178 /* HomePageViewController.swift */,
+				26855D2F274119B900386178 /* HomePageView.swift */,
 				26855D31274119BB00386178 /* TableViewCell.swift */,
 			);
 			path = "Home page";
@@ -367,18 +361,8 @@
 		3A7882A97EDD7A0BE4F8FB80 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6010D9CB5A269FCBA605084E /* Pods-Quesiti.debug.xcconfig */,
-				0F13F138A08435A82F9020B1 /* Pods-Quesiti.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		880F8B04DCA7CBAE980B2D6D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C6ED9E182FAF965E01C17E96 /* Pods_Quesiti.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,12 +372,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2666F6C227247C5300D9F413 /* Build configuration list for PBXNativeTarget "Quesiti" */;
 			buildPhases = (
-				417C64A239B03F6076E307BD /* [CP] Check Pods Manifest.lock */,
 				2666F6AA27247C5000D9F413 /* Sources */,
 				2666F6AB27247C5000D9F413 /* Frameworks */,
 				2666F6AC27247C5000D9F413 /* Resources */,
-				8C69D130B1204F8985403DB9 /* [CP] Embed Pods Frameworks */,
-				C5E4DD361A6ED6D041133528 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -454,65 +435,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		417C64A239B03F6076E307BD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Quesiti-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8C69D130B1204F8985403DB9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C5E4DD361A6ED6D041133528 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quesiti/Pods-Quesiti-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2666F6AA27247C5000D9F413 /* Sources */ = {
@@ -714,7 +636,6 @@
 		};
 		2666F6C327247C5300D9F413 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6010D9CB5A269FCBA605084E /* Pods-Quesiti.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -737,7 +658,6 @@
 		};
 		2666F6C427247C5300D9F413 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F13F138A08435A82F9020B1 /* Pods-Quesiti.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

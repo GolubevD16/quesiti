@@ -104,7 +104,7 @@ class DimaSignUpViewController: UIViewController {
     @objc func clickSignUpButton(_ sender: Any) {
         if (!name.isEmpty && !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty){
             if (password == confirmPassword){
-                print("Вы ввели" , name, email, password, confirmPassword)
+//                print("Вы ввели" , name, email, password, confirmPassword)
                 Auth.auth().createUser(withEmail: email, password: password) { [self] result, error in
                     if error != nil {
                         let responseError = error! as NSError

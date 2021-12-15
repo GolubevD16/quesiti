@@ -176,6 +176,17 @@ class AddAnswerViewController: UIViewController, SwiftyTextViewDelegate{
     }
     @objc func btnAsk(_ sender: Any){
         textQuestion = textView.text
+       Database.database().reference().child("questions").observeSingleEvent(of: .value, with: { (snapshot) in
+           if snapshot.hasChild(self.questionID){
+//               print("Check")
+           }else{
+            let alert2 = UIAlertController(title: "Вопрос не найден", message: "Вопрос не найден, возможно он был удален", preferredStyle: .alert)
+            alert2.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: {_ in
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert2, animated: true, completion: nil)
+        }
+       })
         if(textView.text != "" ){
         Database.database().addAnswerToQuestion(withId: questionID, text: textQuestion, anonimState: anonimState) { (err) in
             if err != nil {
